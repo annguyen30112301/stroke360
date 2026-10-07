@@ -44,9 +44,9 @@ export default function PackagePicker({ lang, services, t, priceNote, zalo, cont
 
   return (
     <MotionConfig reducedMotion="user" transition={{ type: "spring", stiffness: 260, damping: 28 }}>
-      <div className="card overflow-hidden !p-0">
-        <div className="h-1.5 bg-sunken">
-          <motion.div className="h-full bg-gradient-to-r from-teal-500 to-rose-500" animate={{ width: `${(Math.min(i, steps.length) / steps.length) * 100}%` }} />
+      <div className="panel p-6 sm:p-8 overflow-hidden !p-0">
+        <div className="h-1.5 bg-canvas">
+          <motion.div className="h-full bg-accent" animate={{ width: `${(Math.min(i, steps.length) / steps.length) * 100}%` }} />
         </div>
         <div className="relative min-h-[22rem] p-6 sm:p-9">
           <AnimatePresence mode="wait" custom={dir}>
@@ -54,7 +54,7 @@ export default function PackagePicker({ lang, services, t, priceNote, zalo, cont
               const k = steps[i], q = t.questions[k];
               return (
                 <motion.div key={k} custom={dir} variants={slide} initial="initial" animate="animate" exit="exit">
-                  <p className="text-sm font-semibold text-faint">{t.step.replace("{i}", String(i + 1)).replace("{n}", String(steps.length))}</p>
+                  <p className="text-sm font-semibold text-ink-3">{t.step.replace("{i}", String(i + 1)).replace("{n}", String(steps.length))}</p>
                   <h3 className="mt-2 text-2xl">{q.q}</h3>
                   <div className="mt-6 grid gap-3">
                     {q.o.map(([v, label], j) => (
@@ -62,13 +62,13 @@ export default function PackagePicker({ lang, services, t, priceNote, zalo, cont
                         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0, transition: { delay: 0.05 * j } }}
                         whileHover={{ x: 4 }} whileTap={{ scale: 0.98 }}
                         onClick={() => { setA({ ...A, [k]: v }); go(i + 1); }}
-                        className={`group flex min-h-16 w-full items-center justify-between gap-3 rounded-2xl border-2 px-5 py-4 text-left text-[1.02rem] font-medium transition-colors hover:border-brand hover:bg-brand-soft/60 ${A[k] === v ? "border-brand bg-brand-soft/60" : "border-line bg-surface"}`}>
-                        {label}<CaretRightIcon size={20} weight="bold" className="shrink-0 text-brand opacity-50 group-hover:opacity-100" />
+                        className={`group flex min-h-16 w-full items-center justify-between gap-3 rounded-2xl border-2 px-5 py-4 text-left text-[1.02rem] font-medium transition-colors hover:border-accent hover:bg-tint/60 ${A[k] === v ? "border-accent bg-tint/60" : "border-hair bg-raised"}`}>
+                        {label}<CaretRightIcon size={20} weight="bold" className="shrink-0 text-accent-ink opacity-50 group-hover:opacity-100" />
                       </motion.button>
                     ))}
                   </div>
                   {i > 0 && (
-                    <button type="button" onClick={() => go(i - 1)} className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline">
+                    <button type="button" onClick={() => go(i - 1)} className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-ink hover:underline">
                       <ArrowLeftIcon size={16} weight="bold" />{back}
                     </button>
                   )}
@@ -76,24 +76,24 @@ export default function PackagePicker({ lang, services, t, priceNote, zalo, cont
               );
             })() : result && (
               <motion.div key="result" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} aria-live="polite">
-                <span className="tag"><SparkleIcon size={14} weight="fill" />{t.tag}</span>
+                <span className="chip"><SparkleIcon size={14} weight="fill" />{t.tag}</span>
                 <h3 className="mt-3 text-3xl font-extrabold">{result.main.code} · {result.main.name}</h3>
-                <p className="mt-2 text-muted">{result.why}</p>
-                <div className="mt-5 flex flex-wrap items-end gap-x-6 gap-y-3 rounded-2xl bg-brand-soft/70 p-5">
-                  <div className="text-3xl font-extrabold text-brand">{vnd(result.main.price)}<span className="text-base font-medium text-muted">{result.main.unit}</span></div>
+                <p className="mt-2 text-ink-2">{result.why}</p>
+                <div className="mt-5 flex flex-wrap items-end gap-x-6 gap-y-3 rounded-2xl bg-tint/70 p-5">
+                  <div className="text-3xl font-extrabold text-accent-ink">{vnd(result.main.price)}<span className="text-base font-medium text-ink-2">{result.main.unit}</span></div>
                   {result.cost !== undefined && (
                     <div>
-                      <div className="text-sm text-muted">{t.estimate.replace("{days}", String(A.days))}</div>
-                      <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }} className="text-2xl font-extrabold text-alert">{vnd(result.cost)}</motion.div>
+                      <div className="text-sm text-ink-2">{t.estimate.replace("{days}", String(A.days))}</div>
+                      <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }} className="text-2xl font-extrabold text-urgent">{vnd(result.cost)}</motion.div>
                     </div>
                   )}
                 </div>
                 {result.after && <p className="mt-4 text-[0.95rem]">{t.after} <b>{result.after.code} · {result.after.name}</b>.</p>}
-                <p className="note mt-3">{priceNote}</p>
+                <p className="t-note mt-3">{priceNote}</p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <a className="btn btn-primary" href={`${contactHref}?goi=${result.main.code}`}>{t.leavePhone}<ArrowRightIcon size={18} weight="bold" /></a>
-                  <a className="btn btn-ghost" href={zalo} target="_blank" rel="noopener">{zaloLabel}</a>
-                  <button type="button" className="btn btn-ghost" onClick={() => { setA({}); go(0); }}><ArrowCounterClockwiseIcon size={18} weight="bold" />{restart}</button>
+                  <a className="btn btn-accent" href={`${contactHref}?goi=${result.main.code}`}>{t.leavePhone}<ArrowRightIcon size={18} weight="bold" /></a>
+                  <a className="btn btn-quiet" href={zalo} target="_blank" rel="noopener">{zaloLabel}</a>
+                  <button type="button" className="btn btn-quiet" onClick={() => { setA({}); go(0); }}><ArrowCounterClockwiseIcon size={18} weight="bold" />{restart}</button>
                 </div>
               </motion.div>
             )}

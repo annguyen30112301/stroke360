@@ -1,5 +1,5 @@
 /* ============================================================
-   NỘI DUNG TIẾNG VIỆT — thành viên không viết mã sửa chữ ở đây.
+   NỘI DUNG TIẾNG VIỆT - thành viên không viết mã sửa chữ ở đây.
    Bản tiếng Anh nằm ở en.ts (cùng cấu trúc, sửa song song).
    Mọi số liệu bám Kế hoạch kinh doanh V3. Nhân vật, nhật ký là minh họa.
    Chữ trong <b>…</b> sẽ được in đậm.
@@ -36,21 +36,22 @@ export const vi = {
     illustrative: "Nhân vật minh họa",
     back: "Quay lại",
     restart: "Làm lại",
-    stagePrefix: "Giai đoạn"
+    stagePrefix: "Giai đoạn",
+    tabs: { home: "Trang chủ", hoc: "Học", dichVu: "Dịch vụ", congDong: "Cộng đồng", more: "Thêm" }
   },
 
   meta: {
-    home: { title: "STROKE360 – Đồng hành cùng gia đình người bệnh đột quỵ", description: "Ban ngày con đi làm, STROKE360 lo. Tối con vào với ba mẹ. Chăm sóc người bệnh đột quỵ theo ca từ bệnh viện về tới nhà, giá công khai, nhật ký mỗi tối." },
-    hoc: { title: "Học cùng Stroke360 – Trường học cho người nhà", description: "Bài học 3–5 phút miễn phí cho người nhà người bệnh đột quỵ: hiểu về đột quỵ, cho ăn an toàn, xoay trở chống loét, BE-FAST, sức khỏe tinh thần và tư vấn tâm lý." },
-    lesson: { title: "Bài học – Học cùng Stroke360", description: "Bài học ngắn cho người nhà người bệnh đột quỵ, có bảng kiểm và câu hỏi nhanh." },
-    congDong: { title: "Cộng đồng người nhà – Stroke360", description: "Gặp những gia đình đi trước, hỏi điều dưỡng mỗi tối thứ Năm, nhóm hỗ trợ người chăm sóc và sự kiện cộng đồng." },
-    dichVu: { title: "Dịch vụ và bảng giá – Stroke360", description: "Chăm sóc người bệnh đột quỵ theo ca tại viện và tại nhà. Giá công khai, chọn gói phù hợp trong 4 câu hỏi." },
-    tacDong: { title: "Giá trị và tác động – Stroke360", description: "Chỉ số tác động, ai nhận được gì, và mẫu báo cáo chất lượng quý của STROKE360." },
-    benhVien: { title: "Dành cho bệnh viện – Stroke360", description: "Đối tác chăm sóc có hồ sơ, có giám sát, có báo cáo. Lộ trình thí điểm 3 tháng cho khoa Thần kinh." },
-    lienHe: { title: "Liên hệ – Stroke360", description: "Nhận tư vấn miễn phí. Điều phối viên gọi lại trong 2 giờ." },
-    nhatKy: { title: "Nhật ký chăm sóc – Stroke360", description: "Mô phỏng nhật ký chăm sóc mỗi ca mà gia đình nhận được trên điện thoại." },
-    tuyenDung: { title: "Tuyển dụng chăm sóc viên – Stroke360", description: "Thu nhập ổn định, ca đúng luật, được đào tạo và có lộ trình thăng tiến." },
-    redirect: { title: "Đang chuyển tới bài học – Stroke360", description: "Đang chuyển tới bài học." }
+    home: { title: "STROKE360 - Đồng hành cùng gia đình người bệnh đột quỵ", description: "Ban ngày con đi làm, STROKE360 lo. Tối con vào với ba mẹ. Chăm sóc người bệnh đột quỵ theo ca từ bệnh viện về tới nhà, giá công khai, nhật ký mỗi tối." },
+    hoc: { title: "Học cùng Stroke360 - Trường học cho người nhà", description: "Bài học 3-5 phút miễn phí cho người nhà người bệnh đột quỵ: hiểu về đột quỵ, cho ăn an toàn, xoay trở chống loét, BE-FAST, sức khỏe tinh thần và tư vấn tâm lý." },
+    lesson: { title: "Bài học - Học cùng Stroke360", description: "Bài học ngắn cho người nhà người bệnh đột quỵ, có bảng kiểm và câu hỏi nhanh." },
+    congDong: { title: "Cộng đồng người nhà - Stroke360", description: "Gặp những gia đình đi trước, hỏi điều dưỡng mỗi tối thứ Năm, nhóm hỗ trợ người chăm sóc và sự kiện cộng đồng." },
+    dichVu: { title: "Dịch vụ và bảng giá - Stroke360", description: "Chăm sóc người bệnh đột quỵ theo ca tại viện và tại nhà. Giá công khai, chọn gói phù hợp trong 4 câu hỏi." },
+    tacDong: { title: "Giá trị và tác động - Stroke360", description: "Chỉ số tác động, ai nhận được gì, và mẫu báo cáo chất lượng quý của STROKE360." },
+    benhVien: { title: "Dành cho bệnh viện - Stroke360", description: "Đối tác chăm sóc có hồ sơ, có giám sát, có báo cáo. Lộ trình thí điểm 3 tháng cho khoa Thần kinh." },
+    lienHe: { title: "Liên hệ - Stroke360", description: "Nhận tư vấn miễn phí. Điều phối viên gọi lại trong 2 giờ." },
+    nhatKy: { title: "Nhật ký chăm sóc - Stroke360", description: "Mô phỏng nhật ký chăm sóc mỗi ca mà gia đình nhận được trên điện thoại." },
+    tuyenDung: { title: "Tuyển dụng chăm sóc viên - Stroke360", description: "Thu nhập ổn định, ca đúng luật, được đào tạo và có lộ trình thăng tiến." },
+    redirect: { title: "Đang chuyển tới bài học - Stroke360", description: "Đang chuyển tới bài học." }
   },
 
   home: {
@@ -106,7 +107,7 @@ export const vi = {
       title: "Những gì chúng tôi mang đến",
       sub: "Học và cộng đồng là miễn phí. Chúng tôi cho đi trước, rồi mới bán dịch vụ.",
       items: [
-        { page: "hoc", icon: "book", title: "Học cùng Stroke360", text: "Bài học 3–5 phút cho người nhà: cho ăn an toàn, xoay trở, nhận biết BE-FAST. Xem ngay tại giường bệnh.", cta: "Bắt đầu học" },
+        { page: "hoc", icon: "book", title: "Học cùng Stroke360", text: "Bài học 3-5 phút cho người nhà: cho ăn an toàn, xoay trở, nhận biết BE-FAST. Xem ngay tại giường bệnh.", cta: "Bắt đầu học" },
         { page: "congDong", icon: "community", title: "Cộng đồng người nhà", text: "Gặp những gia đình đi trước, hỏi điều dưỡng mỗi tối thứ Năm, và được nhắc rằng bạn cũng cần nghỉ.", cta: "Tham gia" },
         { page: "dichVu", icon: "care", title: "Chăm sóc theo ca", text: "S1 tại viện từ 1.100.000 đ/ngày · S2 tại nhà · S3 kết nối dài hạn. Giá công khai.", cta: "Xem dịch vụ" }
       ]
@@ -143,10 +144,10 @@ export const vi = {
     paths: {
       title: "Bạn đang ở đâu trong hành trình này?",
       items: [
-        { href: "dich-vu.html#chon-goi", icon: "bed", title: "Ba mẹ tôi đang nằm viện", text: "Chọn gói phù hợp trong 4 câu hỏi" },
-        { href: "hoc.html", icon: "book", title: "Tôi muốn tự chăm tốt hơn", text: "Học miễn phí, 3–5 phút mỗi bài" },
-        { href: "benh-vien.html", icon: "hospital", title: "Tôi làm ở bệnh viện", text: "Lộ trình thí điểm 3 tháng" },
-        { href: "tuyen-dung.html", icon: "nurse", title: "Tôi muốn làm chăm sóc viên", text: "Thu nhập ổn định, ca đúng luật" }
+        { page: "dichVu", hash: "#chon-goi", icon: "bed", title: "Ba mẹ tôi đang nằm viện", text: "Chọn gói phù hợp trong 4 câu hỏi" },
+        { page: "hoc", hash: "", icon: "book", title: "Tôi muốn tự chăm tốt hơn", text: "Học miễn phí, 3-5 phút mỗi bài" },
+        { page: "benhVien", hash: "", icon: "hospital", title: "Tôi làm ở bệnh viện", text: "Lộ trình thí điểm 3 tháng" },
+        { page: "tuyenDung", hash: "", icon: "nurse", title: "Tôi muốn làm chăm sóc viên", text: "Thu nhập ổn định, ca đúng luật" }
       ]
     },
     befast: { tag: "29/10 · Ngày Đột quỵ Thế giới", title: "1 phút nhận biết đột quỵ: BE-FAST", cta: "Học ngay 3 phút" }
@@ -155,7 +156,7 @@ export const vi = {
   hoc: {
     eyebrow: "Trường học cho người nhà · Miễn phí",
     title: "Học cùng Stroke360",
-    lead: "Bài học 3–5 phút, viết cho người đang mệt và lo lắng. Xem ngay trên điện thoại, tại giường bệnh.",
+    lead: "Bài học 3-5 phút, viết cho người đang mệt và lo lắng. Xem ngay trên điện thoại, tại giường bệnh.",
     search: "Ví dụ: mẹ tôi bị sặc khi ăn",
     searchAria: "Tìm bài học",
     progress: "Bạn đã hoàn thành {done}/{total} bài",
@@ -180,8 +181,8 @@ export const vi = {
       help: "Kéo thanh để chấm mức căng thẳng của chính bạn (0 = thoải mái, 10 = quá sức). Chỉ lưu trên máy bạn, không gửi đi đâu.",
       aria: "Mức căng thẳng",
       low: { title: "Bạn đang giữ sức tốt.", text: "Tiếp tục dành 15 phút mỗi ngày cho mình.", link: "Xem bài C4", id: "C4" },
-      mid: { title: "Hơi căng, nghỉ một chút nhé.", text: "Thử ngay bài T3 – 5 phút lấy lại bình tĩnh, và tham gia nhóm hỗ trợ tối Chủ nhật.", link: "Mở bài T3", id: "T3" },
-      high: { title: "Bạn đang gánh quá nhiều.", text: "Nếu mức này kéo dài 3 ngày, hãy nhờ người thay ca và đặt lịch tư vấn 1–1.", link: "Xem bài T2", id: "T2", book: "Đặt lịch tư vấn" }
+      mid: { title: "Hơi căng, nghỉ một chút nhé.", text: "Thử ngay bài T3 - 5 phút lấy lại bình tĩnh, và tham gia nhóm hỗ trợ tối Chủ nhật.", link: "Mở bài T3", id: "T3" },
+      high: { title: "Bạn đang gánh quá nhiều.", text: "Nếu mức này kéo dài 3 ngày, hãy nhờ người thay ca và đặt lịch tư vấn 1-1.", link: "Xem bài T2", id: "T2", book: "Đặt lịch tư vấn" }
     },
     cert: {
       title: "Chứng nhận “Người nhà đã sẵn sàng”",
@@ -197,7 +198,7 @@ export const vi = {
     },
     classCard: {
       title: "Lớp hướng dẫn người nhà tại bệnh viện",
-      text: "Miễn phí, mỗi thứ Ba, 14:00–15:00, tại bệnh viện đối tác. Thực hành xoay trở, cho ăn an toàn, nhận biết BE-FAST.",
+      text: "Miễn phí, mỗi thứ Ba, 14:00-15:00, tại bệnh viện đối tác. Thực hành xoay trở, cho ăn an toàn, nhận biết BE-FAST.",
       cta: "Đăng ký lớp"
     }
   },
@@ -309,7 +310,7 @@ export const vi = {
     hoursNote: "Thu nhập cả hai khoảng 11 triệu đồng/tháng.",
     hoursLink: "Tuyển dụng chăm sóc viên",
     reportTitle: "Mẫu báo cáo chất lượng quý",
-    reportNote: "Mẫu minh họa – các chỉ số sẽ được công khai với bệnh viện đối tác mỗi quý",
+    reportNote: "Mẫu minh họa - các chỉ số sẽ được công khai với bệnh viện đối tác mỗi quý",
     reportHead: ["Chỉ số", "Mục tiêu"],
     report: [
       ["Sự cố nghiêm trọng do lỗi chăm sóc", "0"],
@@ -348,7 +349,7 @@ export const vi = {
       title: "Nhận tư vấn miễn phí",
       name: "Họ tên người liên hệ",
       phone: "Số điện thoại",
-      phoneError: "Số điện thoại gồm 9–13 chữ số",
+      phoneError: "Số điện thoại gồm 9-13 chữ số",
       topic: "Bạn quan tâm",
       topicDefault: "Chưa rõ, cần tư vấn",
       counselingPrefix: "Tư vấn tâm lý",
@@ -373,7 +374,7 @@ export const vi = {
     note: "Dữ liệu mô phỏng. Bản thật xin đồng ý của người bệnh hoặc người đại diện, phân quyền và mã hóa theo Luật Bảo vệ dữ liệu cá nhân.",
     phoneTop: "Nhật ký · Hôm nay",
     patient: "Mẹ Nguyễn Thị Hoa · Giường 12",
-    carer: "Chăm sóc viên: Trần Thu · Ca ngày 07:00–19:00"
+    carer: "Chăm sóc viên: Trần Thu · Ca ngày 07:00-19:00"
   },
 
   tuyenDung: {
@@ -396,7 +397,7 @@ export const vi = {
       code: "S1-N",
       stage: "S1 · Tại viện",
       name: "Ca ngày tại viện",
-      time: "07:00–19:00",
+      time: "07:00-19:00",
       price: 1100000,
       unit: "/ngày",
       desc: "Chăm sóc viên chính thức: vệ sinh, cho ăn an toàn (kể cả qua ống thông), xoay trở chống loét, vận động sớm theo hướng dẫn của nhân viên y tế, đi theo khám buồng và ghi lại dặn dò, nhật ký gửi gia đình. Gia đình trực đêm."
@@ -517,7 +518,7 @@ export const vi = {
       keywords: "diễn biến giai đoạn cấp bán cấp mạn thời gian vàng phục hồi bao lâu tiên lượng",
       points: [
         "Vài giờ đầu (tối cấp): “thời gian là não”. Mỗi phút chậm trễ mất thêm hàng triệu tế bào não. Các phương pháp tái thông mạch chỉ làm được khi đến viện sớm.",
-        "1–2 tuần đầu (cấp): người bệnh được theo dõi sát tại khoa thần kinh hoặc đơn vị đột quỵ. Tình trạng có thể nặng lên trong những ngày đầu do phù não, chảy máu thêm, viêm phổi do sặc, huyết khối tĩnh mạch hay loét tì đè.",
+        "1-2 tuần đầu (cấp): người bệnh được theo dõi sát tại khoa thần kinh hoặc đơn vị đột quỵ. Tình trạng có thể nặng lên trong những ngày đầu do phù não, chảy máu thêm, viêm phổi do sặc, huyết khối tĩnh mạch hay loét tì đè.",
         "Vài tuần đến khoảng 3 tháng (bán cấp): não tự sắp xếp lại nhanh nhất. Đây là giai đoạn tập phục hồi chức năng mang lại hiệu quả lớn nhất.",
         "Sau 6 tháng (mạn): phục hồi chậm lại nhưng vẫn tiếp tục nếu tập đều. Trọng tâm chuyển sang duy trì, phòng tái phát và thích nghi với cuộc sống mới.",
         "Mỗi người phục hồi một khác, tùy vị trí và kích thước tổn thương, tuổi, bệnh nền và mức độ tập luyện. Hãy hỏi bác sĩ về tiên lượng riêng của người thân."
@@ -784,12 +785,12 @@ export const vi = {
       title: "Nhận biết dấu hiệu tái phát (BE-FAST) và khi nào gọi 115",
       keywords: "be fast befast tái phát dấu hiệu 115 méo miệng yếu tay",
       points: [
-        "B – Balance (Thăng bằng): đột ngột chóng mặt, mất thăng bằng, đi loạng choạng.",
-        "E – Eyes (Mắt): đột ngột nhìn mờ, mất thị lực một hoặc hai bên.",
-        "F – Face (Mặt): méo miệng, xệ một bên mặt khi cười.",
-        "A – Arm (Tay): yếu hoặc tê một bên tay, chân; giơ hai tay thì một bên rơi xuống.",
-        "S – Speech (Lời nói): nói khó, nói ngọng, không hiểu lời người khác.",
-        "T – Time (Thời gian): gọi 115 ngay, ghi lại giờ bắt đầu. Không chờ xem có tự hết không, không tự cho uống thuốc."
+        "B - Balance (Thăng bằng): đột ngột chóng mặt, mất thăng bằng, đi loạng choạng.",
+        "E - Eyes (Mắt): đột ngột nhìn mờ, mất thị lực một hoặc hai bên.",
+        "F - Face (Mặt): méo miệng, xệ một bên mặt khi cười.",
+        "A - Arm (Tay): yếu hoặc tê một bên tay, chân; giơ hai tay thì một bên rơi xuống.",
+        "S - Speech (Lời nói): nói khó, nói ngọng, không hiểu lời người khác.",
+        "T - Time (Thời gian): gọi 115 ngay, ghi lại giờ bắt đầu. Không chờ xem có tự hết không, không tự cho uống thuốc."
       ],
       checklist: [
         "Dán thẻ BE-FAST ở tủ lạnh",
@@ -953,7 +954,7 @@ export const vi = {
         "Tìm hỗ trợ chuyên môn khi: mất ngủ kéo dài, buồn chán nhiều tuần, phải dùng rượu hoặc thuốc ngủ để chịu đựng, hay có ý nghĩ làm hại mình."
       ],
       checklist: [
-        "Nhiệt kế căng thẳng hôm nay (0–10)",
+        "Nhiệt kế căng thẳng hôm nay (0-10)",
         "3 ngày gần nhất có ngày nào ≥ 7?",
         "Một việc cụ thể sẽ nhờ người khác",
         "Lần gần nhất được nghỉ trọn một buổi"
@@ -984,21 +985,21 @@ export const vi = {
       title: "5 phút lấy lại bình tĩnh tại giường bệnh",
       keywords: "thư giãn hít thở bình tĩnh lo âu hoảng sợ hồi hộp căng thẳng thở 5-4-3-2-1",
       points: [
-        "Thở 4–6: hít vào bằng mũi đếm 4, thở ra chậm bằng miệng đếm 6. Lặp 5–10 lần. Thở ra dài hơn hít vào giúp cơ thể dịu lại.",
+        "Thở 4-6: hít vào bằng mũi đếm 4, thở ra chậm bằng miệng đếm 6. Lặp 5-10 lần. Thở ra dài hơn hít vào giúp cơ thể dịu lại.",
         "Kỹ thuật 5-4-3-2-1: gọi tên 5 thứ bạn thấy, 4 thứ bạn chạm được, 3 âm thanh, 2 mùi, 1 vị. Cách này kéo tâm trí về hiện tại khi đang hoảng.",
         "Thả lỏng cơ: gồng hai vai lên 5 giây rồi buông; làm tiếp với bàn tay, bắp chân.",
         "Viết 3 dòng: điều mình lo nhất; phần nào mình kiểm soát được; một việc nhỏ làm ngay bây giờ.",
         "Người bệnh tỉnh táo cũng có thể làm cùng bạn khi lo âu. Nếu hồi hộp kèm đau ngực, khó thở kéo dài, hãy báo nhân viên y tế."
       ],
       checklist: [
-        "Thở 4–6 × 5 lần",
+        "Thở 4-6 × 5 lần",
         "5-4-3-2-1",
         "Thả lỏng vai, tay, chân",
         "3 dòng: lo gì / kiểm soát được gì / làm gì ngay"
       ],
       quiz: [
         {
-          q: "Trong bài thở 4–6, phần nào dài hơn?",
+          q: "Trong bài thở 4-6, phần nào dài hơn?",
           a: ["Hít vào", "Thở ra", "Nín thở"],
           c: 1
         },
@@ -1054,12 +1055,12 @@ export const vi = {
     }
   ],
   lessonDisclaimer: "Nội dung mang tính hướng dẫn chăm sóc, không thay thế chỉ định của bác sĩ.",
-  lessonSources: "Tham khảo: tài liệu hướng dẫn chăm sóc người bệnh của Bộ Y tế; World Stroke Organization; American Stroke Association (BE-FAST). Bản demo – bác sĩ cố vấn sẽ duyệt trước khi phát hành.",
+  lessonSources: "Tham khảo: tài liệu hướng dẫn chăm sóc người bệnh của Bộ Y tế; World Stroke Organization; American Stroke Association (BE-FAST). Bản demo - bác sĩ cố vấn sẽ duyệt trước khi phát hành.",
   counseling: <Counseling[]>[
     {
       id: "tl-nguoi-nha",
       for: "Người chăm sóc",
-      name: "Tư vấn 1–1 cho người nhà",
+      name: "Tư vấn 1-1 cho người nhà",
       format: "Trực tuyến (video hoặc điện thoại) · 45 phút",
       desc: "Nói ra điều khó nói với người trong nhà: mệt mỏi, tội lỗi, lo lắng về tiền bạc và công việc. Cùng chuyên viên tìm cách giữ sức lâu dài.",
       price: "Theo giá niêm yết của chuyên viên đối tác, gia đình trả trực tiếp. STROKE360 không thu phí kết nối."
@@ -1067,7 +1068,7 @@ export const vi = {
     {
       id: "tl-nguoi-benh",
       for: "Người bệnh",
-      name: "Tư vấn 1–1 cho người bệnh",
+      name: "Tư vấn 1-1 cho người bệnh",
       format: "Tại nhà hoặc trực tuyến · 45 phút",
       desc: "Đánh giá tâm trạng, hỗ trợ khi buồn chán, lo âu, mất động lực tập. Chuyên viên phối hợp với kỹ thuật viên PHCN và giới thiệu bác sĩ khi cần.",
       price: "Theo giá niêm yết của chuyên viên đối tác, gia đình trả trực tiếp. STROKE360 không thu phí kết nối.",
@@ -1085,7 +1086,7 @@ export const vi = {
       id: "tl-nhom",
       for: "Người chăm sóc",
       name: "Nhóm hỗ trợ người nhà",
-      format: "Tối Chủ nhật, 20:00–21:30 · Trực tuyến · 6–10 người",
+      format: "Tối Chủ nhật, 20:00-21:30 · Trực tuyến · 6-10 người",
       desc: "Chuyên viên tâm lý điều phối, có “người đồng hành” là người nhà đi trước. Nghe và được nghe, không phán xét.",
       price: "Miễn phí",
       free: true

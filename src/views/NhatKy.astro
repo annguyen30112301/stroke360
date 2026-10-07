@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
+import Words from "../components/Words.astro";
 import DiaryPlayer from "../islands/DiaryPlayer.tsx";
 import { getContent, pageHref } from "../lib/i18n";
 import type { Lang } from "../content/types";
@@ -9,26 +10,26 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const c = getContent(lang);
 const t = c.nhatKy;
-const pointIcons = ["notebook", "stethoscope", "clock"];
+const pointIcons = ["notebook", "care", "clock"];
 ---
-<Base lang={lang} page="nhatKy" path="nhat-ky.html" title={c.meta.nhatKy.title} description={c.meta.nhatKy.description}>
-  <section class="relative overflow-hidden">
-    <div aria-hidden="true" class="pointer-events-none absolute -right-40 top-20 -z-10 size-[34rem] rounded-full bg-teal-300/25 blur-3xl dark:bg-teal-500/10"></div>
-    <div class="wrap grid items-center gap-14 pb-24 pt-12 sm:pt-20 lg:grid-cols-[1.1fr_1fr]">
+<Base lang={lang} route="nhatKy" title={c.meta.nhatKy.title} description={c.meta.nhatKy.description}>
+  <section class="relative overflow-hidden pb-24 pt-28 sm:pt-36">
+    <div aria-hidden="true" class="pointer-events-none absolute -right-40 top-20 -z-10 size-[40rem] rounded-full bg-teal-300/25 blur-3xl dark:bg-teal-500/10"></div>
+    <div class="shell grid items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
       <div>
-        <span class="eyebrow anim-in"><Icon name="phone" size={18} />{t.eyebrow}</span>
-        <h1 class="h-display anim-in mt-5" style="--d:1">{t.title}</h1>
-        <p class="lead anim-in mt-6" style="--d:2">{t.lead}</p>
-        <ul class="mt-8 grid gap-4">
+        <span class="chip enter">{t.eyebrow}</span>
+        <h1 class="t-display mt-5 max-w-[14ch]"><Words text={t.title} /></h1>
+        <p class="t-sub enter mt-6" style="--d:3">{t.lead}</p>
+        <ul class="mt-10 grid gap-6">
           {t.points.map((p, i) => (
-            <li class="anim-in flex gap-4" style={`--d:${3 + i}`}>
-              <span class="icon-tile !size-11 shrink-0"><Icon name={pointIcons[i] === "stethoscope" ? "care" : pointIcons[i]} size={24} /></span>
-              <span class="pt-2">{p}</span>
+            <li class="enter flex gap-4" style={`--d:${4 + i}`}>
+              <Icon name={pointIcons[i]} size={28} class="mt-0.5 shrink-0 text-accent" />
+              <span class="text-lg">{p}</span>
             </li>
           ))}
         </ul>
-        <a class="btn btn-ghost anim-in mt-8" style="--d:6" href={pageHref(lang, "dichVu", "#chon-goi")}>{t.pick}<Icon name="arrow" size={18} weight="bold" /></a>
-        <p class="note mt-6">{t.note}</p>
+        <a class="btn btn-accent enter mt-10" style="--d:7" href={pageHref(lang, "dichVu", "#chon-goi")}>{t.pick}<Icon name="arrow" size={18} weight="bold" /></a>
+        <p class="t-note mt-6 max-w-xl">{t.note}</p>
       </div>
       <DiaryPlayer client:visible diary={c.diary} t={t} restart={c.ui.restart} />
     </div>

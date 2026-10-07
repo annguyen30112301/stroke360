@@ -1,8 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
-import PageHero from "../components/PageHero.astro";
-import SectionHead from "../components/SectionHead.astro";
+import Words from "../components/Words.astro";
 import Counter from "../components/Counter.astro";
 import { getContent, pageHref } from "../lib/i18n";
 import type { Lang } from "../content/types";
@@ -11,76 +10,81 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const c = getContent(lang);
 const t = c.tacDong;
-const statIcons = ["family", "nurse", "hospital", "shield", "medal", "trend"];
 ---
-<Base lang={lang} page="tacDong" path="tac-dong.html" title={c.meta.tacDong.title} description={c.meta.tacDong.description}>
-  <PageHero eyebrow={t.eyebrow} title={t.title} />
-  <div class="ribbon"></div>
+<Base lang={lang} route="tacDong" title={c.meta.tacDong.title} description={c.meta.tacDong.description}>
+  <!-- Manifesto hero -->
+  <section class="bg-deep pb-24 pt-36 text-white sm:pb-32 sm:pt-44">
+    <div class="shell">
+      <span class="enter rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-teal-100">{t.eyebrow}</span>
+      <h1 class="mt-8 max-w-[22ch] text-[clamp(2.1rem,1.2rem+3.4vw,4.4rem)] font-extrabold leading-[1.06] tracking-tight !text-white"><Words text={t.title} /></h1>
+    </div>
+  </section>
 
-  <section class="section">
-    <div class="wrap">
-      <SectionHead title={t.statsTitle} sub={t.statsSub} />
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <!-- Indicators -->
+  <section class="py-24 sm:py-32">
+    <div class="shell">
+      <h2 class="t-title" data-reveal>{t.statsTitle}</h2>
+      <p class="t-sub mt-4" data-reveal>{t.statsSub}</p>
+      <dl class="mt-14 grid gap-px overflow-hidden rounded-3xl bg-hair sm:grid-cols-2 lg:grid-cols-3">
         {c.impact.map((m, i) => (
-          <div class="card flex items-start gap-5" data-reveal>
-            <span class:list={["icon-tile shrink-0", i % 2 && "alert"]}><Icon name={statIcons[i]} size={28} /></span>
-            <div>
-              <div class="text-5xl font-extrabold tracking-tight text-rose-500"><Counter value={m.value} lang={lang} decimals={m.decimals} prefix={m.prefix} suffix={m.suffix} /></div>
-              <p class="mt-2 text-muted">{m.label}</p>
-            </div>
+          <div class:list={["p-8 sm:p-10", i === 0 ? "bg-accent text-on-accent" : "bg-raised"]} data-reveal>
+            <dt class="text-[clamp(2.6rem,2rem+2vw,3.8rem)] font-extrabold leading-none tracking-tight"><Counter value={m.value} lang={lang} decimals={m.decimals} prefix={m.prefix} suffix={m.suffix} /></dt>
+            <dd class:list={["mt-4 max-w-[26ch]", i === 0 ? "opacity-85" : "text-ink-2"]}>{m.label}</dd>
           </div>
         ))}
-      </div>
+      </dl>
     </div>
   </section>
 
-  <section class="section bg-brand-soft/50">
-    <div class="wrap">
-      <SectionHead title={t.whoTitle} />
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {t.who.map((w, i) => (
-          <div class="card" data-reveal>
-            <span class:list={["icon-tile", i % 2 && "alert"]}><Icon name={w.icon} size={28} /></span>
-            <h3 class="mt-4 text-lg">{w.title}</h3>
-            <p class="mt-1 text-[0.9rem] text-muted">{w.text}</p>
-          </div>
+  <!-- Who benefits: icon list -->
+  <section class="bg-tint/60 py-24 sm:py-32">
+    <div class="shell grid gap-12 lg:grid-cols-[0.8fr_2fr]">
+      <h2 class="t-title lg:sticky lg:top-28 lg:self-start" data-reveal>{t.whoTitle}</h2>
+      <ul class="grid gap-x-10 gap-y-12 sm:grid-cols-2">
+        {t.who.map((w) => (
+          <li data-reveal>
+            <Icon name={w.icon} size={40} class="text-accent" />
+            <h3 class="mt-4 text-xl">{w.title}</h3>
+            <p class="mt-2 text-ink-2">{w.text}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <SectionHead title={t.hoursTitle} sub={t.hoursSub} />
-      <div class="card max-w-3xl" data-reveal>
-        <div>
-          <p><b>{t.hoursUs[0]}</b> · <span class="text-muted">{t.hoursUs[1]}</span></p>
-          <div class="mt-2 h-9 rounded-xl bg-sunken"><div data-reveal-bar class="flex h-full w-[38%] items-center justify-end rounded-xl bg-gradient-to-r from-teal-600 to-teal-400 pr-3 text-sm font-bold text-white">228h</div></div>
+  <!-- Hours: two bars, sized by actual hours -->
+  <section class="py-24 sm:py-32">
+    <div class="shell max-w-5xl">
+      <h2 class="t-title" data-reveal>{t.hoursTitle}</h2>
+      <p class="t-sub mt-4" data-reveal>{t.hoursSub}</p>
+      <div class="mt-14 grid gap-10">
+        <div data-reveal>
+          <div class="flex flex-wrap items-baseline justify-between gap-2"><b class="text-lg">{t.hoursUs[0]}</b><span class="text-ink-3">{t.hoursUs[1]}</span></div>
+          <div data-grow class="mt-3 flex h-14 w-[38%] items-center justify-end rounded-full bg-accent pr-5 text-lg font-extrabold text-on-accent">228h</div>
         </div>
-        <div class="mt-6">
-          <p><b>{t.hoursThem[0]}</b> · <span class="text-muted">{t.hoursThem[1]}</span></p>
-          <div class="mt-2 h-9 rounded-xl bg-sunken"><div data-reveal-bar class="flex h-full w-full items-center justify-end rounded-xl bg-faint/50 pr-3 text-sm font-bold text-ink">~600h</div></div>
+        <div data-reveal>
+          <div class="flex flex-wrap items-baseline justify-between gap-2"><b class="text-lg">{t.hoursThem[0]}</b><span class="text-ink-3">{t.hoursThem[1]}</span></div>
+          <div data-grow class="mt-3 flex h-14 w-full items-center justify-end rounded-full bg-ink-3/40 pr-5 text-lg font-extrabold text-ink">~600h</div>
         </div>
-        <p class="mt-6 text-[0.95rem] text-muted">{t.hoursNote} <a href={pageHref(lang, "tuyenDung")} class="font-semibold">{t.hoursLink} →</a></p>
       </div>
+      <p class="mt-10 text-ink-2">{t.hoursNote} <a href={pageHref(lang, "tuyenDung")} class="font-semibold">{t.hoursLink} →</a></p>
     </div>
   </section>
 
-  <section class="section bg-sunken">
-    <div class="wrap">
-      <SectionHead title={t.reportTitle} sub={t.reportNote} />
-      <div class="card overflow-x-auto !p-0" data-reveal>
-        <table class="w-full min-w-[30rem] border-collapse text-left">
-          <thead><tr class="border-b-2 border-brand">{t.reportHead.map((h) => <th class="px-6 py-4 text-sm font-bold uppercase tracking-wider text-brand">{h}</th>)}</tr></thead>
-          <tbody>
-            {t.report.map(([k, v]) => (
-              <tr class="border-b border-line last:border-0 hover:bg-brand-soft/40">
-                <td class="px-6 py-4">{k}</td><td class="px-6 py-4 font-semibold tabular-nums">{v}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+  <!-- Quarterly report: indicator cards, not a ruled table -->
+  <section class="border-t border-hair py-24 sm:py-32">
+    <div class="shell">
+      <h2 class="t-title" data-reveal>{t.reportTitle}</h2>
+      <p class="t-note mt-3">{t.reportNote}</p>
+      <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {t.report.map(([k, v]) => (
+          <li class="panel-line p-7" data-reveal>
+            <p class="text-sm text-ink-3">{t.reportHead[1]}</p>
+            <p class="mt-1 text-3xl font-extrabold tracking-tight tabular-nums text-accent-ink">{v}</p>
+            <p class="mt-3 font-medium">{k}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 </Base>

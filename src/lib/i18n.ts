@@ -4,32 +4,48 @@ import type { Lang } from "../content/types";
 
 export const content: Record<Lang, Content> = { vi, en };
 export const getContent = (lang: Lang) => content[lang];
+export const langs: Lang[] = ["vi", "en"];
 
-/** Page keys → file names (unchanged from the old site so shared links keep working). */
-export const pages = {
-  home: "",
-  hoc: "hoc.html",
-  congDong: "cong-dong.html",
-  dichVu: "dich-vu.html",
-  tacDong: "tac-dong.html",
-  benhVien: "benh-vien.html",
-  lienHe: "lien-he.html",
-  nhatKy: "nhat-ky.html",
-  tuyenDung: "tuyen-dung.html"
+/** URL slug of every page, per language. Vietnamese lives at the root, English under /en/. */
+export const routes = {
+  home: { vi: "", en: "" },
+  hoc: { vi: "hoc", en: "learn" },
+  congDong: { vi: "cong-dong", en: "community" },
+  dichVu: { vi: "dich-vu", en: "services" },
+  tacDong: { vi: "tac-dong", en: "impact" },
+  benhVien: { vi: "benh-vien", en: "hospitals" },
+  lienHe: { vi: "lien-he", en: "contact" },
+  nhatKy: { vi: "nhat-ky", en: "diary" },
+  tuyenDung: { vi: "tuyen-dung", en: "careers" },
+  lesson: { vi: "bai-hoc", en: "lessons" }
 } as const;
-export type PageKey = keyof typeof pages;
+export type PageKey = Exclude<keyof typeof routes, "lesson">;
+export type RouteKey = keyof typeof routes;
 
 const BASE = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const root = (lang: Lang) => BASE + (lang === "en" ? "en/" : "");
 
-/** Site-relative URL for a path like "hoc.html#x" in the given language. */
-export function href(lang: Lang, path = ""): string {
-  return BASE + (lang === "en" ? "en/" : "") + path.replace(/^\//, "");
+/** /stroke360/hoc/ · /stroke360/en/learn/#x · /stroke360/en/contact/?topic=y */
+export function pageHref(lang: Lang, key: PageKey, suffix = ""): string {
+  const slug = routes[key][lang];
+  return root(lang) + (slug ? slug + "/" : "") + suffix;
 }
-export const pageHref = (lang: Lang, key: PageKey, suffix = "") => href(lang, pages[key] + suffix);
-export const lessonHref = (lang: Lang, id: string) => href(lang, `bai-hoc/${id}.html`);
+export const lessonHref = (lang: Lang, id: string) => `${root(lang)}${routes.lesson[lang]}/${id.toLowerCase()}/`;
+/** Same page in another language (used by the language switch and hreflang). */
+export const localized = (lang: Lang, key: RouteKey, id?: string) =>
+  key === "lesson" ? lessonHref(lang, id!) : pageHref(lang, key);
 export const asset = (path: string) => BASE + path.replace(/^\//, "");
 
-/** "Câu {i}/{n}" → "Câu 1/4" */
+/** Links the islands need, resolved once on the server. */
+export const linkKit = (lang: Lang) => ({
+  lessonBase: `${root(lang)}${routes.lesson[lang]}/`,
+  contact: pageHref(lang, "lienHe"),
+  community: pageHref(lang, "congDong"),
+  services: pageHref(lang, "dichVu"),
+  learn: pageHref(lang, "hoc")
+});
+export type LinkKit = ReturnType<typeof linkKit>;
+
 export const fmt = (s: string, vars: Record<string, string | number>) =>
   s.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ""));
 

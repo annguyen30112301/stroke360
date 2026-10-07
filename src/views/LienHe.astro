@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
+import Words from "../components/Words.astro";
 import ContactForm from "../islands/ContactForm.tsx";
 import { getContent, lessonHref } from "../lib/i18n";
 import { contact } from "../content/shared";
@@ -18,25 +19,32 @@ const options: [string, string][] = [
 const valueIcons = ["shield", "eye", "handHeart", "scope"];
 const tel = "tel:" + contact.hotline.replace(/\s/g, "");
 ---
-<Base lang={lang} page="lienHe" path="lien-he.html" title={c.meta.lienHe.title} description={c.meta.lienHe.description}>
-  <section class="relative overflow-hidden">
-    <div aria-hidden="true" class="pointer-events-none absolute -left-40 -top-40 -z-10 size-[34rem] rounded-full bg-teal-300/20 blur-3xl dark:bg-teal-500/10"></div>
-    <div class="wrap grid gap-12 pb-24 pt-12 sm:pt-20 lg:grid-cols-[1fr_1.05fr]">
+<Base lang={lang} route="lienHe" title={c.meta.lienHe.title} description={c.meta.lienHe.description}>
+  <section class="relative overflow-hidden pb-24 pt-28 sm:pt-36">
+    <div aria-hidden="true" class="pointer-events-none absolute -left-40 -top-40 -z-10 size-[40rem] rounded-full bg-teal-300/20 blur-3xl dark:bg-teal-500/10"></div>
+    <div class="shell grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
       <div>
-        <span class="eyebrow anim-in"><Icon name="clock" size={18} />{t.eyebrow}</span>
-        <h1 class="h-display anim-in mt-5" style="--d:1">{t.title}</h1>
-        <p class="lead anim-in mt-6" style="--d:2" set:html={t.vision} />
-        <p class="anim-in mt-3 text-muted" style="--d:2" set:html={t.mission} />
-        <div class="anim-in mt-8 grid gap-3 sm:grid-cols-2" style="--d:3">
-          {t.values.map((v, i) => <div class="card-flat flex items-center gap-3 !p-4"><Icon name={valueIcons[i]} size={26} class="shrink-0 text-brand" /><b>{v}</b></div>)}
+        <span class="chip enter"><Icon name="clock" size={16} />{t.eyebrow}</span>
+        <h1 class="t-display mt-5"><Words text={t.title} /></h1>
+        <div class="enter mt-8 grid gap-3" style="--d:3">
+          <a href={tel} class="glow lift flex items-center gap-4 rounded-3xl bg-rose-600 p-5 text-white no-underline">
+            <span class="grid size-12 place-items-center rounded-full bg-white/15"><Icon name="phone" size={24} weight="fill" /></span>
+            <span><span class="block text-sm opacity-80">{c.ui.call}</span><b class="text-xl !text-white">{contact.hotline}</b></span>
+          </a>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <a href={contact.zaloGroup} target="_blank" rel="noopener" class="lift flex items-center gap-3 rounded-3xl bg-zalo p-5 font-semibold text-white no-underline"><Icon name="chats" size={24} />{c.ui.zalo}</a>
+            <a href={`mailto:${contact.email}`} class="lift flex items-center gap-3 rounded-3xl bg-raised p-5 font-semibold text-ink no-underline shadow-[var(--shadow)]"><Icon name="mail" size={24} class="text-accent" /><span class="truncate">{contact.email}</span></a>
+          </div>
         </div>
-        <div class="anim-in mt-8 flex flex-wrap gap-3" style="--d:4">
-          <a href={tel} class="btn btn-alert"><Icon name="phone" size={20} weight="fill" />{contact.hotline}</a>
-          <a href={contact.zaloGroup} target="_blank" rel="noopener" class="btn bg-zalo text-white hover:brightness-110"><Icon name="chats" size={20} />{c.ui.zalo}</a>
-          <a href={`mailto:${contact.email}`} class="btn btn-ghost"><Icon name="mail" size={20} />{contact.email}</a>
+        <div class="enter mt-12 grid gap-4 border-t border-hair pt-8" style="--d:4">
+          <p class="text-ink-2" set:html={t.vision} />
+          <p class="text-ink-2" set:html={t.mission} />
+          <ul class="mt-2 flex flex-wrap gap-2">
+            {t.values.map((v, i) => <li class="chip"><Icon name={valueIcons[i]} size={16} />{v}</li>)}
+          </ul>
         </div>
       </div>
-      <div class="anim-in" style="--d:2">
+      <div class="enter lg:sticky lg:top-28 lg:self-start" style="--d:2">
         <ContactForm client:load t={t.form} options={options} hotline={contact.hotline} lessonHref={lessonHref(lang, "A1")} />
       </div>
     </div>

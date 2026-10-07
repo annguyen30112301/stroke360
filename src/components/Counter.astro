@@ -1,5 +1,5 @@
 ---
-/* Number that counts up when scrolled into view. Final value is in the HTML, so it works without JS. */
+/* Counts up when scrolled into view. Final value is in the HTML, so it reads correctly without JS. */
 import type { Lang } from "../content/types";
 interface Props { value: number; lang: Lang; decimals?: number; prefix?: string; suffix?: string; class?: string }
 const { value, lang, decimals = 0, prefix = "", suffix = "", class: cls } = Astro.props;
@@ -10,13 +10,15 @@ const text = prefix + value.toLocaleString(locale, { minimumFractionDigits: deci
 
 <script>
   import { animate, inView } from "motion";
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+  document.addEventListener("astro:page-load", () => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.querySelectorAll<HTMLElement>("[data-count]:not([data-counted])").forEach((el) => {
+      el.dataset.counted = "1";
       const end = Number(el.dataset.count), dec = Number(el.dataset.dec || 0);
       const nf = new Intl.NumberFormat(el.dataset.locale, { minimumFractionDigits: dec, maximumFractionDigits: dec });
       const paint = (n: number) => (el.textContent = (el.dataset.prefix || "") + nf.format(n) + (el.dataset.suffix || ""));
       paint(0);
-      inView(el, () => { animate(0, end, { duration: 1.6, ease: [0.22, 1, 0.36, 1], onUpdate: paint }); }, { amount: 0.6 });
+      inView(el, () => { animate(0, end, { duration: 1.8, ease: [0.16, 1, 0.3, 1], onUpdate: paint }); }, { amount: 0.6 });
     });
-  }
+  });
 </script>

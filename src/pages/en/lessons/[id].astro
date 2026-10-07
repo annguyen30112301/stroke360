@@ -1,0 +1,10 @@
+---
+import View from "../../../views/Lesson.astro";
+import { getContent } from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return getContent("en").lessons.filter((l) => l.ready).map((l) => ({ params: { id: l.id.toLowerCase() }, props: { id: l.id } }));
+}
+const { id } = Astro.props;
+---
+<View lang="en" id={id} />

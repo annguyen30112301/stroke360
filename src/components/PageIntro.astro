@@ -1,0 +1,28 @@
+---
+import Words from "./Words.astro";
+import Photo from "./Photo.astro";
+
+interface Props {
+  title: string;
+  lead?: string;
+  chip?: string;
+  photo?: { name: string; alt: string; icon?: string };
+}
+const { title, lead, chip, photo } = Astro.props;
+---
+<section class="relative overflow-hidden pt-28 sm:pt-36">
+  <div aria-hidden="true" class="pointer-events-none absolute -left-48 -top-48 -z-10 size-[40rem] rounded-full bg-teal-300/20 blur-3xl dark:bg-teal-500/10"></div>
+  <div class:list={["shell pb-14 sm:pb-20", photo && "grid items-end gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16"]}>
+    <div>
+      {chip && <span class="chip enter">{chip}</span>}
+      <h1 class="t-display mt-5 max-w-[18ch]"><Words text={title} /></h1>
+      {lead && <p class="t-sub enter mt-6" style="--d:3" set:html={lead} />}
+      <div class="enter" style="--d:4"><slot /></div>
+    </div>
+    {photo && (
+      <div class="enter" style="--d:2">
+        <Photo name={photo.name} alt={photo.alt} icon={photo.icon} eager class="aspect-[4/3] w-full rounded-3xl" />
+      </div>
+    )}
+  </div>
+</section>

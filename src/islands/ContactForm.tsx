@@ -15,16 +15,16 @@ export default function ContactForm({ t, options, hotline, lessonHref }: Props) 
   }, [options]);
 
   return (
-    <div className="card relative overflow-hidden sm:p-9">
+    <div className="panel p-6 sm:p-8 relative overflow-hidden sm:p-9">
       <AnimatePresence mode="wait">
         {sent ? (
           <motion.div key="ok" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} role="status" className="py-6 text-center">
-            <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.1 }} className="inline-block text-brand">
+            <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.1 }} className="inline-block text-accent-ink">
               <CheckCircleIcon size={72} weight="duotone" />
             </motion.span>
             <h2 className="mt-3 text-3xl font-extrabold">{t.thanks}</h2>
-            <p className="mt-2 text-muted">{t.thanksText} <b>{hotline}</b>.</p>
-            <a className="btn btn-ghost mt-6" href={lessonHref}>{t.whileWaiting}<ArrowRightIcon size={18} weight="bold" /></a>
+            <p className="mt-2 text-ink-2">{t.thanksText} <b>{hotline}</b>.</p>
+            <a className="btn btn-quiet mt-6" href={lessonHref}>{t.whileWaiting}<ArrowRightIcon size={18} weight="bold" /></a>
           </motion.div>
         ) : (
           <motion.form key="f" exit={{ opacity: 0, y: -8 }} noValidate
@@ -43,7 +43,7 @@ export default function ContactForm({ t, options, hotline, lessonHref }: Props) 
             <label className="label" htmlFor="p">{t.phone}</label>
             <input id="p" name="phone" type="tel" inputMode="tel" required autoComplete="tel" className="field"
               aria-invalid={phoneErr} aria-describedby={phoneErr ? "p-err" : undefined} onInput={() => phoneErr && setPhoneErr(false)} />
-            <AnimatePresence>{phoneErr && <motion.p id="p-err" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="mt-1.5 text-sm font-semibold text-alert">{t.phoneError}</motion.p>}</AnimatePresence>
+            <AnimatePresence>{phoneErr && <motion.p id="p-err" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="mt-1.5 text-sm font-semibold text-urgent">{t.phoneError}</motion.p>}</AnimatePresence>
             <label className="label" htmlFor="g">{t.topic}</label>
             <select id="g" name="topic" value={topic} onChange={(e) => setTopic(e.target.value)} className="field">
               <option value="">{t.topicDefault}</option>
@@ -51,8 +51,8 @@ export default function ContactForm({ t, options, hotline, lessonHref }: Props) 
             </select>
             <label className="label" htmlFor="m">{t.note}</label>
             <textarea id="m" name="note" rows={3} className="field resize-y" />
-            <button className="btn btn-primary mt-6 w-full"><PaperPlaneTiltIcon size={20} weight="duotone" />{t.submit}</button>
-            <p className="note mt-3">{t.demo}</p>
+            <button className="btn btn-accent mt-6 w-full"><PaperPlaneTiltIcon size={20} weight="duotone" />{t.submit}</button>
+            <p className="t-note mt-3">{t.demo}</p>
           </motion.form>
         )}
       </AnimatePresence>

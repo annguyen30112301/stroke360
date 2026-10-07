@@ -1,27 +1,34 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import Icon from "../components/Icon.astro";
-import { getContent, href, pageHref, asset, type PageKey } from "../lib/i18n";
+import { getContent, pageHref, localized, asset, type PageKey, type RouteKey } from "../lib/i18n";
 import { contact, site } from "../content/shared";
 import type { Lang } from "../content/types";
 
 interface Props {
   lang: Lang;
-  /** current page, used for nav highlight */
-  page: PageKey | "lesson";
-  /** path relative to the language root, e.g. "hoc.html" or "bai-hoc/A1.html" */
-  path: string;
+  route: RouteKey;
+  lessonId?: string;
   title: string;
   description: string;
 }
-const { lang, page, path, title, description } = Astro.props;
+const { lang, route, lessonId, title, description } = Astro.props;
 const c = getContent(lang);
 const other: Lang = lang === "vi" ? "en" : "vi";
-const abs = (l: Lang) => new URL(href(l, path), Astro.site).toString();
-const nav: PageKey[] = ["home", "hoc", "congDong", "dichVu", "tacDong", "benhVien", "lienHe"];
-const isOn = (k: PageKey) => k === page || (page === "lesson" && k === "hoc");
+const abs = (l: Lang) => new URL(localized(l, route, lessonId), Astro.site).toString();
 const og = new URL(asset("og.png"), Astro.site).toString();
 const tel = "tel:" + contact.hotline.replace(/\s/g, "");
+const active: PageKey = route === "lesson" ? "hoc" : route;
+const label = (k: PageKey) => c.ui.nav[k as keyof typeof c.ui.nav] ?? c.ui.footer.links[k as keyof typeof c.ui.footer.links];
+
+const desktopNav: PageKey[] = ["hoc", "congDong", "dichVu", "tacDong", "benhVien"];
+const tabs: { k: PageKey; icon: string }[] = [
+  { k: "home", icon: "home" }, { k: "hoc", icon: "book" }, { k: "dichVu", icon: "care" }, { k: "congDong", icon: "community" }
+];
+const morePages: PageKey[] = ["tacDong", "benhVien", "nhatKy", "tuyenDung", "lienHe"];
+const moreIcons: Record<string, string> = { tacDong: "trend", benhVien: "hospital", nhatKy: "notebook", tuyenDung: "nurse", lienHe: "chat" };
+const moreActive = morePages.includes(active);
 ---
 <!doctype html>
 <html lang={lang}>
@@ -30,8 +37,8 @@ const tel = "tel:" + contact.hotline.replace(/\s/g, "");
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta name="theme-color" content="#fbf8f4" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0c1618" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f4f8f8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#071a1b" media="(prefers-color-scheme: dark)" />
   <link rel="icon" href={asset("favicon.ico")} sizes="any" />
   <link rel="icon" href={asset("favicon-512.png")} type="image/png" />
   <link rel="apple-touch-icon" href={asset("apple-touch-icon.png")} />
@@ -49,104 +56,134 @@ const tel = "tel:" + contact.hotline.replace(/\s/g, "");
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <slot name="head" />
+  <ClientRouter fallback="swap" />
 </head>
-<body class="min-h-dvh">
-  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-brand focus:px-5 focus:py-3 focus:text-on-brand">{c.ui.skip}</a>
+<body class="min-h-dvh pb-24 lg:pb-0">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-5 focus:py-3 focus:text-on-accent">{c.ui.skip}</a>
+  <div aria-hidden="true" class="scroll-progress pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px] bg-gradient-to-r from-teal-500 to-teal-300"></div>
 
-  <header class="site-header sticky top-0 z-50 border-b border-line/70 bg-bg/80 backdrop-blur-xl" style="view-transition-name: site-header">
-    <div class="wrap flex h-[4.25rem] items-center justify-between gap-4">
-      <a href={pageHref(lang, "home")} class="shrink-0 rounded-xl dark:bg-white/95 dark:px-2 dark:py-1" aria-label="STROKE360">
-        <img src={asset("logo.png")} alt="Stroke360" width="800" height="400" class="h-10 w-auto sm:h-11" />
-      </a>
-      <nav class="hidden items-center gap-0.5 lg:flex" aria-label="Main">
-        {nav.map((k) => (
-          <a href={pageHref(lang, k)} aria-current={isOn(k) ? "page" : undefined}
-            class:list={["relative rounded-full px-3.5 py-2 text-[0.92rem] font-medium no-underline transition-colors",
-              isOn(k) ? "bg-brand-soft text-brand" : "text-ink hover:bg-sunken"]}>{c.ui.nav[k as keyof typeof c.ui.nav]}</a>
-        ))}
-      </nav>
-      <div class="flex items-center gap-2">
-        <a href={href(other, path)} hreflang={other} lang={other} aria-label={c.ui.switchLangAria}
-          class="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-line px-3 text-sm font-semibold text-ink no-underline hover:border-brand hover:text-brand">
-          <Icon name="lang" size={18} />{other.toUpperCase()}
+  <!-- Top bar: floating capsule on desktop, slim bar on phones -->
+  <header class="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 lg:pt-4" style="view-transition-name: site-nav">
+    <div class="shell">
+      <div class="pointer-events-auto flex h-16 items-center justify-between gap-3 rounded-full border border-hair/70 bg-raised/95 pl-4 pr-2 shadow-[var(--shadow)]">
+        <a href={pageHref(lang, "home")} class="flex shrink-0 items-center rounded-full" aria-label="STROKE360">
+          <img src={asset("logo.png")} alt="Stroke360" width="800" height="400" class="h-9 w-auto dark:rounded-lg dark:bg-white dark:px-1.5" />
         </a>
-        <a href={pageHref(lang, "lienHe")} class="btn btn-primary hidden !min-h-11 !px-5 sm:inline-flex">{c.ui.headerCta}</a>
-        <button type="button" class="grid size-11 place-items-center rounded-full border border-line text-ink lg:hidden" aria-label={c.ui.menu} aria-haspopup="dialog" data-open-menu>
-          <Icon name="menu" size={22} weight="bold" />
-        </button>
+        <nav class="hidden items-center lg:flex" aria-label="Main">
+          {desktopNav.map((k) => (
+            <a href={pageHref(lang, k)} aria-current={k === active ? "page" : undefined}
+              class:list={["relative rounded-full px-4 py-2 text-[0.92rem] font-medium no-underline transition-colors", k === active ? "text-accent-ink" : "text-ink-2 hover:text-ink"]}>
+              {k === active && <span class="absolute inset-0 -z-10 rounded-full bg-tint" style="view-transition-name: nav-pill"></span>}
+              {label(k)}
+            </a>
+          ))}
+        </nav>
+        <div class="flex items-center gap-1.5">
+          <a href={localized(other, route, lessonId)} hreflang={other} lang={other} aria-label={c.ui.switchLangAria}
+            class="inline-flex h-11 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold text-ink-2 no-underline hover:bg-tint hover:text-accent-ink">
+            <Icon name="lang" size={18} />{other.toUpperCase()}
+          </a>
+          <a href={pageHref(lang, "lienHe")} class="btn btn-accent hidden !min-h-11 sm:inline-flex">{c.ui.headerCta}</a>
+        </div>
       </div>
     </div>
   </header>
 
-  <dialog class="drawer" id="menu" aria-label={c.ui.menu}>
-    <div class="flex h-full flex-col p-5">
-      <div class="flex items-center justify-between">
-        <img src={asset("logo.png")} alt="" width="800" height="400" class="h-10 w-auto rounded-lg dark:bg-white/95 dark:px-1.5" />
-        <button type="button" class="grid size-11 place-items-center rounded-full bg-sunken" aria-label={c.ui.close} data-close-menu><Icon name="x" size={20} weight="bold" /></button>
+  <main id="main"><slot /></main>
+
+  <footer class="bg-deep text-teal-50/80">
+    <div class="shell grid gap-12 pb-28 pt-20 lg:grid-cols-[1.3fr_1fr_1fr] lg:pb-16">
+      <div>
+        <p class="max-w-md text-[clamp(1.5rem,1.1rem+1.4vw,2.2rem)] font-bold leading-tight tracking-tight text-white">{c.ui.footer.tagline}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={tel} class="btn btn-light"><Icon name="phone" size={20} weight="fill" />{contact.hotline}</a>
+          <a href={contact.zaloGroup} target="_blank" rel="noopener" class="btn bg-white/10 text-white hover:bg-white/15">{c.ui.zalo}</a>
+        </div>
       </div>
-      <nav class="mt-8 flex flex-col gap-1" aria-label="Mobile">
-        {nav.map((k, i) => (
-          <a href={pageHref(lang, k)} aria-current={isOn(k) ? "page" : undefined} style={`--d:${i}`}
-            class:list={["anim-in flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold no-underline",
-              isOn(k) ? "bg-brand-soft text-brand" : "text-ink hover:bg-sunken"]}>
-            {c.ui.nav[k as keyof typeof c.ui.nav]}<Icon name="arrow" size={18} class="opacity-40" />
-          </a>
-        ))}
+      <nav aria-label={c.ui.footer.explore}>
+        <h2 class="mb-4 text-sm font-semibold text-teal-300">{c.ui.footer.explore}</h2>
+        <ul class="grid gap-2.5">
+          {Object.entries(c.ui.footer.links).map(([k, t]) => (
+            <li><a href={pageHref(lang, k as PageKey)} class="text-teal-50/85 no-underline hover:text-white">{t}</a></li>
+          ))}
+        </ul>
       </nav>
-      <div class="mt-auto grid gap-3 pt-6">
-        <a href={tel} class="btn btn-alert w-full"><Icon name="phone" size={20} weight="fill" />{contact.hotline}</a>
-        <a href={pageHref(lang, "lienHe")} class="btn btn-primary w-full">{c.ui.headerCta}</a>
+      <div>
+        <h2 class="mb-4 text-sm font-semibold text-teal-300">{c.ui.footer.contact}</h2>
+        <ul class="grid gap-3">
+          <li><a href={`mailto:${contact.email}`} class="text-teal-50/85 no-underline hover:text-white">{contact.email}</a></li>
+          <li>{c.ui.footer.city}</li>
+        </ul>
+        <img src={asset("logo.png")} alt="Stroke360" width="800" height="400" loading="lazy" class="mt-10 h-12 w-auto rounded-2xl bg-white px-3 py-1.5" />
+      </div>
+    </div>
+    <p class="shell border-t border-white/10 pb-28 pt-6 text-[0.8rem] leading-relaxed text-teal-50/55 lg:pb-8">{c.ui.footer.demo} {c.lessonDisclaimer}</p>
+  </footer>
+
+  <!-- Desktop quick contact -->
+  <div class="no-print fixed bottom-6 right-6 z-40 hidden flex-col gap-3 lg:flex" transition:persist="fab">
+    <a href={contact.zaloGroup} target="_blank" rel="noopener" aria-label={c.ui.zalo}
+      class="grid size-14 place-items-center rounded-full bg-zalo text-sm font-bold text-white no-underline shadow-lg shadow-black/20 transition hover:scale-105">Zalo</a>
+    <a href={tel} aria-label={c.ui.call}
+      class="grid size-14 place-items-center rounded-full bg-rose-500 text-white no-underline shadow-lg shadow-black/20 transition hover:scale-105"><Icon name="phone" size={26} weight="fill" /></a>
+  </div>
+
+  <!-- Phone tab bar -->
+  <nav class="no-print fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-50 lg:hidden" aria-label="Tabs" style="view-transition-name: tabbar">
+    <ul class="grid grid-cols-5 rounded-[1.75rem] border border-hair/70 bg-raised/95 p-1.5 shadow-[var(--shadow)]">
+      {tabs.map(({ k, icon }) => (
+        <li>
+          <a href={pageHref(lang, k)} aria-current={k === active ? "page" : undefined}
+            class:list={["relative flex flex-col items-center gap-0.5 rounded-[1.4rem] py-2 text-[0.66rem] font-semibold no-underline", k === active ? "text-accent-ink" : "text-ink-3"]}>
+            {k === active && <span class="absolute inset-0 -z-10 rounded-[1.4rem] bg-tint" style="view-transition-name: nav-pill"></span>}
+            <Icon name={icon} size={24} weight={k === active ? "fill" : "regular"} />
+            <span class="whitespace-nowrap">{c.ui.tabs[k as keyof typeof c.ui.tabs]}</span>
+          </a>
+        </li>
+      ))}
+      <li>
+        <button type="button" data-open-sheet aria-haspopup="dialog"
+          class:list={["relative flex w-full flex-col items-center gap-0.5 rounded-[1.4rem] py-2 text-[0.66rem] font-semibold", moreActive ? "text-accent-ink" : "text-ink-3"]}>
+          {moreActive && <span class="absolute inset-0 -z-10 rounded-[1.4rem] bg-tint" style="view-transition-name: nav-pill"></span>}
+          <Icon name="more" size={24} weight={moreActive ? "fill" : "regular"} />
+          <span>{c.ui.tabs.more}</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <dialog class="sheet lg:hidden" id="sheet" aria-label={lang === "vi" ? "Thêm" : "More"}>
+    <div class="mx-auto mt-3 h-1.5 w-12 rounded-full bg-hair" aria-hidden="true"></div>
+    <div class="grid gap-2 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+      {morePages.map((k, i) => (
+        <a href={pageHref(lang, k)} data-close-sheet style={`--d:${i}`} aria-current={k === active ? "page" : undefined}
+          class:list={["enter flex items-center gap-4 rounded-2xl px-4 py-3.5 text-lg font-semibold no-underline", k === active ? "bg-tint text-accent-ink" : "text-ink"]}>
+          <span class="grid size-11 place-items-center rounded-full bg-tint text-accent-ink"><Icon name={moreIcons[k]} size={22} /></span>{label(k)}
+        </a>
+      ))}
+      <div class="mt-3 grid grid-cols-2 gap-3">
+        <a href={tel} class="btn btn-urgent"><Icon name="phone" size={20} weight="fill" />{c.ui.call}</a>
+        <a href={contact.zaloGroup} target="_blank" rel="noopener" class="btn bg-zalo text-white">{c.ui.zalo}</a>
       </div>
     </div>
   </dialog>
 
-  <main id="main"><slot /></main>
-
-  <div class="fab no-print fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 flex flex-col gap-3">
-    <a href={contact.zaloGroup} target="_blank" rel="noopener" aria-label={c.ui.zalo}
-      class="grid size-14 place-items-center rounded-full bg-zalo text-sm font-bold text-white no-underline shadow-lg shadow-black/20 transition hover:scale-105 active:scale-95">Zalo</a>
-    <a href={tel} aria-label={c.ui.call}
-      class="relative grid size-14 place-items-center rounded-full bg-rose-500 text-white no-underline shadow-lg shadow-black/20 transition hover:scale-105 active:scale-95">
-      <span class="absolute inset-0 animate-ping rounded-full bg-rose-500/40 motion-reduce:hidden" style="animation-duration:2.4s"></span>
-      <Icon name="phone" size={26} weight="fill" class="relative" />
-    </a>
-  </div>
-
-  <footer class="mt-0 bg-[#0f2427] text-teal-50/80">
-    <div class="ribbon"></div>
-    <div class="wrap grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
-      <div>
-        <img src={asset("logo.png")} alt="Stroke360" width="800" height="400" class="mb-4 h-12 w-auto rounded-xl bg-white px-2 py-1" loading="lazy" />
-        <p class="max-w-sm text-lg font-medium text-white">{c.ui.footer.tagline}</p>
-      </div>
-      <div>
-        <h2 class="mb-3 text-sm font-bold uppercase tracking-wider text-teal-300">{c.ui.footer.explore}</h2>
-        <ul class="grid gap-2">
-          {Object.entries(c.ui.footer.links).map(([k, t]) => (
-            <li><a href={pageHref(lang, k as PageKey)} class="text-teal-50/85 no-underline hover:text-white hover:underline">{t}</a></li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2 class="mb-3 text-sm font-bold uppercase tracking-wider text-teal-300">{c.ui.footer.contact}</h2>
-        <ul class="grid gap-3">
-          <li class="flex items-center gap-2.5"><Icon name="phone" size={20} class="text-teal-300" /><a href={tel} class="text-teal-50/85 no-underline hover:text-white">{contact.hotline}</a></li>
-          <li class="flex items-center gap-2.5"><Icon name="mail" size={20} class="text-teal-300" /><a href={`mailto:${contact.email}`} class="text-teal-50/85 no-underline hover:text-white">{contact.email}</a></li>
-          <li class="flex items-center gap-2.5"><Icon name="pin" size={20} class="text-teal-300" />{c.ui.footer.city}</li>
-        </ul>
-      </div>
-    </div>
-    <div class="border-t border-white/10">
-      <p class="wrap py-6 text-[0.8rem] leading-relaxed text-teal-50/60">{c.ui.footer.demo} {c.lessonDisclaimer}</p>
-    </div>
-  </footer>
-
   <script>
-    const menu = document.getElementById("menu") as HTMLDialogElement | null;
-    document.querySelector("[data-open-menu]")?.addEventListener("click", () => menu?.showModal());
-    document.querySelector("[data-close-menu]")?.addEventListener("click", () => menu?.close());
-    menu?.addEventListener("click", (e) => { if (e.target === menu) menu.close(); });
+    // Runs once; listeners survive client-side navigation.
+    document.addEventListener("pointermove", (e) => {
+      const el = (e.target as Element | null)?.closest?.(".glow") as HTMLElement | null;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    }, { passive: true });
+
+    document.addEventListener("astro:page-load", () => {
+      const sheet = document.getElementById("sheet") as HTMLDialogElement | null;
+      document.querySelector("[data-open-sheet]")?.addEventListener("click", () => sheet?.showModal());
+      sheet?.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
+      sheet?.querySelectorAll("[data-close-sheet]").forEach((a) => a.addEventListener("click", () => sheet.close()));
+    });
   </script>
 </body>
 </html>

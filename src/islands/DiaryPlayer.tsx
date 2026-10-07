@@ -34,7 +34,7 @@ export default function DiaryPlayer({ diary, t, restart }: Props) {
     <MotionConfig reducedMotion="user">
       <div ref={root} className="grid justify-items-center gap-6">
         <div className="w-full max-w-[22rem] rounded-[2.75rem] bg-[#0f2427] p-3 shadow-[0_40px_80px_-30px_rgb(8_40_42/0.55)] ring-1 ring-black/10">
-          <div className="relative flex h-[40rem] flex-col overflow-hidden rounded-[2.2rem] bg-sunken">
+          <div className="relative flex h-[40rem] flex-col overflow-hidden rounded-[2.2rem] bg-canvas">
             <div className="absolute left-1/2 top-2.5 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-[#0f2427]" aria-hidden />
             <div className="bg-gradient-to-br from-teal-700 to-teal-500 px-5 pb-4 pt-3 text-white">
               <div className="flex items-center justify-between text-xs font-semibold opacity-90" aria-hidden><span>18:30</span><span className="flex gap-1"><WifiHighIcon size={14} weight="bold" /><BatteryFullIcon size={14} weight="bold" /></span></div>
@@ -47,29 +47,29 @@ export default function DiaryPlayer({ diary, t, restart }: Props) {
                 {diary.slice(0, n).map((e) => (
                   <motion.div key={e.t + e.title} layout initial={{ opacity: 0, y: 16, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 26 }}
-                    className={`mb-2.5 rounded-2xl p-3.5 text-[0.82rem] leading-snug shadow-sm ${e.summary ? "bg-teal-800 text-white" : "border-l-4 bg-surface " + (e.hl ? "border-rose-500" : "border-teal-300")}`}>
-                    <div className={`flex items-center gap-1.5 text-xs font-bold ${e.summary ? "text-teal-100" : "text-brand"}`}>
+                    className={`mb-2.5 rounded-2xl p-3.5 text-[0.82rem] leading-snug shadow-sm ${e.summary ? "bg-teal-800 text-white" : "border-l-4 bg-raised " + (e.hl ? "border-rose-500" : "border-teal-300")}`}>
+                    <div className={`flex items-center gap-1.5 text-xs font-bold ${e.summary ? "text-teal-100" : "text-accent-ink"}`}>
                       {e.hl && <WarningIcon size={14} weight="fill" className="text-rose-500" />}{e.summary && <PaperPlaneTiltIcon size={14} weight="fill" />}
                       {e.t} · {e.tag}
                     </div>
                     <b className={`mt-0.5 block ${e.summary ? "!text-white" : ""}`}>{e.title}</b>
-                    <p className={e.summary ? "text-teal-50/90" : "text-muted"}>{e.note}</p>
+                    <p className={e.summary ? "text-teal-50/90" : "text-ink-2"}>{e.note}</p>
                   </motion.div>
                 ))}
               </AnimatePresence>
               {playing && !finished && (
                 <div className="flex gap-1 px-2 py-1" aria-hidden>
-                  {[0, 1, 2].map((i) => <motion.span key={i} className="size-2 rounded-full bg-faint" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: i * 0.15 }} />)}
+                  {[0, 1, 2].map((i) => <motion.span key={i} className="size-2 rounded-full bg-ink-3" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: i * 0.15 }} />)}
                 </div>
               )}
             </div>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <button type="button" onClick={toggle} className="btn btn-primary">
+          <button type="button" onClick={toggle} className="btn btn-accent">
             {finished ? <><ArrowCounterClockwiseIcon size={20} weight="bold" />{restart}</> : playing ? <><PauseIcon size={20} weight="fill" />{t.pause}</> : <><PlayIcon size={20} weight="fill" />{t.play}</>}
           </button>
-          <span className="text-sm tabular-nums text-faint">{n}/{diary.length}</span>
+          <span className="text-sm tabular-nums text-ink-3">{n}/{diary.length}</span>
         </div>
       </div>
     </MotionConfig>

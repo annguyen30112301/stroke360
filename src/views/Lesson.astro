@@ -13,79 +13,85 @@ const ready = c.lessons.filter((l) => l.ready);
 const idx = ready.findIndex((l) => l.id === id);
 const l = ready[idx];
 const prev = ready[idx - 1], next = ready[idx + 1];
-/** "B – Balance (…): text" → letter tile for BE-FAST style points */
-const letter = (p: string) => p.match(/^([A-Z]) – (.*)$/);
+/** "B - Balance (...): text" → letter tile for BE-FAST style points */
+const letter = (p: string) => p.match(/^([A-Z]) - (.*)$/);
+const toc = [["y-chinh", t.keyPoints, "bolt"], ["bang-kiem", t.checklist, "notebook"], ["cau-hoi", t.quiz, "target"]];
 ---
-<Base lang={lang} page="lesson" path={`bai-hoc/${id}.html`} title={`${l.title} – Stroke360`} description={l.points?.[0]?.slice(0, 155) ?? c.meta.lesson.description}>
-  <article class="wrap max-w-3xl pb-24 pt-10 sm:pt-14">
-    <a href={pageHref(lang, "hoc")} class="no-print inline-flex items-center gap-2 text-sm font-semibold no-underline hover:underline"><Icon name="back" size={18} weight="bold" />{t.backToPath}</a>
-
-    <header class="mt-6">
-      <div class="anim-in flex flex-wrap items-center gap-2 text-sm">
-        <span class="tag">{l.id} · {stageLabel(c, l.stage)}</span>
-        <span class="inline-flex items-center gap-1 text-faint"><Icon name="clock" size={16} />{c.ui.minutes.replace("{n}", String(l.mins))}</span>
-        <span class="inline-flex items-center gap-1 text-brand"><Icon name="seal" size={18} />{c.ui.approved}</span>
+<Base lang={lang} route="lesson" lessonId={id} title={`${l.title} - Stroke360`} description={l.points?.[0]?.slice(0, 155) ?? c.meta.lesson.description}>
+  <article class="shell grid gap-12 pb-24 pt-28 sm:pt-36 lg:grid-cols-[17rem_1fr] lg:gap-16">
+    <aside class="no-print lg:sticky lg:top-28 lg:self-start">
+      <a href={pageHref(lang, "hoc")} class="inline-flex items-center gap-2 text-sm font-semibold no-underline"><Icon name="back" size={18} weight="bold" />{t.backToPath}</a>
+      <nav class="mt-8 hidden lg:block" aria-label={l.title}>
+        <ul class="grid gap-1 border-l-2 border-hair">
+          {toc.map(([href, label, icon]) => (
+            <li><a href={`#${href}`} class="-ml-0.5 flex items-center gap-3 border-l-2 border-transparent py-2 pl-4 text-ink-2 no-underline hover:border-accent hover:text-accent-ink"><Icon name={icon} size={18} />{label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <div class="mt-8 hidden gap-2 lg:grid">
+        {prev && <a href={lessonHref(lang, prev.id)} class="rounded-2xl bg-raised p-4 text-sm no-underline shadow-[var(--shadow)]"><span class="text-ink-3">← {prev.id}</span><span class="mt-1 block font-semibold text-ink">{prev.title}</span></a>}
+        {next && <a href={lessonHref(lang, next.id)} class="rounded-2xl bg-raised p-4 text-sm no-underline shadow-[var(--shadow)]"><span class="text-ink-3">{next.id} →</span><span class="mt-1 block font-semibold text-ink">{next.title}</span></a>}
       </div>
-      <h1 class="mt-4 text-[clamp(1.9rem,1.2rem+2.6vw,3rem)] font-extrabold" style={`view-transition-name: lesson-${l.id}`}>{l.title}</h1>
-    </header>
+    </aside>
 
-    <section class="mt-10">
-      <h2 class="flex items-center gap-2 text-2xl"><Icon name="bolt" size={26} class="text-rose-500" />{t.keyPoints}</h2>
-      <ol class="mt-5 grid gap-3">
-        {l.points!.map((p, i) => {
-          const m = letter(p);
-          return (
-            <li class="card-flat flex gap-4 !p-5" data-reveal>
-              <span class:list={["grid size-10 shrink-0 place-items-center rounded-xl font-extrabold", m ? "bg-rose-500 text-white text-lg" : "bg-brand-soft text-brand"]}>{m ? m[1] : i + 1}</span>
-              <p class="pt-1.5">{m ? m[2] : p}</p>
+    <div class="min-w-0 max-w-3xl">
+      <header>
+        <div class="enter flex flex-wrap items-center gap-2 text-sm">
+          <span class="chip">{l.id} · {stageLabel(c, l.stage)}</span>
+          <span class="inline-flex items-center gap-1 text-ink-3"><Icon name="clock" size={16} />{c.ui.minutes.replace("{n}", String(l.mins))}</span>
+          <span class="inline-flex items-center gap-1 text-accent-ink"><Icon name="seal" size={18} />{c.ui.approved}</span>
+        </div>
+        <h1 class="mt-5 text-[clamp(2rem,1.3rem+2.6vw,3.4rem)] font-extrabold leading-[1.08] tracking-tight" style={`view-transition-name: lesson-${l.id}`}>{l.title}</h1>
+      </header>
+
+      <section id="y-chinh" class="mt-14 scroll-mt-28">
+        <h2 class="text-2xl">{t.keyPoints}</h2>
+        <ol class="mt-6 grid gap-8">
+          {l.points!.map((p, i) => {
+            const m = letter(p);
+            return (
+              <li class="grid grid-cols-[3rem_1fr] gap-5" data-reveal>
+                <span class:list={["grid size-12 place-items-center rounded-full text-lg font-extrabold", m ? "bg-rose-600 text-white" : "bg-tint text-accent-ink"]}>{m ? m[1] : i + 1}</span>
+                <p class="pt-2 text-[1.08rem] leading-relaxed">{m ? m[2] : p}</p>
+              </li>
+            );
+          })}
+        </ol>
+        <p class="mt-10 flex gap-3 rounded-2xl bg-tint p-5 text-[0.95rem] text-ink-2"><Icon name="warn" size={22} class="shrink-0 text-accent" />{c.lessonDisclaimer}</p>
+      </section>
+
+      <section id="bang-kiem" class="panel mt-14 scroll-mt-28 p-6 sm:p-9">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="text-2xl">{t.checklist}</h2>
+          <button type="button" class="btn btn-quiet no-print !min-h-11" onclick="window.print()"><Icon name="print" size={20} />{t.print}</button>
+        </div>
+        <ul class="mt-6 grid gap-1">
+          {l.checklist!.map((item) => (
+            <li>
+              <label class="flex cursor-pointer items-start gap-4 rounded-2xl px-3 py-3.5 transition-colors hover:bg-canvas has-[:checked]:text-ink-3 has-[:checked]:line-through">
+                <input type="checkbox" class="mt-0.5 size-6 shrink-0 cursor-pointer accent-teal-700" />
+                <span>{item}</span>
+              </label>
             </li>
-          );
-        })}
-      </ol>
-      <p class="mt-5 flex gap-3 rounded-2xl border-l-4 border-brand bg-sunken p-4 text-[0.92rem] text-muted"><Icon name="warn" size={22} class="shrink-0 text-brand" />{c.lessonDisclaimer}</p>
-    </section>
+          ))}
+        </ul>
+      </section>
 
-    <section class="card mt-12" id="cl">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <h2 class="flex items-center gap-2 text-2xl"><Icon name="notebook" size={26} class="text-brand" />{t.checklist}</h2>
-        <button type="button" class="btn btn-ghost no-print !min-h-11" onclick="window.print()"><Icon name="print" size={20} />{t.print}</button>
-      </div>
-      <ul class="mt-5 grid gap-1">
-        {l.checklist!.map((item) => (
-          <li>
-            <label class="flex cursor-pointer items-start gap-3 rounded-xl px-2 py-3 transition hover:bg-sunken has-[:checked]:text-faint has-[:checked]:line-through">
-              <input type="checkbox" class="mt-0.5 size-6 shrink-0 cursor-pointer accent-teal-700" />
-              <span>{item}</span>
-            </label>
-          </li>
-        ))}
-      </ul>
-    </section>
+      <section id="cau-hoi" class="no-print mt-14 scroll-mt-28">
+        <h2 class="text-2xl">{t.quiz}</h2>
+        <p class="mt-2 text-ink-2">{t.quizHelp}</p>
+        <div class="mt-6">
+          <LessonQuiz client:visible id={l.id} quiz={l.quiz!} t={t} hocHref={pageHref(lang, "hoc")}
+            next={next && { id: next.id, title: next.title, href: lessonHref(lang, next.id) }} />
+        </div>
+      </section>
 
-    <section class="no-print mt-12">
-      <h2 class="flex items-center gap-2 text-2xl"><Icon name="target" size={26} class="text-brand" />{t.quiz}</h2>
-      <p class="mt-2 text-muted">{t.quizHelp}</p>
-      <div class="mt-6">
-        <LessonQuiz client:visible id={l.id} quiz={l.quiz!} t={t} hocHref={pageHref(lang, "hoc")}
-          next={next && { id: next.id, title: next.title, href: lessonHref(lang, next.id) }} />
-      </div>
-    </section>
+      <nav class="no-print mt-14 grid gap-3 sm:grid-cols-2 lg:hidden" aria-label="Lessons">
+        {prev ? <a href={lessonHref(lang, prev.id)} class="rounded-2xl bg-raised p-5 no-underline shadow-[var(--shadow)]"><span class="text-sm text-ink-3">← {prev.id}</span><span class="mt-1 block font-semibold text-ink">{prev.title}</span></a> : <span />}
+        {next && <a href={lessonHref(lang, next.id)} class="rounded-2xl bg-raised p-5 text-right no-underline shadow-[var(--shadow)]"><span class="text-sm text-ink-3">{next.id} →</span><span class="mt-1 block font-semibold text-ink">{next.title}</span></a>}
+      </nav>
 
-    <nav class="no-print mt-14 grid gap-3 sm:grid-cols-2" aria-label="Lessons">
-      {prev ? (
-        <a href={lessonHref(lang, prev.id)} class="card card-link group !p-5">
-          <span class="flex items-center gap-1 text-sm text-faint"><Icon name="back" size={16} weight="bold" />{prev.id}</span>
-          <span class="mt-1 block font-semibold">{prev.title}</span>
-        </a>
-      ) : <span />}
-      {next && (
-        <a href={lessonHref(lang, next.id)} class="card card-link group !p-5 text-right">
-          <span class="flex items-center justify-end gap-1 text-sm text-faint">{next.id}<Icon name="arrow" size={16} weight="bold" /></span>
-          <span class="mt-1 block font-semibold">{next.title}</span>
-        </a>
-      )}
-    </nav>
-
-    <p class="note mt-10">{c.lessonSources}</p>
+      <p class="t-note mt-12">{c.lessonSources}</p>
+    </div>
   </article>
 </Base>

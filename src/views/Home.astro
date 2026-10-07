@@ -1,254 +1,232 @@
 ---
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
-import SectionHead from "../components/SectionHead.astro";
+import Photo from "../components/Photo.astro";
 import Counter from "../components/Counter.astro";
-import { getContent, href, pageHref, lessonHref, type PageKey } from "../lib/i18n";
+import Words from "../components/Words.astro";
+import ComparePanel from "../islands/ComparePanel.tsx";
+import { getContent, pageHref, lessonHref, type PageKey } from "../lib/i18n";
 import type { Lang } from "../content/types";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const c = getContent(lang);
 const h = c.home;
-const BEFAST = ["B", "E", "F", "A", "S", "T"];
+const headline = `${h.h1[0]} ${h.h1[1]} ${h.h1[2]}`;
+const marquee = [...c.promises.map(([a]) => a), ...h.values.items.map((v) => v.title)];
+const lead = h.lead.replace(/<\/?b>/g, "");
+const stories = h.story.steps;
 ---
-<Base lang={lang} page="home" path="" title={c.meta.home.title} description={c.meta.home.description}>
-  <!-- 1. Promise -->
-  <section class="relative overflow-hidden">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-      <div class="absolute -left-48 -top-48 size-[42rem] rounded-full bg-teal-300/25 blur-3xl dark:bg-teal-500/10"></div>
-      <div class="absolute -right-40 top-32 size-[30rem] rounded-full bg-rose-300/20 blur-3xl dark:bg-rose-500/10"></div>
-      <svg class="absolute bottom-0 left-1/2 w-[140%] max-w-none -translate-x-1/2 text-teal-500/10" viewBox="0 0 1200 200" fill="none" preserveAspectRatio="none">
-        <path d="M0 140 C 200 60, 380 200, 600 120 S 1000 40, 1200 110" stroke="currentColor" stroke-width="2" />
-        <path d="M0 170 C 240 100, 420 220, 640 150 S 1020 80, 1200 150" stroke="var(--color-rose-500)" stroke-opacity=".12" stroke-width="2" />
-      </svg>
-    </div>
-    <div class="wrap grid items-center gap-14 pb-20 pt-12 sm:pt-20 lg:grid-cols-[1.25fr_1fr] lg:pb-28">
+<Base lang={lang} route="home" title={c.meta.home.title} description={c.meta.home.description}>
+
+  <!-- Hero: split, photo with the evening diary card -->
+  <section class="relative overflow-hidden pt-28 lg:pt-32">
+    <div aria-hidden="true" class="pointer-events-none absolute -right-40 -top-40 -z-10 size-[44rem] rounded-full bg-teal-300/20 blur-3xl dark:bg-teal-500/10"></div>
+    <div class="shell grid items-center gap-12 pb-16 lg:min-h-[calc(100dvh-8rem)] lg:grid-cols-[1.3fr_1fr] lg:gap-14">
       <div>
-        <span class="eyebrow anim-in"><Icon name="heart" size={18} />{h.eyebrow}</span>
-        <h1 class="h-display anim-in mt-6" style="--d:1">
-          {h.h1[0]} <span class="text-gradient">{h.h1[1]}</span> {h.h1[2]}
-          <span class="mt-2 block text-muted/90 [font-weight:700]">{h.h1[3]}</span>
-        </h1>
-        <p class="lead anim-in mt-7 max-w-xl" style="--d:2" set:html={h.lead} />
-        <div class="anim-in mt-9 flex flex-wrap gap-3" style="--d:3">
-          <a class="btn btn-primary" href="#vi-sao">{h.cta1}<Icon name="arrow" size={18} weight="bold" /></a>
-          <a class="btn btn-ghost" href={pageHref(lang, "dichVu", "#chon-goi")}>{h.cta2}</a>
+        <h1 class="t-display !text-[clamp(2.3rem,1.2rem+3.4vw,4rem)]"><Words text={headline} /></h1>
+        <p class="enter mt-6 text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-semibold leading-snug text-accent-ink" style="--d:3">{h.h1[3]}</p>
+        <p class="t-sub enter mt-4" style="--d:4">{lead}</p>
+        <div class="enter mt-9 flex flex-wrap gap-3" style="--d:5">
+          <a class="btn btn-accent" href={pageHref(lang, "dichVu", "#chon-goi")}>{h.cta2}<Icon name="arrow" size={18} weight="bold" /></a>
+          <a class="btn btn-quiet" href="#vi-sao">{h.cta1}</a>
         </div>
       </div>
-
-      <!-- Diary notification mockup -->
-      <div class="anim-in relative mx-auto w-full max-w-md" style="--d:3">
-        <div class="floaty">
-          <div class="overflow-hidden rounded-[1.75rem] border border-line bg-surface shadow-[var(--shadow-lift)]">
-            <div class="flex items-center justify-between bg-gradient-to-r from-teal-700 to-teal-500 px-5 py-4 text-white">
-              <span class="flex items-center gap-2 font-semibold"><Icon name="notebook" size={22} />{h.diary.head}</span>
-              <span class="rounded-full bg-white/20 px-2.5 py-0.5 text-sm font-semibold tabular-nums">{h.diary.time}</span>
-            </div>
-            <ul class="grid gap-3 p-5">
-              {h.diary.lines.map((l, i) => (
-                <li class="anim-in flex gap-3" style={`--d:${4 + i * 2}`}>
-                  <span class="mt-1 grid size-6 shrink-0 place-items-center rounded-full bg-brand-soft text-brand"><Icon name="check" size={14} weight="bold" /></span>
-                  <span class="text-[0.95rem]" set:html={l} />
-                </li>
-              ))}
-            </ul>
-            <div class="border-t border-line bg-sunken/60 px-5 py-4 text-sm text-muted">
-              {h.diary.foot} <a href={pageHref(lang, "nhatKy")} class="font-semibold">{h.diary.more} →</a>
-              <div class="note mt-1">{c.ui.simulated}</div>
-            </div>
-          </div>
-        </div>
-        <div class="anim-in absolute -left-4 -top-5 hidden rotate-[-4deg] items-center gap-2 rounded-2xl border border-line bg-surface px-3.5 py-2 text-sm font-semibold shadow-[var(--shadow-card)] sm:flex" style="--d:8">
-          <Icon name="shield" size={20} class="text-brand" />0 {lang === "vi" ? "sự cố" : "incidents"}
-        </div>
-        <div class="anim-in absolute -bottom-5 -right-3 hidden rotate-[3deg] items-center gap-2 rounded-2xl border border-line bg-surface px-3.5 py-2 text-sm font-semibold shadow-[var(--shadow-card)] sm:flex" style="--d:10">
-          <Icon name="clock" size={20} class="text-rose-500" />{lang === "vi" ? "Ca 12 giờ" : "12-hour shifts"}
-        </div>
-      </div>
-    </div>
-  </section>
-  <div class="ribbon"></div>
-
-  <!-- 2. Story -->
-  <section id="vi-sao" class="section">
-    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-      <div class="lg:sticky lg:top-28 lg:self-start" data-reveal>
-        <span class="eyebrow">{h.story.eyebrow}</span>
-        <h2 class="h-section mt-4">{h.story.title}</h2>
-        <p class="note mt-4">{h.story.note}</p>
-      </div>
-      <div>
-        <ol class="relative grid gap-10 pl-10">
-          <span aria-hidden="true" class="absolute bottom-2 left-[0.6875rem] top-2 w-0.5 rounded bg-line"></span>
-          <span aria-hidden="true" class="story-line absolute bottom-2 left-[0.6875rem] top-2 w-0.5 rounded bg-gradient-to-b from-teal-500 to-rose-500"></span>
-          {h.story.steps.map(([time, text]) => (
-            <li class="relative" data-reveal>
-              <span aria-hidden="true" class="absolute -left-10 top-1 grid size-6 place-items-center rounded-full border-2 border-brand bg-bg"><span class="size-2 rounded-full bg-brand"></span></span>
-              <p class="text-sm font-bold uppercase tracking-wider text-brand">{time}</p>
-              <p class="mt-2 text-lg text-muted">{text}</p>
-            </li>
-          ))}
-        </ol>
-        <blockquote class="relative mt-12 rounded-[var(--radius-card)] bg-gradient-to-br from-teal-700 to-teal-900 p-8 text-white shadow-[var(--shadow-lift)] sm:p-10" data-reveal>
-          <Icon name="quote" size={40} weight="fill" class="text-rose-300" />
-          <p class="mt-3 text-xl font-semibold leading-snug sm:text-2xl">{h.story.quote}</p>
-        </blockquote>
-        <p class="mt-8 text-lg font-medium" data-reveal>{h.story.after}</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. Facts -->
-  <section class="section bg-sunken">
-    <div class="wrap">
-      <SectionHead title={h.facts.title} />
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {h.facts.items.map((f, i) => (
-          <div class="card-flat flex flex-col" data-reveal style={`animation-delay:${i * 60}ms`}>
-            <div class:list={["font-extrabold tracking-tight", f.word ? "text-brand text-4xl" : "text-rose-500 text-4xl sm:text-5xl"]}>
-              {f.word ?? <Counter value={f.v!} lang={lang} prefix={f.p} suffix={f.s} />}
-            </div>
-            <p class="mt-3 text-muted">{f.text}</p>
-          </div>
-        ))}
-      </div>
-      <p class="note mt-6">{h.facts.source}</p>
-    </div>
-  </section>
-
-  <!-- 4. Compare -->
-  <section class="section">
-    <div class="wrap">
-      <SectionHead title={h.compare.title} sub={h.compare.sub} />
-      <div class="card overflow-hidden !p-0" data-reveal>
-        <div class="hidden grid-cols-2 sm:grid">
-          <div class="px-6 py-4 font-bold text-muted">{h.compare.left}</div>
-          <div class="bg-gradient-to-r from-teal-700 to-teal-500 px-6 py-4 font-bold text-white">{h.compare.right}</div>
-        </div>
-        {h.compare.rows.map(([a, b]) => (
-          <div class="grid border-t border-line sm:grid-cols-2 sm:first-of-type:border-t-0">
-            <div class="flex items-start gap-3 px-6 py-4 text-muted">
-              <span class="mt-1 grid size-6 shrink-0 place-items-center rounded-full bg-sunken text-faint"><Icon name="x" size={14} weight="bold" /></span>
-              <span><span class="sr-only">{h.compare.left}: </span>{a}</span>
-            </div>
-            <div class="flex items-start gap-3 bg-brand-soft/60 px-6 py-4 font-medium">
-              <span class="mt-1 grid size-6 shrink-0 place-items-center rounded-full bg-brand text-on-brand"><Icon name="check" size={14} weight="bold" /></span>
-              <span><span class="sr-only">{h.compare.right}: </span>{b}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Pillars -->
-  <section class="section bg-brand-soft/50">
-    <div class="wrap">
-      <SectionHead title={h.pillars.title} sub={h.pillars.sub} />
-      <div class="grid gap-5 md:grid-cols-3">
-        {h.pillars.items.map((p, i) => (
-          <a href={pageHref(lang, p.page as PageKey)} class="card card-link group flex flex-col" data-reveal>
-            <span class:list={["icon-tile", i === 1 && "alert"]}><Icon name={p.icon} size={30} /></span>
-            <h3 class="mt-5 text-xl">{p.title}</h3>
-            <p class="mt-2 flex-1 text-[0.95rem] text-muted">{p.text}</p>
-            <span class="mt-5 inline-flex items-center gap-2 font-semibold text-brand">{p.cta}<Icon name="arrow" size={18} weight="bold" class="transition-transform group-hover:translate-x-1" /></span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. Values -->
-  <section class="section">
-    <div class="wrap">
-      <SectionHead title={h.values.title} />
-      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {h.values.items.map((v, i) => (
-          <div class="card relative overflow-hidden" data-reveal>
-            <span aria-hidden="true" class:list={["absolute inset-x-0 top-0 h-1", i % 2 ? "bg-rose-500" : "bg-teal-500"]}></span>
-            <span class:list={["icon-tile", i % 2 && "alert"]}><Icon name={v.icon} size={28} /></span>
-            <h3 class="mt-5 text-lg">{v.title}</h3>
-            <p class="mt-2 text-[0.92rem] text-muted">{v.text}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. Team -->
-  <section class="section bg-sunken">
-    <div class="wrap">
-      <SectionHead title={h.team.title} />
-      <div class="grid gap-4 sm:grid-cols-2">
-        {h.team.people.map((p) => (
-          <div class="card flex items-center gap-4" data-reveal>
-            <span class="grid size-16 shrink-0 place-items-center rounded-full bg-gradient-to-br from-teal-500 to-rose-500 text-2xl font-extrabold text-white">
-              {p.initial || <Icon name="sparkle" size={26} />}
-            </span>
-            <div><h3 class="text-lg">{p.name}</h3><p class="text-sm text-muted">{p.role}</p></div>
-          </div>
-        ))}
-        <div class="card flex items-center gap-4" data-reveal>
-          <span class="grid size-16 shrink-0 place-items-center rounded-full bg-teal-800 text-white"><Icon name="seal" size={30} /></span>
-          <div><h3 class="text-lg">{h.team.advisor.name}</h3><p class="text-sm text-muted">{h.team.advisor.role}</p></div>
-        </div>
-      </div>
-      <p class="mt-6 max-w-3xl text-muted">{h.team.note}</p>
-    </div>
-  </section>
-
-  <!-- 8. Roadmap -->
-  <section class="section">
-    <div class="wrap">
-      <SectionHead title={h.road.title} sub={h.road.sub} />
-      <div class="relative">
-        <span aria-hidden="true" data-reveal-bar class="absolute left-0 right-0 top-3 hidden h-0.5 rounded bg-gradient-to-r from-teal-500 to-rose-500 lg:block"></span>
-        <ol class="grid gap-6 lg:grid-cols-4">
-          {h.road.items.map(([y, t, d], i) => (
-            <li class="relative" data-reveal>
-              <span aria-hidden="true" class:list={["relative z-10 hidden size-6 rounded-full border-4 border-bg lg:block", i === 3 ? "bg-rose-500" : "bg-teal-500"]}></span>
-              <div class="card mt-0 lg:mt-5">
-                <p class:list={["text-sm font-bold uppercase tracking-wider", i === 3 ? "text-rose-500" : "text-brand"]}>{y}</p>
-                <h3 class="mt-1 text-xl">{t}</h3>
-                <p class="mt-2 text-[0.92rem] text-muted">{d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <!-- 9. Paths + BE-FAST -->
-  <section class="section bg-brand-soft/50">
-    <div class="wrap">
-      <SectionHead title={h.paths.title} />
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {h.paths.items.map((p) => (
-          <a href={href(lang, p.href)} class="card card-link group" data-reveal>
-            <span class="icon-tile"><Icon name={p.icon} size={28} /></span>
-            <h3 class="mt-4 text-lg">{p.title}</h3>
-            <p class="mt-1 flex items-center gap-1.5 text-sm text-muted">{p.text}<Icon name="arrow" size={16} weight="bold" class="text-brand transition-transform group-hover:translate-x-1" /></p>
-          </a>
-        ))}
-      </div>
-
-      <div class="relative mt-10 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-rose-600 to-rose-700 p-8 text-white shadow-[var(--shadow-lift)] sm:p-12" data-reveal>
-        <div aria-hidden="true" class="absolute -right-20 -top-24 size-80 rounded-full bg-white/10 blur-2xl"></div>
-        <div class="relative grid items-center gap-8 lg:grid-cols-[1.2fr_1fr]">
-          <div>
-            <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-sm font-semibold"><Icon name="siren" size={18} />{h.befast.tag}</span>
-            <h3 class="mt-4 text-3xl font-extrabold !text-white sm:text-4xl">{h.befast.title}</h3>
-            <a href={lessonHref(lang, "B3")} class="btn mt-6 bg-white text-rose-700 hover:bg-rose-50">{h.befast.cta}<Icon name="arrow" size={18} weight="bold" /></a>
-          </div>
-          <div class="grid grid-cols-6 gap-2" aria-hidden="true">
-            {BEFAST.map((l, i) => (
-              <span class="anim-in grid aspect-square place-items-center rounded-2xl bg-white/15 text-2xl font-extrabold backdrop-blur sm:text-3xl" style={`--d:${i}`}>{l}</span>
+      <div class="enter relative" style="--d:2">
+        <Photo name="hero-care" eager alt={lang === "vi" ? "Chăm sóc viên STROKE360 giúp người bệnh ngồi dậy tại giường" : "A STROKE360 caregiver helping a patient sit up in bed"}
+          class="aspect-[4/5] w-full rounded-3xl lg:max-h-[78dvh]" icon="care" />
+        <figure class="panel absolute -bottom-8 left-4 right-4 p-5 sm:right-auto sm:left-[-2rem] sm:w-80">
+          <figcaption class="flex items-center justify-between text-sm font-semibold">
+            <span class="flex items-center gap-2 text-accent-ink"><Icon name="notebook" size={20} />{h.diary.head}</span>
+            <span class="tabular-nums text-ink-3">{h.diary.time}</span>
+          </figcaption>
+          <ul class="mt-3 grid gap-2 text-[0.92rem]">
+            {h.diary.lines.map((l, i) => (
+              <li class="enter flex gap-2.5" style={`--d:${6 + i * 2}`}><Icon name="check" size={18} weight="bold" class="mt-0.5 shrink-0 text-accent" /><span set:html={l} /></li>
             ))}
-          </div>
-        </div>
+          </ul>
+          <a href={pageHref(lang, "nhatKy")} class="mt-3 inline-flex items-center gap-1 text-sm font-semibold no-underline">{h.diary.more}<Icon name="arrow" size={16} weight="bold" /></a>
+        </figure>
       </div>
+    </div>
+  </section>
+
+  <!-- Promise marquee (the one marquee on this page) -->
+  <section aria-label={c.dichVu.promisesTitle} class="marquee mt-10 overflow-hidden border-y border-hair bg-raised py-5">
+    <div class="marquee-track flex w-max gap-12 pr-12">
+      {[...marquee, ...marquee].map((t, i) => (
+        <span class="flex items-center gap-3 whitespace-nowrap text-lg font-semibold text-ink-2" aria-hidden={i >= marquee.length ? "true" : undefined}>
+          <Icon name="seal" size={22} class="text-accent" />{t}
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <!-- Story: pinned photo + stacking day cards -->
+  <section id="vi-sao" class="py-24 sm:py-32">
+    <div class="shell grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <span class="chip">{h.story.eyebrow}</span>
+        <h2 class="t-title mt-5">{h.story.title}</h2>
+        <Photo name="family-evening" alt={lang === "vi" ? "Con gái ngồi bên mẹ vào buổi tối" : "A daughter sitting with her mother in the evening"}
+          class="mt-8 hidden aspect-[3/2] w-full rounded-3xl lg:block" icon="family" />
+        <p class="t-note mt-4">{h.story.note}</p>
+      </div>
+      <ol class="grid gap-5">
+        {stories.map(([time, text], i) => (
+          <li class="stack-card panel p-8 sm:p-10 lg:sticky" style={`--top:${7 + i * 1.25}rem`}>
+            <p class="text-sm font-bold text-accent-ink">{time}</p>
+            <p class="mt-3 text-xl leading-relaxed text-ink">{text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Manifesto -->
+  <section class="bg-deep py-24 text-center text-white sm:py-36">
+    <div class="shell max-w-5xl">
+      <Icon name="quote" size={48} weight="fill" class="mx-auto text-teal-300" />
+      <p class="mt-6 text-[clamp(1.7rem,1.1rem+2.6vw,3.4rem)] font-bold leading-[1.15] tracking-tight" data-reveal>{h.story.quote}</p>
+      <p class="mx-auto mt-8 max-w-2xl text-lg text-teal-50/75" data-reveal>{h.story.after}</p>
+    </div>
+  </section>
+
+  <!-- Facts: oversized numbers, no cards -->
+  <section class="py-24 sm:py-32">
+    <div class="shell">
+      <h2 class="t-title max-w-3xl" data-reveal>{h.facts.title}</h2>
+      <dl class="mt-14 grid gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-hair">
+        {h.facts.items.map((f) => (
+          <div class="lg:px-8 lg:first:pl-0" data-reveal>
+            <dt class:list={["font-extrabold tracking-tight", f.word ? "text-[clamp(2.2rem,1.6rem+2vw,3.2rem)] text-accent-ink" : "whitespace-nowrap text-[clamp(2.4rem,1.6rem+2.2vw,3.5rem)] text-ink"]}>
+              {f.word ?? <Counter value={f.v!} lang={lang} prefix={f.p} suffix={f.s} />}
+            </dt>
+            <dd class="mt-3 max-w-[28ch] text-ink-2">{f.text}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="t-note mt-12">{h.facts.source}</p>
+    </div>
+  </section>
+
+  <!-- Compare: segmented switch -->
+  <section class="bg-tint/60 py-24 sm:py-32">
+    <div class="shell">
+      <div class="mx-auto max-w-2xl text-center" data-reveal>
+        <h2 class="t-title">{h.compare.title}</h2>
+        <p class="t-sub mx-auto mt-4">{h.compare.sub}</p>
+      </div>
+      <div class="mt-10"><ComparePanel client:visible left={h.compare.left} right={h.compare.right} rows={h.compare.rows} /></div>
+    </div>
+  </section>
+
+  <!-- Offer: bento -->
+  <section class="py-24 sm:py-32">
+    <div class="shell">
+      <h2 class="t-title max-w-3xl" data-reveal>{h.pillars.title}</h2>
+      <p class="t-sub mt-4" data-reveal>{h.pillars.sub}</p>
+      <div class="mt-12 grid gap-4 lg:grid-cols-3 lg:grid-rows-2">
+        {h.pillars.items.map((p, i) => (
+          <a href={pageHref(lang, p.page as PageKey)} data-reveal
+            class:list={["glow lift group relative flex flex-col overflow-hidden rounded-3xl no-underline",
+              i === 0 && "min-h-[28rem] bg-deep text-white lg:col-span-2 lg:row-span-2",
+              i === 1 && "bg-raised p-8 shadow-[var(--shadow)]",
+              i === 2 && "bg-tint p-8"]}>
+            {i === 0 && (
+              <Photo name="bedside-learn" alt={lang === "vi" ? "Người nhà học bài trên điện thoại tại giường bệnh" : "A family member learning on her phone at the bedside"}
+                class="absolute inset-0 size-full opacity-60 transition-transform duration-700 group-hover:scale-105" icon="book" />
+            )}
+            <div class:list={["relative mt-auto", i === 0 && "bg-gradient-to-t from-deep via-deep/80 to-transparent p-8 pt-24 sm:p-10 sm:pt-32"]}>
+              <span class:list={["grid size-12 place-items-center rounded-full", i === 0 ? "bg-white/15 text-white" : "bg-tint text-accent-ink", i === 2 && "!bg-raised"]}><Icon name={p.icon} size={26} /></span>
+              <h3 class:list={["mt-5", i === 0 ? "text-[clamp(1.6rem,1.2rem+1.4vw,2.4rem)] !text-white" : "text-2xl"]}>{p.title}</h3>
+              <p class:list={["mt-2 max-w-[48ch]", i === 0 ? "text-teal-50/80 text-lg" : "text-ink-2"]}>{p.text}</p>
+              <span class:list={["mt-6 inline-flex items-center gap-2 font-semibold", i === 0 ? "text-teal-200" : "text-accent-ink"]}>{p.cta}<Icon name="arrow" size={18} weight="bold" class="transition-transform group-hover:translate-x-1" /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Values: open grid, no cards -->
+  <section class="border-t border-hair py-24 sm:py-32">
+    <div class="shell grid gap-14 lg:grid-cols-[0.9fr_2fr]">
+      <h2 class="t-title lg:sticky lg:top-28 lg:self-start" data-reveal>{h.values.title}</h2>
+      <div class="grid gap-x-12 gap-y-14 sm:grid-cols-2">
+        {h.values.items.map((v) => (
+          <div data-reveal>
+            <Icon name={v.icon} size={40} class="text-accent" />
+            <h3 class="mt-5 text-xl">{v.title}</h3>
+            <p class="mt-2 text-ink-2">{v.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap + team: horizontal scroll-snap track -->
+  <section class="overflow-hidden bg-raised py-24 sm:py-32">
+    <div class="shell">
+      <h2 class="t-title" data-reveal>{h.road.title}</h2>
+      <p class="t-sub mt-4" data-reveal>{h.road.sub}</p>
+    </div>
+    <ol class="gap-4 mt-12 flex snap-x snap-mandatory scroll-px-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] sm:scroll-px-6 sm:px-6 lg:scroll-px-8 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]">
+      {h.road.items.map(([y, t, d], i) => (
+        <li class:list={["w-[82%] shrink-0 snap-start rounded-3xl p-8 sm:w-[24rem]", i === 3 ? "bg-deep text-white" : "bg-canvas"]}>
+          <p class:list={["text-sm font-bold", i === 3 ? "text-teal-300" : "text-accent-ink"]}>{y}</p>
+          <h3 class:list={["mt-2 text-3xl", i === 3 && "!text-white"]}>{t}</h3>
+          <p class:list={["mt-4", i === 3 ? "text-teal-50/75" : "text-ink-2"]}>{d}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="shell mt-20">
+      <h3 class="text-2xl" data-reveal>{h.team.title}</h3>
+      <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {[...h.team.people, { initial: "+", name: h.team.advisor.name, role: h.team.advisor.role }].map((p) => (
+          <li class="flex items-start gap-4" data-reveal>
+            <span class="grid size-14 shrink-0 place-items-center rounded-full bg-tint text-xl font-extrabold text-accent-ink">
+              {p.initial === "+" ? <Icon name="seal" size={26} /> : p.initial || <Icon name="sparkle" size={22} />}
+            </span>
+            <div><p class="font-semibold">{p.name}</p><p class="text-sm text-ink-3">{p.role}</p></div>
+          </li>
+        ))}
+      </ul>
+      <p class="t-sub mt-10 !text-base">{h.team.note}</p>
+    </div>
+  </section>
+
+  <!-- Paths: big link index + urgent BE-FAST -->
+  <section class="py-24 sm:py-32">
+    <div class="shell">
+      <h2 class="t-title" data-reveal>{h.paths.title}</h2>
+      <ul class="mt-10 border-t border-hair">
+        {h.paths.items.map((p) => (
+          <li class="border-b border-hair">
+            <a href={pageHref(lang, p.page as PageKey, p.hash)} class="group grid grid-cols-[auto_1fr_auto] items-center gap-5 py-7 no-underline sm:gap-8">
+              <span class="grid size-12 place-items-center rounded-full bg-tint text-accent-ink transition-colors group-hover:bg-accent group-hover:text-on-accent"><Icon name={p.icon} size={24} /></span>
+              <span>
+                <span class="block text-[clamp(1.3rem,1rem+1.2vw,2.1rem)] font-bold tracking-tight text-ink transition-transform duration-500 ease-[var(--ease-spring)] group-hover:translate-x-2">{p.title}</span>
+                <span class="mt-1 block text-ink-3">{p.text}</span>
+              </span>
+              <Icon name="external" size={28} class="text-ink-3 transition-all duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent" />
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <a href={lessonHref(lang, "B3")} class="glow group relative mt-16 grid items-center gap-8 overflow-hidden rounded-3xl bg-rose-600 p-8 text-white no-underline sm:p-12 lg:grid-cols-[1.3fr_1fr]" data-reveal>
+        <div>
+          <p class="flex items-center gap-2 text-sm font-semibold text-rose-100"><Icon name="siren" size={20} />{h.befast.tag}</p>
+          <p class="mt-3 text-[clamp(1.7rem,1.2rem+1.8vw,2.8rem)] font-extrabold leading-tight tracking-tight">{h.befast.title}</p>
+          <span class="btn btn-light mt-7 !text-rose-700">{h.befast.cta}<Icon name="arrow" size={18} weight="bold" /></span>
+        </div>
+        <div class="grid grid-cols-6 gap-2" aria-hidden="true">
+          {["B", "E", "F", "A", "S", "T"].map((l, i) => (
+            <span class="grid aspect-[3/4] place-items-center rounded-2xl bg-white/12 text-3xl font-extrabold transition-transform duration-500 group-hover:-translate-y-2" style={`transition-delay:${i * 40}ms`}>{l}</span>
+          ))}
+        </div>
+      </a>
     </div>
   </section>
 </Base>

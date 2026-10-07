@@ -1,82 +1,90 @@
 ---
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
-import PageHero from "../components/PageHero.astro";
-import SectionHead from "../components/SectionHead.astro";
+import PageIntro from "../components/PageIntro.astro";
 import LessonBrowser from "../islands/LessonBrowser.tsx";
 import MoodCheck from "../islands/MoodCheck.tsx";
-import { getContent, href, pageHref } from "../lib/i18n";
+import { getContent, pageHref, linkKit } from "../lib/i18n";
 import type { Lang } from "../content/types";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const c = getContent(lang);
 const t = c.hoc;
-const base = href(lang, "");
+const links = linkKit(lang);
 const chipIcon: Record<string, string> = { K: "brain", A: "hospital", T: "heart", "tam-ly": "chats" };
 ---
-<Base lang={lang} page="hoc" path="hoc.html" title={c.meta.hoc.title} description={c.meta.hoc.description}>
-  <PageHero eyebrow={t.eyebrow} title={t.title} lead={t.lead}>
-    <nav class="mt-8 flex flex-wrap gap-2" aria-label={t.jump}>
-      {t.chips.map(([id, label]) => (
-        <a href={id === "tam-ly" ? "#tam-ly" : `#stage-${id}`}
-          class="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-surface px-4 text-[0.92rem] font-semibold text-ink no-underline transition hover:-translate-y-0.5 hover:border-brand hover:text-brand">
-          <Icon name={chipIcon[id]} size={20} class="text-brand" />{label}
-        </a>
-      ))}
-    </nav>
-  </PageHero>
+<Base lang={lang} route="hoc" title={c.meta.hoc.title} description={c.meta.hoc.description}>
+  <PageIntro chip={t.eyebrow} title={t.title} lead={t.lead}
+    photo={{ name: "bedside-learn", alt: lang === "vi" ? "Người nhà học bài trên điện thoại tại giường bệnh" : "A family member learning on her phone at the bedside", icon: "book" }} />
 
-  <section class="pb-20">
-    <div class="wrap">
-      <LessonBrowser client:load lessons={c.lessons} stages={c.stages} stageNotes={c.stageNotes} t={t} ui={c.ui} base={base} />
-    </div>
-  </section>
-
-  <section id="tam-ly" class="section bg-sunken">
-    <div class="wrap">
-      <SectionHead eyebrow={t.counsel.eyebrow} title={t.counsel.title} sub={t.counsel.lead} />
-      <div class="grid gap-5 lg:grid-cols-[1.3fr_1fr]">
-        <MoodCheck client:visible t={t.mood} base={base} />
-        <div class="card relative overflow-hidden !border-rose-100 !bg-alert-soft dark:!border-alert/20">
-          <span class="icon-tile alert !bg-surface"><Icon name="siren" size={28} /></span>
-          <h3 class="mt-4 text-xl !text-alert">{t.counsel.crisisTitle}</h3>
-          <p class="mt-2">{c.crisisNote}</p>
-          <a class="btn btn-alert mt-5" href="tel:115"><Icon name="phone" size={20} weight="fill" />{t.counsel.call115}</a>
-          <p class="mt-5 text-sm text-muted">{c.counselingNote}</p>
-        </div>
-      </div>
-
-      <h3 class="mt-14 text-2xl" data-reveal>{t.counsel.sessions}</h3>
-      <div class="mt-6 grid gap-5 md:grid-cols-2">
-        {c.counseling.map((s) => (
-          <article class="card flex flex-col" data-reveal>
-            <div class="flex flex-wrap items-center gap-2">
-              <span class:list={["tag", s.patient && "tag-alert"]}>{s.for}</span>
-              {s.free && <span class="tag">{t.counsel.free}</span>}
-            </div>
-            <h4 class="mt-3 text-xl">{s.name}</h4>
-            <p class="mt-1 flex items-center gap-1.5 text-sm text-faint"><Icon name="clock" size={16} />{s.format}</p>
-            <p class="mt-3 flex-1 text-[0.95rem] text-muted">{s.desc}</p>
-            <p class="note mt-3">{s.price}</p>
-            <a class:list={["btn mt-5 self-start", s.free ? "btn-primary" : "btn-ghost"]} href={pageHref(lang, "lienHe", `?topic=${s.id}`)}>
-              {s.free ? t.counsel.join : t.counsel.book}<Icon name="arrow" size={18} weight="bold" />
-            </a>
-          </article>
+  <!-- sticky topic bar -->
+  <nav aria-label={t.jump} class="sticky top-[5.5rem] z-30 lg:top-24">
+    <div class="shell">
+      <div class="flex gap-2 overflow-x-auto rounded-full border border-hair/70 bg-raised/85 p-1.5 shadow-[var(--shadow)] backdrop-blur-xl [scrollbar-width:none] sm:w-max">
+        {t.chips.map(([id, label]) => (
+          <a href={id === "tam-ly" ? "#tam-ly" : `#stage-${id}`}
+            class="inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full px-4 text-[0.9rem] font-semibold text-ink-2 no-underline transition-colors hover:bg-tint hover:text-accent-ink">
+            <Icon name={chipIcon[id]} size={18} class="text-accent" />{label}
+          </a>
         ))}
       </div>
     </div>
+  </nav>
+
+  <section class="pb-24 pt-10">
+    <div class="shell">
+      <LessonBrowser client:load lessons={c.lessons} stages={c.stages} stageNotes={c.stageNotes} t={t} ui={c.ui} links={links} />
+    </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="card grid items-center gap-6 sm:grid-cols-[auto_1fr_auto] sm:p-10" data-reveal>
-        <span class="icon-tile size-16"><Icon name="calendar" size={34} /></span>
+  <section id="tam-ly" class="scroll-mt-40 bg-deep py-24 text-white sm:py-32">
+    <div class="shell">
+      <div class="max-w-3xl">
+        <h2 class="t-title !text-white" data-reveal>{t.counsel.title}</h2>
+        <p class="mt-5 text-lg text-teal-50/75" data-reveal>{t.counsel.lead}</p>
+      </div>
+      <div class="mt-12 grid gap-5 text-ink lg:grid-cols-[1.4fr_1fr]">
+        <MoodCheck client:visible t={t.mood} links={links} />
+        <div class="flex flex-col rounded-3xl bg-rose-600 p-8 text-white">
+          <Icon name="siren" size={36} />
+          <h3 class="mt-4 text-2xl !text-white">{t.counsel.crisisTitle}</h3>
+          <p class="mt-2 text-rose-50/90">{c.crisisNote}</p>
+          <a class="btn btn-light mt-auto self-start !text-rose-700" href="tel:115"><Icon name="phone" size={20} weight="fill" />{t.counsel.call115}</a>
+        </div>
+      </div>
+      <p class="mt-5 text-sm text-teal-50/60">{c.counselingNote}</p>
+
+      <h3 class="mt-20 text-2xl !text-white" data-reveal>{t.counsel.sessions}</h3>
+      <ul class="mt-8 grid gap-px overflow-hidden rounded-3xl bg-white/10 md:grid-cols-2">
+        {c.counseling.map((s) => (
+          <li class="flex flex-col bg-deep p-8" data-reveal>
+            <div class="flex flex-wrap items-center gap-2 text-sm font-semibold">
+              <span class:list={["rounded-full px-3 py-1", s.patient ? "bg-rose-500/20 text-rose-100" : "bg-white/10 text-teal-100"]}>{s.for}</span>
+              {s.free && <span class="rounded-full bg-teal-400 px-3 py-1 text-teal-950">{t.counsel.free}</span>}
+            </div>
+            <h4 class="mt-4 text-xl !text-white">{s.name}</h4>
+            <p class="mt-1 flex items-center gap-1.5 text-sm text-teal-50/60"><Icon name="clock" size={16} />{s.format}</p>
+            <p class="mt-3 flex-1 text-teal-50/80">{s.desc}</p>
+            <p class="mt-3 text-sm text-teal-50/50">{s.price}</p>
+            <a class:list={["btn mt-6 self-start", s.free ? "btn-light" : "bg-white/10 text-white hover:bg-white/15"]} href={pageHref(lang, "lienHe", `?topic=${s.id}`)}>
+              {s.free ? t.counsel.join : t.counsel.book}<Icon name="arrow" size={18} weight="bold" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="py-24">
+    <div class="shell">
+      <div class="glow grid items-center gap-8 rounded-3xl bg-tint p-8 sm:p-12 lg:grid-cols-[auto_1fr_auto]" data-reveal>
+        <span class="grid size-16 place-items-center rounded-full bg-raised text-accent-ink"><Icon name="calendar" size={32} /></span>
         <div>
           <h2 class="text-2xl">{t.classCard.title}</h2>
-          <p class="mt-2 text-muted">{t.classCard.text}</p>
+          <p class="mt-2 max-w-2xl text-ink-2">{t.classCard.text}</p>
         </div>
-        <a class="btn btn-primary" href={pageHref(lang, "lienHe", "?topic=lop-hoc")}>{t.classCard.cta}</a>
+        <a class="btn btn-accent" href={pageHref(lang, "lienHe", "?topic=lop-hoc")}>{t.classCard.cta}</a>
       </div>
     </div>
   </section>

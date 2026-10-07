@@ -3,7 +3,8 @@ import View from "../../views/Lesson.astro";
 import { getContent } from "../../lib/i18n";
 
 export function getStaticPaths() {
-  return getContent("vi").lessons.filter((l) => l.ready).map((l) => ({ params: { id: l.id } }));
+  return getContent("vi").lessons.filter((l) => l.ready).map((l) => ({ params: { id: l.id.toLowerCase() }, props: { id: l.id } }));
 }
+const { id } = Astro.props;
 ---
-<View lang="vi" id={Astro.params.id} />
+<View lang="vi" id={id} />

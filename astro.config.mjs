@@ -8,8 +8,9 @@ export default defineConfig({
   site: "https://annguyen30112301.github.io",
   base: "/stroke360",
   outDir: "./docs",
-  trailingSlash: "ignore",
-  build: { format: "preserve" }, // keep old URLs: hoc.html, dich-vu.html…; en/index.html
+  trailingSlash: "always",
+  build: { format: "directory" }, // clean URLs: /hoc/, /en/learn/
+  prefetch: { prefetchAll: true, defaultStrategy: "hover" },
   integrations: [react()],
   vite: { plugins: [tailwindcss()] }
 });

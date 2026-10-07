@@ -1,8 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
-import PageHero from "../components/PageHero.astro";
-import SectionHead from "../components/SectionHead.astro";
+import PageIntro from "../components/PageIntro.astro";
 import PackagePicker from "../islands/PackagePicker.tsx";
 import { getContent, pageHref, vnd } from "../lib/i18n";
 import { contact } from "../content/shared";
@@ -13,57 +12,66 @@ const { lang } = Astro.props;
 const c = getContent(lang);
 const t = c.dichVu;
 const promiseIcons = ["clock", "notebook", "nurse", "eye"];
-const svcIcon = (code: string) => (code.startsWith("S1") ? "hospital" : code.startsWith("S2") ? "bed" : "handHeart");
+const groups = ["S1", "S2", "S3"].map((g) => c.services.filter((s) => s.code.startsWith(g)));
 ---
-<Base lang={lang} page="dichVu" path="dich-vu.html" title={c.meta.dichVu.title} description={c.meta.dichVu.description}>
-  <PageHero eyebrow={t.eyebrow} title={t.title} lead={t.lead}>
-    <a href="#chon-goi" class="btn btn-primary mt-8">{t.pickerTitle}<Icon name="arrow" size={18} weight="bold" /></a>
-  </PageHero>
+<Base lang={lang} route="dichVu" title={c.meta.dichVu.title} description={c.meta.dichVu.description}>
+  <PageIntro chip={t.eyebrow} title={t.title} lead={t.lead}
+    photo={{ name: "home-rehab", alt: lang === "vi" ? "Kỹ thuật viên giúp người bệnh tập đi tại nhà" : "A therapist helping a patient walk at home", icon: "care" }}>
+    <a href="#chon-goi" class="btn btn-accent mt-8">{t.pickerTitle}<Icon name="down" size={18} weight="bold" /></a>
+  </PageIntro>
 
-  <section id="chon-goi" class="section bg-brand-soft/50">
-    <div class="wrap max-w-3xl">
-      <SectionHead title={t.pickerTitle} center />
+  <section id="chon-goi" class="scroll-mt-24 bg-tint/60 py-24 sm:py-32">
+    <div class="shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div class="lg:sticky lg:top-28 lg:self-start" data-reveal>
+        <h2 class="t-title">{t.pickerTitle}</h2>
+        <p class="t-sub mt-4">{c.priceNote}</p>
+      </div>
       <PackagePicker client:visible lang={lang} services={c.services} t={t.picker} priceNote={c.priceNote} zalo={contact.zaloGroup}
         contactHref={pageHref(lang, "lienHe")} restart={c.ui.restart} back={c.ui.back} zaloLabel={c.ui.zalo} />
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <SectionHead title={t.priceTitle} />
-      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {c.services.map((s) => (
-          <article class:list={["card flex flex-col", s.code === "S1-N" && "ring-2 ring-brand"]} data-reveal>
-            <div class="flex items-center justify-between">
-              <span class:list={["tag", s.code === "S3" && "tag-alert"]}>{s.stage}</span>
-              <span class:list={["icon-tile !size-11", s.code === "S3" && "alert"]}><Icon name={svcIcon(s.code)} size={24} /></span>
+  <section class="py-24 sm:py-32">
+    <div class="shell">
+      <h2 class="t-title" data-reveal>{t.priceTitle}</h2>
+      <div class="mt-12 grid gap-10">
+        {groups.map((g) => (
+          <div class="grid gap-4 border-t border-hair pt-8 lg:grid-cols-[14rem_1fr] lg:gap-10" data-reveal>
+            <p class="text-lg font-bold text-accent-ink">{g[0].stage}</p>
+            <div class:list={["grid gap-4", g.length > 1 && "md:grid-cols-2"]}>
+              {g.map((s) => (
+                <article class:list={["glow lift flex flex-col rounded-3xl p-8", s.code === "S1-N" ? "bg-deep text-white" : "bg-raised shadow-[var(--shadow)]"]}>
+                  <div class="flex items-start justify-between gap-4">
+                    <h3 class:list={["text-xl", s.code === "S1-N" && "!text-white"]}>{s.code} · {s.name}</h3>
+                    <span class:list={["shrink-0 text-sm", s.code === "S1-N" ? "text-teal-200" : "text-ink-3"]}>{s.time}</span>
+                  </div>
+                  <p class:list={["mt-6 text-[clamp(2rem,1.6rem+1.4vw,2.8rem)] font-extrabold tracking-tight tabular-nums", s.code === "S1-N" ? "text-white" : "text-ink"]}>
+                    {s.priceText ?? vnd(s.price, lang)}<span class:list={["text-base font-medium", s.code === "S1-N" ? "text-teal-100/70" : "text-ink-3"]}>{s.unit}</span>
+                  </p>
+                  <p class:list={["mt-4", s.code === "S1-N" ? "text-teal-50/80" : "text-ink-2"]}>{s.desc}</p>
+                </article>
+              ))}
             </div>
-            <h3 class="mt-4 text-xl">{s.code} · {s.name}</h3>
-            <p class="mt-1 flex items-center gap-1.5 text-sm text-faint"><Icon name="clock" size={16} />{s.time}</p>
-            <p class="mt-4 text-3xl font-extrabold tracking-tight text-brand">{s.priceText ?? vnd(s.price, lang)}<span class="text-sm font-medium text-muted">{s.unit}</span></p>
-            <p class="mt-4 text-[0.92rem] text-muted">{s.desc}</p>
-          </article>
-        ))}
-      </div>
-      <p class="note mt-6">{c.priceNote}</p>
-    </div>
-  </section>
-
-  <section class="section bg-sunken">
-    <div class="wrap">
-      <SectionHead title={t.promisesTitle} />
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {c.promises.map(([a, b], i) => (
-          <div class="card-flat" data-reveal>
-            <span class="icon-tile"><Icon name={promiseIcons[i]} size={28} /></span>
-            <h3 class="mt-4 text-lg">{a}</h3>
-            <p class="mt-1 text-[0.92rem] text-muted">{b}</p>
           </div>
         ))}
       </div>
-      <p class="mt-8 flex gap-3 rounded-2xl border-l-4 border-brand bg-surface p-5 text-[0.95rem]" data-reveal>
-        <Icon name="scope" size={26} class="shrink-0 text-brand" /><span set:html={t.scope} />
-      </p>
+      <p class="t-note mt-10">{c.priceNote}</p>
+    </div>
+  </section>
+
+  <section class="bg-deep py-24 text-white sm:py-32">
+    <div class="shell">
+      <h2 class="t-title !text-white" data-reveal>{t.promisesTitle}</h2>
+      <div class="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        {c.promises.map(([a, b], i) => (
+          <div data-reveal>
+            <Icon name={promiseIcons[i]} size={40} class="text-teal-300" />
+            <h3 class="mt-5 text-xl !text-white">{a}</h3>
+            <p class="mt-2 text-teal-50/70">{b}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-16 max-w-4xl border-l-2 border-teal-300 pl-6 text-teal-50/80 [&_b]:!text-white" data-reveal set:html={t.scope} />
     </div>
   </section>
 </Base>

@@ -30,10 +30,10 @@ export default function LessonQuiz({ id, quiz, t, next, hocHref }: Props) {
         {quiz.map((q, i) => {
           const p = picked[i];
           return (
-            <fieldset key={i} className="card">
+            <fieldset key={i} className="panel p-6 sm:p-8">
               <legend className="sr-only">{q.q}</legend>
               <p className="flex gap-3 text-lg font-semibold" aria-hidden>
-                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand-soft text-sm font-bold text-brand">{i + 1}</span>{q.q}
+                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-tint text-sm font-bold text-accent-ink">{i + 1}</span>{q.q}
               </p>
               <div className="mt-4 grid gap-2.5">
                 {orders[i].map((j) => {
@@ -45,18 +45,18 @@ export default function LessonQuiz({ id, quiz, t, next, hocHref }: Props) {
                       animate={bad ? { x: [0, -8, 8, -5, 5, 0] } : { x: 0 }}
                       transition={{ duration: 0.4 }}
                       className={`flex min-h-14 w-full items-center justify-between gap-3 rounded-2xl border-2 px-4 py-3 text-left transition-colors ${
-                        ok ? "border-brand bg-brand-soft" : bad ? "border-alert bg-alert-soft" : "border-line bg-surface hover:border-brand/60"}`}>
+                        ok ? "border-accent bg-tint" : bad ? "border-urgent bg-urgent-soft" : "border-hair bg-raised hover:border-accent/60"}`}>
                       <span>{q.a[j]}</span>
                       <AnimatePresence>
-                        {ok && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="text-brand"><CheckCircleIcon size={26} weight="fill" /></motion.span>}
-                        {bad && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="text-alert"><XCircleIcon size={26} weight="fill" /></motion.span>}
+                        {ok && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="text-accent-ink"><CheckCircleIcon size={26} weight="fill" /></motion.span>}
+                        {bad && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="text-urgent"><XCircleIcon size={26} weight="fill" /></motion.span>}
                       </AnimatePresence>
                     </motion.button>
                   );
                 })}
               </div>
               <p className="mt-3 min-h-6 text-sm font-semibold" aria-live="polite">
-                {p !== null && (p === q.c ? <span className="text-brand">{t.correct}</span> : <span className="text-alert">{t.wrong}</span>)}
+                {p !== null && (p === q.c ? <span className="text-accent-ink">{t.correct}</span> : <span className="text-urgent">{t.wrong}</span>)}
               </p>
             </fieldset>
           );
@@ -65,7 +65,7 @@ export default function LessonQuiz({ id, quiz, t, next, hocHref }: Props) {
         <AnimatePresence>
           {solved && (
             <motion.div initial={{ opacity: 0, y: 20, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-teal-600 to-teal-800 p-7 text-white shadow-[var(--shadow-lift)]" role="status">
+              className="overflow-hidden rounded-3xl bg-deep p-7 text-white shadow-[var(--shadow)]" role="status">
               <motion.span initial={{ rotate: -30, scale: 0 }} animate={{ rotate: 0, scale: 1 }} transition={{ delay: 0.15, type: "spring" }} className="inline-block">
                 <ConfettiIcon size={44} weight="duotone" />
               </motion.span>

@@ -1,5 +1,5 @@
 /* ============================================================
-   ENGLISH CONTENT — same structure as vi.ts. Edit both together.
+   ENGLISH CONTENT - same structure as vi.ts. Edit both together.
    Figures follow Business Plan V3. Characters and diary are illustrative.
    Text inside <b>…</b> is shown in bold.
    ============================================================ */
@@ -35,21 +35,22 @@ export const en: Content = {
     illustrative: "Illustrative characters",
     back: "Back",
     restart: "Start over",
-    stagePrefix: "Stage"
+    stagePrefix: "Stage",
+    tabs: { home: "Home", hoc: "Learn", dichVu: "Services", congDong: "Community", more: "More" }
   },
 
   meta: {
-    home: { title: "STROKE360 – Supporting families of stroke patients", description: "You go to work by day, STROKE360 takes care. In the evening, you're with your parents. Shift-based stroke care from hospital to home, transparent pricing, a diary every evening." },
-    hoc: { title: "Learn with Stroke360 – A school for families", description: "Free 3–5 minute lessons for families of stroke patients: understanding stroke, safe feeding, repositioning, BE-FAST, mental health and counseling." },
-    lesson: { title: "Lesson – Learn with Stroke360", description: "Short lessons for families of stroke patients, with a checklist and a quick quiz." },
-    congDong: { title: "Family community – Stroke360", description: "Meet families who have been there, ask a nurse every Thursday evening, join caregiver support groups and community events." },
-    dichVu: { title: "Services and pricing – Stroke360", description: "Shift-based stroke care in hospital and at home. Public pricing; find the right package in 4 questions." },
-    tacDong: { title: "Values and impact – Stroke360", description: "Impact indicators, who benefits, and a sample quarterly quality report from STROKE360." },
-    benhVien: { title: "For hospitals – Stroke360", description: "A care partner with records, supervision and reporting. A 3-month pilot for neurology departments." },
-    lienHe: { title: "Contact – Stroke360", description: "Get free advice. A coordinator calls you back within 2 hours." },
-    nhatKy: { title: "Care diary – Stroke360", description: "A simulation of the per-shift care diary families receive on their phone." },
-    tuyenDung: { title: "Caregiver jobs – Stroke360", description: "Stable income, legal shift lengths, training and a clear career path." },
-    redirect: { title: "Opening lesson – Stroke360", description: "Opening the lesson." }
+    home: { title: "STROKE360 - Supporting families of stroke patients", description: "You go to work by day, STROKE360 takes care. In the evening, you're with your parents. Shift-based stroke care from hospital to home, transparent pricing, a diary every evening." },
+    hoc: { title: "Learn with Stroke360 - A school for families", description: "Free 3-5 minute lessons for families of stroke patients: understanding stroke, safe feeding, repositioning, BE-FAST, mental health and counseling." },
+    lesson: { title: "Lesson - Learn with Stroke360", description: "Short lessons for families of stroke patients, with a checklist and a quick quiz." },
+    congDong: { title: "Family community - Stroke360", description: "Meet families who have been there, ask a nurse every Thursday evening, join caregiver support groups and community events." },
+    dichVu: { title: "Services and pricing - Stroke360", description: "Shift-based stroke care in hospital and at home. Public pricing; find the right package in 4 questions." },
+    tacDong: { title: "Values and impact - Stroke360", description: "Impact indicators, who benefits, and a sample quarterly quality report from STROKE360." },
+    benhVien: { title: "For hospitals - Stroke360", description: "A care partner with records, supervision and reporting. A 3-month pilot for neurology departments." },
+    lienHe: { title: "Contact - Stroke360", description: "Get free advice. A coordinator calls you back within 2 hours." },
+    nhatKy: { title: "Care diary - Stroke360", description: "A simulation of the per-shift care diary families receive on their phone." },
+    tuyenDung: { title: "Caregiver jobs - Stroke360", description: "Stable income, legal shift lengths, training and a clear career path." },
+    redirect: { title: "Opening lesson - Stroke360", description: "Opening the lesson." }
   },
 
   home: {
@@ -105,7 +106,7 @@ export const en: Content = {
       title: "What we offer",
       sub: "Learning and community are free. We give first, then we sell services.",
       items: [
-        { page: "hoc", icon: "book", title: "Learn with Stroke360", text: "3–5 minute lessons for families: safe feeding, repositioning, recognising BE-FAST. Read them at the bedside.", cta: "Start learning" },
+        { page: "hoc", icon: "book", title: "Learn with Stroke360", text: "3-5 minute lessons for families: safe feeding, repositioning, recognising BE-FAST. Read them at the bedside.", cta: "Start learning" },
         { page: "congDong", icon: "community", title: "Family community", text: "Meet families who have been there, ask a nurse every Thursday evening, and be reminded that you need rest too.", cta: "Join" },
         { page: "dichVu", icon: "care", title: "Shift-based care", text: "S1 in hospital from 1,100,000 ₫/day · S2 at home · S3 long-term referrals. Public pricing.", cta: "See services" }
       ]
@@ -142,10 +143,10 @@ export const en: Content = {
     paths: {
       title: "Where are you on this journey?",
       items: [
-        { href: "dich-vu.html#chon-goi", icon: "bed", title: "My parent is in hospital", text: "Find the right package in 4 questions" },
-        { href: "hoc.html", icon: "book", title: "I want to care better myself", text: "Free lessons, 3–5 minutes each" },
-        { href: "benh-vien.html", icon: "hospital", title: "I work at a hospital", text: "A 3-month pilot programme" },
-        { href: "tuyen-dung.html", icon: "nurse", title: "I want to be a caregiver", text: "Stable income, legal shifts" }
+        { page: "dichVu", hash: "#chon-goi", icon: "bed", title: "My parent is in hospital", text: "Find the right package in 4 questions" },
+        { page: "hoc", hash: "", icon: "book", title: "I want to care better myself", text: "Free lessons, 3-5 minutes each" },
+        { page: "benhVien", hash: "", icon: "hospital", title: "I work at a hospital", text: "A 3-month pilot programme" },
+        { page: "tuyenDung", hash: "", icon: "nurse", title: "I want to be a caregiver", text: "Stable income, legal shifts" }
       ]
     },
     befast: { tag: "29 Oct · World Stroke Day", title: "Spot a stroke in 1 minute: BE-FAST", cta: "Learn it in 3 minutes" }
@@ -154,7 +155,7 @@ export const en: Content = {
   hoc: {
     eyebrow: "A school for families · Free",
     title: "Learn with Stroke360",
-    lead: "3–5 minute lessons, written for people who are tired and worried. Read them on your phone, at the bedside.",
+    lead: "3-5 minute lessons, written for people who are tired and worried. Read them on your phone, at the bedside.",
     search: "e.g. my mother chokes when eating",
     searchAria: "Search lessons",
     progress: "You have completed {done}/{total} lessons",
@@ -179,7 +180,7 @@ export const en: Content = {
       help: "Drag the slider to rate your own stress (0 = relaxed, 10 = overwhelmed). Saved only on this device, never sent anywhere.",
       aria: "Stress level",
       low: { title: "You're holding up well.", text: "Keep taking 15 minutes a day for yourself.", link: "Read lesson C4", id: "C4" },
-      mid: { title: "A bit tense. Take a short break.", text: "Try lesson T3 – 5 minutes to calm down, and join the Sunday evening support group.", link: "Open lesson T3", id: "T3" },
+      mid: { title: "A bit tense. Take a short break.", text: "Try lesson T3 - 5 minutes to calm down, and join the Sunday evening support group.", link: "Open lesson T3", id: "T3" },
       high: { title: "You're carrying too much.", text: "If this lasts 3 days, ask someone to cover a shift and book a 1-on-1 session.", link: "Read lesson T2", id: "T2", book: "Book counseling" }
     },
     cert: {
@@ -196,7 +197,7 @@ export const en: Content = {
     },
     classCard: {
       title: "In-hospital class for families",
-      text: "Free, every Tuesday 14:00–15:00 at partner hospitals. Practise repositioning, safe feeding and recognising BE-FAST.",
+      text: "Free, every Tuesday 14:00-15:00 at partner hospitals. Practise repositioning, safe feeding and recognising BE-FAST.",
       cta: "Register for the class"
     }
   },
@@ -308,7 +309,7 @@ export const en: Content = {
     hoursNote: "Both earn around 11 million ₫/month.",
     hoursLink: "Caregiver jobs",
     reportTitle: "Sample quarterly quality report",
-    reportNote: "Illustrative sample – indicators will be shared with partner hospitals every quarter",
+    reportNote: "Illustrative sample - indicators will be shared with partner hospitals every quarter",
     reportHead: ["Indicator", "Target"],
     report: [
       ["Serious incidents caused by care errors", "0"],
@@ -347,7 +348,7 @@ export const en: Content = {
       title: "Get free advice",
       name: "Contact name",
       phone: "Phone number",
-      phoneError: "Phone number must be 9–13 digits",
+      phoneError: "Phone number must be 9-13 digits",
       topic: "You're interested in",
       topicDefault: "Not sure yet, need advice",
       counselingPrefix: "Counseling",
@@ -372,7 +373,7 @@ export const en: Content = {
     note: "Simulated data. The real version asks for consent from the patient or their representative, with access control and encryption under Vietnam's Personal Data Protection Law.",
     phoneTop: "Diary · Today",
     patient: "Mrs. Nguyen Thi Hoa · Bed 12",
-    carer: "Caregiver: Tran Thu · Day shift 07:00–19:00"
+    carer: "Caregiver: Tran Thu · Day shift 07:00-19:00"
   },
 
   tuyenDung: {
@@ -391,7 +392,7 @@ export const en: Content = {
      DATA (pricing, lessons, stories, diary…)
      ------------------------------------------------------------ */
   services: [
-    { code: "S1-N", stage: "S1 · In hospital", name: "Day shift in hospital", time: "07:00–19:00", price: 1100000, unit: "/day",
+    { code: "S1-N", stage: "S1 · In hospital", name: "Day shift in hospital", time: "07:00-19:00", price: 1100000, unit: "/day",
       desc: "A full-time caregiver: hygiene, safe feeding (including tube feeding), repositioning to prevent sores, early mobility under medical guidance, joining ward rounds and noting advice, and a diary for the family. The family covers nights." },
     { code: "S1-T", stage: "S1 · In hospital", name: "Full day in hospital", time: "24 hours", price: 1600000, unit: "/day",
       desc: "The S1-N day shift plus a night shift by a certified collaborator: staying at the bedside, scheduled repositioning, hygiene support, alerting ward nurses to anything unusual; checklist handovers at 07:00 and 19:00." },
@@ -452,7 +453,7 @@ export const en: Content = {
       keywords: "progression stages acute subacute chronic golden hour recovery how long prognosis",
       points: [
         "The first few hours (hyperacute): “time is brain”. Every minute of delay costs millions more brain cells. Treatments to reopen vessels only work if the patient arrives early.",
-        "The first 1–2 weeks (acute): the patient is closely monitored on a neurology ward or stroke unit. Their condition can worsen in the first days from brain swelling, further bleeding, aspiration pneumonia, blood clots or pressure sores.",
+        "The first 1-2 weeks (acute): the patient is closely monitored on a neurology ward or stroke unit. Their condition can worsen in the first days from brain swelling, further bleeding, aspiration pneumonia, blood clots or pressure sores.",
         "A few weeks to about 3 months (subacute): the brain reorganises fastest. This is when rehabilitation brings the greatest benefit.",
         "After 6 months (chronic): recovery slows but continues with regular practice. The focus shifts to maintaining gains, preventing another stroke and adapting to a new life.",
         "Everyone recovers differently, depending on the location and size of the injury, age, other illnesses and how much they practise. Ask the doctor about your relative's own outlook."
@@ -546,12 +547,12 @@ export const en: Content = {
     { id: "B3", stage: "B", ready: true, mins: 3, title: "Recognising a repeat stroke (BE-FAST) and when to call 115",
       keywords: "be fast befast recurrence signs 115 drooping face arm weakness",
       points: [
-        "B – Balance: sudden dizziness, loss of balance, unsteady walking.",
-        "E – Eyes: sudden blurred vision or loss of sight in one or both eyes.",
-        "F – Face: a drooping mouth or one side of the face sagging when smiling.",
-        "A – Arm: weakness or numbness in one arm or leg; when both arms are raised, one drifts down.",
-        "S – Speech: difficulty speaking, slurred speech, not understanding others.",
-        "T – Time: call 115 immediately and note the time it started. Don't wait to see if it passes, and don't give any medicine yourself."
+        "B - Balance: sudden dizziness, loss of balance, unsteady walking.",
+        "E - Eyes: sudden blurred vision or loss of sight in one or both eyes.",
+        "F - Face: a drooping mouth or one side of the face sagging when smiling.",
+        "A - Arm: weakness or numbness in one arm or leg; when both arms are raised, one drifts down.",
+        "S - Speech: difficulty speaking, slurred speech, not understanding others.",
+        "T - Time: call 115 immediately and note the time it started. Don't wait to see if it passes, and don't give any medicine yourself."
       ],
       checklist: ["BE-FAST card on the fridge", "115 and the nearest hospital's number", "Note the time symptoms started", "No food or drink, no medicine given by family"],
       quiz: [
@@ -610,11 +611,11 @@ export const en: Content = {
       points: [
         "Signs of burnout: tired even after sleep, irritable, impatient, often guilty, avoiding friends, headaches, back pain, getting sick often.",
         "Love, anger, sadness and guilt can all come at once. Mixed feelings like these are normal and don't make you a bad son or daughter.",
-        "Each evening, rate yourself on a 0–10 “stress thermometer”. If it's 7 or higher for 3 days in a row, it's time to change something: ask someone to cover, take an afternoon off, or talk to a psychologist.",
+        "Each evening, rate yourself on a 0-10 “stress thermometer”. If it's 7 or higher for 3 days in a row, it's time to change something: ask someone to cover, take an afternoon off, or talk to a psychologist.",
         "Ask for specific help: instead of “whoever's free, please help”, ask “can you cover Saturday afternoon for 4 hours?”",
         "Seek professional help when: sleeplessness lasts, sadness persists for weeks, you rely on alcohol or sleeping pills to cope, or you have thoughts of harming yourself."
       ],
-      checklist: ["Today's stress thermometer (0–10)", "Any day ≥ 7 in the last 3 days?", "One specific thing I'll ask someone to do", "Last time I had a full afternoon off"],
+      checklist: ["Today's stress thermometer (0-10)", "Any day ≥ 7 in the last 3 days?", "One specific thing I'll ask someone to do", "Last time I had a full afternoon off"],
       quiz: [
         { q: "You love the patient and also feel angry with them. This:", a: ["Proves you're a bad person", "Is a normal feeling for caregivers", "Should be hidden"], c: 1 },
         { q: "Your stress thermometer has been at 8 for 3 days. You should:", a: ["Push on for a few more weeks", "Ask someone to cover or talk to a psychologist", "Drink more coffee"], c: 1 },
@@ -623,15 +624,15 @@ export const en: Content = {
     { id: "T3", stage: "T", ready: true, mins: 3, title: "5 minutes to calm down at the bedside",
       keywords: "relax breathing calm anxiety panic palpitations stress breathe 5-4-3-2-1",
       points: [
-        "4–6 breathing: breathe in through the nose counting 4, breathe out slowly through the mouth counting 6. Repeat 5–10 times. A longer out-breath helps the body settle.",
+        "4-6 breathing: breathe in through the nose counting 4, breathe out slowly through the mouth counting 6. Repeat 5-10 times. A longer out-breath helps the body settle.",
         "The 5-4-3-2-1 technique: name 5 things you see, 4 you can touch, 3 sounds, 2 smells, 1 taste. It brings your mind back to the present when panicking.",
         "Muscle release: lift and tense your shoulders for 5 seconds, then let go; repeat with your hands and calves.",
         "Write 3 lines: what worries me most; which part I can control; one small thing I can do right now.",
         "An alert patient can also do this with you when anxious. If palpitations come with chest pain or lasting breathlessness, tell medical staff."
       ],
-      checklist: ["4–6 breathing × 5", "5-4-3-2-1", "Release shoulders, hands, legs", "3 lines: worry / control / act now"],
+      checklist: ["4-6 breathing × 5", "5-4-3-2-1", "Release shoulders, hands, legs", "3 lines: worry / control / act now"],
       quiz: [
-        { q: "In 4–6 breathing, which part is longer?", a: ["Breathing in", "Breathing out", "Holding your breath"], c: 1 },
+        { q: "In 4-6 breathing, which part is longer?", a: ["Breathing in", "Breathing out", "Holding your breath"], c: 1 },
         { q: "The 5-4-3-2-1 technique helps to:", a: ["Bring your mind back to the present when panicking", "Count repositioning turns", "Calculate medicine doses"], c: 0 },
         { q: "Palpitations with chest pain and lasting breathlessness means:", a: ["Keep practising breathing", "Tell medical staff", "Go to sleep"], c: 1 }
       ] },
@@ -652,7 +653,7 @@ export const en: Content = {
       ] }
   ],
   lessonDisclaimer: "This content is care guidance and does not replace your doctor's instructions.",
-  lessonSources: "References: Vietnam Ministry of Health patient-care guidance; World Stroke Organization; American Stroke Association (BE-FAST). Demo version – our medical advisors will review before publication.",
+  lessonSources: "References: Vietnam Ministry of Health patient-care guidance; World Stroke Organization; American Stroke Association (BE-FAST). Demo version - our medical advisors will review before publication.",
 
   counseling: [
     { id: "tl-nguoi-nha", for: "Caregivers", name: "1-on-1 counseling for family members", format: "Online (video or phone) · 45 min",
@@ -664,7 +665,7 @@ export const en: Content = {
     { id: "tl-gia-dinh", for: "Whole family", name: "Family session", format: "Online or at home · 60 min",
       desc: "The whole family sits down with a psychologist: share tasks fairly, talk about feelings, agree on a long-term care plan.",
       price: "At the partner psychologist's listed rate, paid directly by the family. STROKE360 charges no referral fee." },
-    { id: "tl-nhom", for: "Caregivers", name: "Family support group", format: "Sunday evenings, 20:00–21:30 · Online · 6–10 people",
+    { id: "tl-nhom", for: "Caregivers", name: "Family support group", format: "Sunday evenings, 20:00-21:30 · Online · 6-10 people",
       desc: "Facilitated by a psychologist, with a “companion” from a family who has been there. Listen and be heard, without judgement.",
       price: "Free", free: true }
   ],

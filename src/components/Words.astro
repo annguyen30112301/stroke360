@@ -1,0 +1,9 @@
+---
+/* Headline that rises in word by word. Keeps the full sentence for screen readers. */
+interface Props { text: string; class?: string; start?: number; tag?: "h1" | "h2" | "p" | "span" }
+const { text, class: cls, start = 0, tag: Tag = "span" } = Astro.props;
+const words = text.split(" ");
+---
+<Tag class={cls} aria-label={text}>
+  {words.map((w, i) => <span aria-hidden="true" class="word" style={`--i:${start + i}`}>{w}&nbsp;</span>)}
+</Tag>
