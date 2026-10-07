@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nhật ký chăm sóc – Stroke360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head><body>
+<main>
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow">Mô phỏng ứng dụng phía gia đình</span>
+    <h1>Nhật ký chăm sóc mỗi ngày</h1>
+    <p class="lead">Minh bạch không phải lời hứa. Đó là thứ gia đình nhìn thấy trên điện thoại, mỗi ca, mỗi tối.</p>
+    <ul class="points">
+      <li>Ghi theo bảng kiểm ca ngày: ăn uống, xoay trở, vệ sinh, vận động.</li>
+      <li>Dặn dò khi khám buồng được ghi lại, gia đình không bỏ lỡ.</li>
+      <li>18:30 có bản tóm tắt, gửi tối đa 5 người thân.</li>
+    </ul>
+    <div class="btns"><button class="btn btn-p" id="play">▶ Phát lại ca ngày</button><a class="btn btn-o" href="dich-vu.html#chon-goi">Chọn gói phù hợp</a></div>
+    <p class="note" style="margin-top:12px">Dữ liệu mô phỏng. Bản thật xin đồng ý của người bệnh hoặc người đại diện, phân quyền và mã hóa theo Luật Bảo vệ dữ liệu cá nhân.</p>
+  </div>
+  <div class="phone"><div class="screen">
+    <div class="top"><div class="small" style="opacity:.85">Nhật ký · Hôm nay</div><b>Mẹ Nguyễn Thị Hoa · Giường 12</b><div class="small" style="opacity:.85">Chăm sóc viên: Trần Thu · Ca ngày 07:00–19:00</div></div>
+    <div class="feed" id="feed"></div>
+  </div></div>
+</div></section>
+</main>
+<script src="assets/content.js"></script><script src="assets/app.js"></script>
+<script>
+const feed = document.getElementById("feed");
+let timer;
+function play() {
+  clearTimeout(timer); feed.innerHTML = ""; let k = 0;
+  (function next() {
+    const e = S360.diary[k++]; if (!e) return;
+    feed.insertAdjacentHTML("beforeend", `<div class="entry ${e.hl ? "hl" : ""} ${e.summary ? "sum" : ""}"><div class="t">${e.t} · ${e.tag}</div><b>${e.title}</b><div>${e.note}</div></div>`);
+    feed.scrollTop = feed.scrollHeight;
+    timer = setTimeout(next, 900);
+  })();
+}
+document.getElementById("play").onclick = play;
+play();
+</script>
+</body></html>

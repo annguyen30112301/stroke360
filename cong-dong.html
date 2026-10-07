@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cộng đồng người nhà – Stroke360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head><body>
+<main>
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow">Bạn không phải đi một mình</span>
+    <h1>Cộng đồng người nhà Stroke360</h1>
+    <p class="lead">Nơi gặp những gia đình đi trước, hỏi điều dưỡng, và được nhắc rằng chính bạn cũng cần được chăm sóc.</p>
+    <a class="btn btn-p" id="zl" target="_blank" rel="noopener">Vào nhóm Zalo cộng đồng</a>
+  </div>
+  <div class="card" style="text-align:center">
+    <h3>Quét mã để tham gia</h3>
+    <img id="qr" alt="Mã QR nhóm Zalo cộng đồng" style="width:220px;height:220px;margin:12px auto">
+    <p class="note">Nhóm Zalo thật của dự án</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Câu chuyện phục hồi</h2>
+  <p class="note">Nhân vật minh họa</p>
+  <div class="grid g3" id="stories"></div>
+</div></section>
+
+<section class="bg-teal"><div class="wrap">
+  <h2>Nhóm theo giai đoạn</h2>
+  <div class="grid g3" id="groups"></div>
+</div></section>
+
+<section id="hoi"><div class="wrap" style="max-width:820px">
+  <h2>Hỏi điều dưỡng</h2>
+  <p class="muted">Mỗi tối thứ Năm, điều dưỡng giám sát trả lời câu hỏi. Câu trả lời hay được lưu thành bài.</p>
+  <div id="faq"></div>
+  <form class="card flat" style="margin-top:20px" onsubmit="event.preventDefault();this.innerHTML='<h3>Đã nhận câu hỏi của bạn</h3><p class=muted>Điều dưỡng sẽ trả lời vào tối thứ Năm trong nhóm Zalo. (Bản demo không lưu dữ liệu.)</p>'">
+    <label for="qq">Câu hỏi của bạn</label><textarea id="qq" rows="3" required placeholder="Ví dụ: Ba tôi hay ngủ ngày, thức đêm, có sao không?"></textarea>
+    <p class="small muted">Không ghi họ tên đầy đủ hay thông tin bệnh án. Câu hỏi về chẩn đoán, thuốc sẽ được khuyên hỏi bác sĩ điều trị.</p>
+    <button class="btn btn-p">Gửi câu hỏi</button>
+  </form>
+</div></section>
+
+<section class="bg-n"><div class="wrap">
+  <div class="grid g2">
+    <div><h2>Sự kiện</h2><div id="events"></div></div>
+    <div>
+      <h2>Góc người chăm sóc</h2>
+      <div class="card" id="tired">
+        <h3>Tự kiểm tra mức độ mệt mỏi</h3>
+        <p class="small muted">Trong 2 tuần qua, bạn có thường xuyên…</p>
+        <form id="tf"></form>
+        <div id="tr" style="margin-top:12px"></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="grid g2">
+    <div class="card"><div class="icon r">🤲</div><h3>Đồng hành cùng Stroke360</h3><p class="muted small">Gia đình đi trước làm “người đồng hành” cho gia đình mới. Sinh viên ngành y, công tác xã hội tham gia tình nguyện.</p><a class="btn btn-o" href="lien-he.html?topic=dong-hanh">Đăng ký đồng hành</a></div>
+    <div class="card"><h3>Quy tắc cộng đồng</h3><ul class="small muted">
+      <li>Không chia sẻ hồ sơ bệnh án, hình ảnh người bệnh khi chưa có sự đồng ý.</li>
+      <li>Không quảng cáo thuốc, thực phẩm chức năng, “bài thuốc chữa đột quỵ”.</li>
+      <li>Câu hỏi chuyên môn được chuyển cho điều dưỡng hoặc khuyến nghị hỏi bác sĩ điều trị.</li></ul></div>
+  </div>
+</div></section>
+</main>
+<script src="assets/content.js"></script><script src="assets/app.js"></script>
+<script>
+const z = S360.contact.zaloGroup;
+document.getElementById("zl").href = z;
+document.getElementById("qr").src = "https://api.qrserver.com/v1/create-qr-code/?size=440x440&margin=8&data=" + encodeURIComponent(z);
+document.getElementById("stories").innerHTML = S360.stories.map(s => `<div class="card"><span class="tag">${s.stage}</span><p style="font-size:19px;font-weight:600;margin:12px 0;color:var(--teal-700)">“${s.quote}”</p><p class="small muted">${s.body}</p><b class="small">${s.who}</b><div class="small muted">${s.role}</div></div>`).join("");
+document.getElementById("groups").innerHTML = S360.groups.map(g => `<div class="card flat"><h3>${g.name}</h3><p class="small muted">${g.desc}</p><a href="${z}" target="_blank" rel="noopener">Tham gia →</a></div>`).join("");
+document.getElementById("faq").innerHTML = S360.faqs.map(([q, a]) => `<details><summary>${q}</summary><p class="muted" style="margin:0">${a}</p></details>`).join("");
+document.getElementById("events").innerHTML = S360.events.map(e => `<div class="card flat" style="margin-bottom:12px;${e.hot ? "border:2px solid var(--red-500)" : ""}"><span class="tag ${e.hot ? "r" : ""}">${e.date}</span><h3 style="margin:8px 0 4px">${e.title}</h3><div class="small muted">${e.where}</div>${e.hot ? '<a class="btn btn-r" style="margin-top:10px" href="bai-hoc.html?id=B3">Học BE-FAST</a>' : ""}</div>`).join("");
+
+const T = ["Thấy mệt ngay cả khi vừa ngủ dậy", "Ngủ dưới 5 tiếng mỗi đêm", "Cáu gắt, dễ khóc hơn bình thường", "Bỏ bữa hoặc bỏ việc riêng", "Cảm thấy không ai hiểu mình"];
+const tf = document.getElementById("tf");
+tf.innerHTML = T.map((t, i) => `<label style="display:flex;gap:10px;align-items:center;font-weight:400;margin:6px 0"><input type="checkbox" style="width:24px;min-height:24px">${t}</label>`).join("");
+tf.onchange = () => {
+  const n = tf.querySelectorAll(":checked").length;
+  document.getElementById("tr").innerHTML = n <= 1 ? `<p class="small">Bạn đang giữ sức khá tốt. Tiếp tục dành 15 phút cho mình mỗi ngày.</p>`
+    : n <= 3 ? `<p class="small"><b>Bạn đang mệt.</b> Hãy chia lịch trực và nhận giúp đỡ. <a href="bai-hoc.html?id=C4">Xem bài C4</a>.</p>`
+    : `<p class="small"><b style="color:var(--red-700)">Bạn có dấu hiệu kiệt sức.</b> Hãy nói với người thân, cân nhắc ca hỗ trợ để được nghỉ, và tìm chuyên gia nếu kéo dài. <a href="dich-vu.html">Ca ngày cho người nhà được nghỉ</a>.</p>`;
+};
+</script>
+</body></html>

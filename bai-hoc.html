@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bài học – Stroke360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head><body>
+<main><section><div class="wrap" style="max-width:760px" id="lesson"></div></section></main>
+<script src="assets/content.js"></script><script src="assets/app.js"></script>
+<script>
+const id = new URLSearchParams(location.search).get("id");
+const L = S360.lessons, l = L.find(x => x.id === id && x.ready);
+const box = document.getElementById("lesson");
+if (!l) {
+  box.innerHTML = `<h1>Bài học sắp ra mắt</h1><p><a href="hoc.html">← Về lộ trình học</a></p>`;
+} else {
+  document.title = l.title + " – Stroke360";
+  const ready = L.filter(x => x.ready), next = ready[ready.indexOf(l) + 1];
+  box.innerHTML = `
+  <a href="hoc.html" class="small no-print">← Lộ trình học</a>
+  <div style="margin:16px 0" class="lesson"><div class="meta"><span class="tag">${l.id} · Giai đoạn ${l.stage}</span><span class="small muted">${l.mins} phút</span><span class="small" style="color:var(--teal-700)">✔ Đã được bác sĩ cố vấn duyệt</span></div></div>
+  <h1>${l.title}</h1>
+  <h2 style="margin-top:28px">Ý chính</h2>
+  <ul class="points">${l.points.map(p => `<li>${p}</li>`).join("")}</ul>
+  <div class="disclaim">${S360.lessonDisclaimer}</div>
+
+  <div class="card" style="margin-top:32px" id="cl">
+    <h2>Bảng kiểm</h2>
+    <ul class="check">${l.checklist.map(c => `<li>${c}</li>`).join("")}</ul>
+    <button class="btn btn-o no-print" onclick="window.print()">⬇ Tải / in bảng kiểm</button>
+  </div>
+
+  <div class="quiz no-print" style="margin-top:32px">
+    <h2>Câu hỏi nhanh</h2>
+    ${l.quiz.map((q, i) => `<div class="q" data-i="${i}"><b>${i + 1}. ${q.q}</b>${q.a.map((a, j) => `<button class="opt" data-j="${j}">${a}</button>`).join("")}</div>`).join("")}
+    <div id="qres"></div>
+  </div>
+  <p class="note" style="margin-top:24px">${S360.lessonSources}</p>`;
+
+  const right = new Set();
+  box.querySelectorAll(".q").forEach(qe => {
+    const q = l.quiz[qe.dataset.i];
+    qe.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+      qe.querySelectorAll(".opt").forEach(x => x.classList.remove("ok", "no"));
+      const ok = +b.dataset.j === q.c;
+      b.classList.add(ok ? "ok" : "no");
+      if (ok) right.add(qe.dataset.i); else right.delete(qe.dataset.i);
+      if (right.size === l.quiz.length) {
+        S360progress.add(l.id);
+        document.getElementById("qres").innerHTML = `<div class="result"><h3>🎉 Bạn đã hoàn thành bài ${l.id}</h3>
+          <div class="btns">${next ? `<a class="btn btn-p" href="bai-hoc.html?id=${next.id}">Bài tiếp: ${next.title}</a>` : ""}<a class="btn btn-o" href="hoc.html">Xem tiến độ</a></div></div>`;
+      }
+    });
+  });
+}
+</script>
+</body></html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dịch vụ và bảng giá – Stroke360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head><body>
+<main>
+<section class="hero"><div class="wrap" style="display:block">
+  <span class="eyebrow">Giá công khai · Chăm sóc theo ca</span>
+  <h1>Dịch vụ và bảng giá</h1>
+  <p class="lead">Ban ngày là lúc cần kỹ năng nhất, nên chúng tôi chia dịch vụ theo ca. Gia đình chọn đúng phần mình cần.</p>
+</div></section>
+
+<section id="chon-goi" class="bg-teal"><div class="wrap" style="max-width:720px">
+  <h2>Chọn gói phù hợp trong 4 câu hỏi</h2>
+  <div class="tool" id="tool"></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Bảng giá</h2>
+  <div class="grid g3" id="svc"></div>
+  <p class="note" style="margin-top:16px" id="pnote"></p>
+</div></section>
+
+<section class="bg-n"><div class="wrap">
+  <h2>Cam kết với gia đình</h2>
+  <div class="grid g4" id="prom"></div>
+  <div class="disclaim" style="margin-top:24px"><b>Ranh giới chuyên môn:</b> chăm sóc viên không thực hiện kỹ thuật điều trị, không tự ý cho thuốc hay thay đổi thuốc, không can thiệp phác đồ. Tại bệnh viện, mọi hoạt động tuân thủ chỉ định của bác sĩ, điều dưỡng khoa và nội quy bệnh viện.</div>
+</div></section>
+</main>
+<script src="assets/content.js"></script><script src="assets/app.js"></script>
+<script>
+const SV = Object.fromEntries(S360.services.map(s => [s.code, s]));
+document.getElementById("svc").innerHTML = S360.services.map(s => `
+  <div class="card"><span class="tag ${s.code === "S3" ? "r" : ""}">${s.stage}</span>
+  <h3 style="margin-top:10px">${s.code} · ${s.name}</h3><div class="small muted">${s.time}</div>
+  <div class="price" style="margin:10px 0">${s.priceText || vnd(s.price)}<small>${s.unit}</small></div>
+  <p class="small muted">${s.desc}</p></div>`).join("");
+document.getElementById("pnote").textContent = S360.priceNote;
+document.getElementById("prom").innerHTML = S360.promises.map(([a, b]) => `<div class="card flat"><h3>${a}</h3><p class="small muted">${b}</p></div>`).join("");
+
+/* Công cụ chọn gói */
+const Q = [
+  { k: "where", q: "Người bệnh đang ở đâu?", o: [["hosp", "Đang nằm viện"], ["home", "Đã về nhà hoặc sắp xuất viện"]] },
+  { k: "night", q: "Gia đình có người trực đêm không?", o: [["yes", "Có, gia đình trực được đêm"], ["no", "Không, cần người cả ngày lẫn đêm"]], when: a => a.where === "hosp" },
+  { k: "self", q: "Người bệnh tự làm được việc cá nhân đến đâu?", o: [["low", "Phụ thuộc gần như hoàn toàn"], ["mid", "Làm được một phần"], ["high", "Tự làm được phần lớn"]] },
+  { k: "days", q: "Dự kiến còn nằm viện bao lâu?", o: [[5, "Khoảng 5 ngày"], [10, "Khoảng 10 ngày"], [14, "Khoảng 2 tuần"]], when: a => a.where === "hosp" },
+  { k: "family", q: "Gia đình có người ở nhà để học cách chăm sóc không?", o: [["yes", "Có, gia đình muốn tự chăm và được hướng dẫn"], ["no", "Không, cần người có chuyên môn đến tập"]], when: a => a.where === "home" }
+];
+let A = {}, i = 0;
+const tool = document.getElementById("tool");
+function steps() { return Q.filter(q => !q.when || (A.where ? q.when(A) : q.k !== "family")); }
+function show() {
+  const s = steps();
+  if (i >= s.length) return result();
+  const q = s[i];
+  tool.innerHTML = `<div class="stepper">Câu ${i + 1}/${s.length}</div><div class="progress" style="margin-bottom:16px"><div style="width:${i / s.length * 100}%"></div></div>
+    <h3>${q.q}</h3>${q.o.map(([v, t]) => `<button class="choice" data-v="${v}">${t}</button>`).join("")}
+    ${i ? '<button class="btn btn-o" style="margin-top:8px" id="back">← Quay lại</button>' : ""}`;
+  tool.querySelectorAll(".choice").forEach(b => b.onclick = () => { A[q.k] = isNaN(b.dataset.v) ? b.dataset.v : +b.dataset.v; i++; show(); });
+  const bk = document.getElementById("back"); if (bk) bk.onclick = () => { i--; show(); };
+}
+function result() {
+  let main, cost, why, after;
+  if (A.where === "hosp") {
+    main = A.night === "yes" ? SV["S1-N"] : SV["S1-T"];
+    cost = main.price * A.days;
+    why = A.night === "yes"
+      ? "Gia đình trực được đêm, nên chỉ cần người lo ban ngày, lúc cần kỹ năng nhất."
+      : "Gia đình không trực được đêm, nên cần ca ngày chính thức và ca đêm của cộng tác viên đã chứng nhận.";
+    after = A.self === "high" ? SV.S2B : SV.S2A;
+  } else {
+    main = A.family === "yes" || A.self === "high" ? SV.S2B : SV.S2A;
+    cost = main.price;
+    why = main.code === "S2A" ? "Người bệnh cần tập phục hồi chức năng có mục tiêu với kỹ thuật viên có giấy phép." : "Gia đình muốn tự chăm, được điều dưỡng hướng dẫn tại nhà và theo dõi định kỳ.";
+  }
+  tool.innerHTML = `<div class="result">
+    <span class="tag">Gợi ý cho gia đình bạn</span>
+    <h2 style="margin:10px 0 4px">${main.code} · ${main.name}</h2>
+    <p class="muted">${why}</p>
+    <div class="price">${vnd(main.price)}<small>${main.unit}</small></div>
+    ${A.where === "hosp" ? `<p style="margin-top:8px">Ước tính <b>${A.days} ngày</b>: <b style="color:var(--red-500);font-size:22px">${vnd(cost)}</b></p>` : ""}
+    ${after ? `<p class="small">Khi chuẩn bị xuất viện, điều dưỡng sẽ tư vấn gói tại nhà, ví dụ <b>${after.code} · ${after.name}</b>.</p>` : ""}
+    <p class="note">${S360.priceNote}</p>
+    <div class="btns"><a class="btn btn-p" href="lien-he.html?goi=${main.code}">Để lại số điện thoại</a><a class="btn btn-o" href="${S360.contact.zaloGroup}" target="_blank" rel="noopener">Nhắn Zalo</a></div>
+  </div><button class="btn btn-o" style="margin-top:14px" id="again">↺ Làm lại</button>`;
+  document.getElementById("again").onclick = () => { A = {}; i = 0; show(); };
+}
+show();
+</script>
+</body></html>
