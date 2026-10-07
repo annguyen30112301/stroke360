@@ -1,0 +1,22 @@
+---
+/* Old links used bai-hoc.html?id=B3 — forward them to bai-hoc/B3.html */
+import Base from "../layouts/Base.astro";
+import { getContent, href, pageHref } from "../lib/i18n";
+import type { Lang } from "../content/types";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = getContent(lang);
+const ids = c.lessons.filter((l) => l.ready).map((l) => l.id);
+---
+<Base lang={lang} page="lesson" path="bai-hoc.html" title={c.meta.redirect.title} description={c.meta.redirect.description}>
+  <meta slot="head" name="robots" content="noindex" />
+  <section class="wrap py-24 text-center">
+    <p class="text-xl" id="msg">{c.lesson.redirecting}</p>
+    <a href={pageHref(lang, "hoc")} class="btn btn-primary mt-6">{c.lesson.backLink}</a>
+  </section>
+  <script is:inline define:vars={{ ids, base: href(lang, "bai-hoc/"), notFound: c.lesson.notFound }}>
+    const id = new URLSearchParams(location.search).get("id");
+    if (id && ids.includes(id)) location.replace(base + id + ".html" + location.hash);
+    else document.getElementById("msg").textContent = notFound;
+  </script>
+</Base>

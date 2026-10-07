@@ -1,0 +1,69 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/PageHero.astro";
+import SectionHead from "../components/SectionHead.astro";
+import PackagePicker from "../islands/PackagePicker.tsx";
+import { getContent, pageHref, vnd } from "../lib/i18n";
+import { contact } from "../content/shared";
+import type { Lang } from "../content/types";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = getContent(lang);
+const t = c.dichVu;
+const promiseIcons = ["clock", "notebook", "nurse", "eye"];
+const svcIcon = (code: string) => (code.startsWith("S1") ? "hospital" : code.startsWith("S2") ? "bed" : "handHeart");
+---
+<Base lang={lang} page="dichVu" path="dich-vu.html" title={c.meta.dichVu.title} description={c.meta.dichVu.description}>
+  <PageHero eyebrow={t.eyebrow} title={t.title} lead={t.lead}>
+    <a href="#chon-goi" class="btn btn-primary mt-8">{t.pickerTitle}<Icon name="arrow" size={18} weight="bold" /></a>
+  </PageHero>
+
+  <section id="chon-goi" class="section bg-brand-soft/50">
+    <div class="wrap max-w-3xl">
+      <SectionHead title={t.pickerTitle} center />
+      <PackagePicker client:visible lang={lang} services={c.services} t={t.picker} priceNote={c.priceNote} zalo={contact.zaloGroup}
+        contactHref={pageHref(lang, "lienHe")} restart={c.ui.restart} back={c.ui.back} zaloLabel={c.ui.zalo} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead title={t.priceTitle} />
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {c.services.map((s) => (
+          <article class:list={["card flex flex-col", s.code === "S1-N" && "ring-2 ring-brand"]} data-reveal>
+            <div class="flex items-center justify-between">
+              <span class:list={["tag", s.code === "S3" && "tag-alert"]}>{s.stage}</span>
+              <span class:list={["icon-tile !size-11", s.code === "S3" && "alert"]}><Icon name={svcIcon(s.code)} size={24} /></span>
+            </div>
+            <h3 class="mt-4 text-xl">{s.code} · {s.name}</h3>
+            <p class="mt-1 flex items-center gap-1.5 text-sm text-faint"><Icon name="clock" size={16} />{s.time}</p>
+            <p class="mt-4 text-3xl font-extrabold tracking-tight text-brand">{s.priceText ?? vnd(s.price, lang)}<span class="text-sm font-medium text-muted">{s.unit}</span></p>
+            <p class="mt-4 text-[0.92rem] text-muted">{s.desc}</p>
+          </article>
+        ))}
+      </div>
+      <p class="note mt-6">{c.priceNote}</p>
+    </div>
+  </section>
+
+  <section class="section bg-sunken">
+    <div class="wrap">
+      <SectionHead title={t.promisesTitle} />
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {c.promises.map(([a, b], i) => (
+          <div class="card-flat" data-reveal>
+            <span class="icon-tile"><Icon name={promiseIcons[i]} size={28} /></span>
+            <h3 class="mt-4 text-lg">{a}</h3>
+            <p class="mt-1 text-[0.92rem] text-muted">{b}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-8 flex gap-3 rounded-2xl border-l-4 border-brand bg-surface p-5 text-[0.95rem]" data-reveal>
+        <Icon name="scope" size={26} class="shrink-0 text-brand" /><span set:html={t.scope} />
+      </p>
+    </div>
+  </section>
+</Base>

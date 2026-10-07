@@ -1,0 +1,86 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/PageHero.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Counter from "../components/Counter.astro";
+import { getContent, pageHref } from "../lib/i18n";
+import type { Lang } from "../content/types";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = getContent(lang);
+const t = c.tacDong;
+const statIcons = ["family", "nurse", "hospital", "shield", "medal", "trend"];
+---
+<Base lang={lang} page="tacDong" path="tac-dong.html" title={c.meta.tacDong.title} description={c.meta.tacDong.description}>
+  <PageHero eyebrow={t.eyebrow} title={t.title} />
+  <div class="ribbon"></div>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead title={t.statsTitle} sub={t.statsSub} />
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {c.impact.map((m, i) => (
+          <div class="card flex items-start gap-5" data-reveal>
+            <span class:list={["icon-tile shrink-0", i % 2 && "alert"]}><Icon name={statIcons[i]} size={28} /></span>
+            <div>
+              <div class="text-5xl font-extrabold tracking-tight text-rose-500"><Counter value={m.value} lang={lang} decimals={m.decimals} prefix={m.prefix} suffix={m.suffix} /></div>
+              <p class="mt-2 text-muted">{m.label}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-brand-soft/50">
+    <div class="wrap">
+      <SectionHead title={t.whoTitle} />
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        {t.who.map((w, i) => (
+          <div class="card" data-reveal>
+            <span class:list={["icon-tile", i % 2 && "alert"]}><Icon name={w.icon} size={28} /></span>
+            <h3 class="mt-4 text-lg">{w.title}</h3>
+            <p class="mt-1 text-[0.9rem] text-muted">{w.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead title={t.hoursTitle} sub={t.hoursSub} />
+      <div class="card max-w-3xl" data-reveal>
+        <div>
+          <p><b>{t.hoursUs[0]}</b> · <span class="text-muted">{t.hoursUs[1]}</span></p>
+          <div class="mt-2 h-9 rounded-xl bg-sunken"><div data-reveal-bar class="flex h-full w-[38%] items-center justify-end rounded-xl bg-gradient-to-r from-teal-600 to-teal-400 pr-3 text-sm font-bold text-white">228h</div></div>
+        </div>
+        <div class="mt-6">
+          <p><b>{t.hoursThem[0]}</b> · <span class="text-muted">{t.hoursThem[1]}</span></p>
+          <div class="mt-2 h-9 rounded-xl bg-sunken"><div data-reveal-bar class="flex h-full w-full items-center justify-end rounded-xl bg-faint/50 pr-3 text-sm font-bold text-ink">~600h</div></div>
+        </div>
+        <p class="mt-6 text-[0.95rem] text-muted">{t.hoursNote} <a href={pageHref(lang, "tuyenDung")} class="font-semibold">{t.hoursLink} →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-sunken">
+    <div class="wrap">
+      <SectionHead title={t.reportTitle} sub={t.reportNote} />
+      <div class="card overflow-x-auto !p-0" data-reveal>
+        <table class="w-full min-w-[30rem] border-collapse text-left">
+          <thead><tr class="border-b-2 border-brand">{t.reportHead.map((h) => <th class="px-6 py-4 text-sm font-bold uppercase tracking-wider text-brand">{h}</th>)}</tr></thead>
+          <tbody>
+            {t.report.map(([k, v]) => (
+              <tr class="border-b border-line last:border-0 hover:bg-brand-soft/40">
+                <td class="px-6 py-4">{k}</td><td class="px-6 py-4 font-semibold tabular-nums">{v}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Base>

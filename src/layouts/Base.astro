@@ -1,0 +1,152 @@
+---
+import "../styles/global.css";
+import Icon from "../components/Icon.astro";
+import { getContent, href, pageHref, asset, type PageKey } from "../lib/i18n";
+import { contact, site } from "../content/shared";
+import type { Lang } from "../content/types";
+
+interface Props {
+  lang: Lang;
+  /** current page, used for nav highlight */
+  page: PageKey | "lesson";
+  /** path relative to the language root, e.g. "hoc.html" or "bai-hoc/A1.html" */
+  path: string;
+  title: string;
+  description: string;
+}
+const { lang, page, path, title, description } = Astro.props;
+const c = getContent(lang);
+const other: Lang = lang === "vi" ? "en" : "vi";
+const abs = (l: Lang) => new URL(href(l, path), Astro.site).toString();
+const nav: PageKey[] = ["home", "hoc", "congDong", "dichVu", "tacDong", "benhVien", "lienHe"];
+const isOn = (k: PageKey) => k === page || (page === "lesson" && k === "hoc");
+const og = new URL(asset("og.png"), Astro.site).toString();
+const tel = "tel:" + contact.hotline.replace(/\s/g, "");
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#fbf8f4" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0c1618" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href={asset("favicon.ico")} sizes="any" />
+  <link rel="icon" href={asset("favicon-512.png")} type="image/png" />
+  <link rel="apple-touch-icon" href={asset("apple-touch-icon.png")} />
+  <link rel="canonical" href={abs(lang)} />
+  <link rel="alternate" hreflang="vi" href={abs("vi")} />
+  <link rel="alternate" hreflang="en" href={abs("en")} />
+  <link rel="alternate" hreflang="x-default" href={abs("vi")} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:locale" content={lang === "vi" ? "vi_VN" : "en_US"} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={abs(lang)} />
+  <meta property="og:image" content={og} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <slot name="head" />
+</head>
+<body class="min-h-dvh">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-brand focus:px-5 focus:py-3 focus:text-on-brand">{c.ui.skip}</a>
+
+  <header class="site-header sticky top-0 z-50 border-b border-line/70 bg-bg/80 backdrop-blur-xl" style="view-transition-name: site-header">
+    <div class="wrap flex h-[4.25rem] items-center justify-between gap-4">
+      <a href={pageHref(lang, "home")} class="shrink-0 rounded-xl dark:bg-white/95 dark:px-2 dark:py-1" aria-label="STROKE360">
+        <img src={asset("logo.png")} alt="Stroke360" width="800" height="400" class="h-10 w-auto sm:h-11" />
+      </a>
+      <nav class="hidden items-center gap-0.5 lg:flex" aria-label="Main">
+        {nav.map((k) => (
+          <a href={pageHref(lang, k)} aria-current={isOn(k) ? "page" : undefined}
+            class:list={["relative rounded-full px-3.5 py-2 text-[0.92rem] font-medium no-underline transition-colors",
+              isOn(k) ? "bg-brand-soft text-brand" : "text-ink hover:bg-sunken"]}>{c.ui.nav[k as keyof typeof c.ui.nav]}</a>
+        ))}
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href={href(other, path)} hreflang={other} lang={other} aria-label={c.ui.switchLangAria}
+          class="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-line px-3 text-sm font-semibold text-ink no-underline hover:border-brand hover:text-brand">
+          <Icon name="lang" size={18} />{other.toUpperCase()}
+        </a>
+        <a href={pageHref(lang, "lienHe")} class="btn btn-primary hidden !min-h-11 !px-5 sm:inline-flex">{c.ui.headerCta}</a>
+        <button type="button" class="grid size-11 place-items-center rounded-full border border-line text-ink lg:hidden" aria-label={c.ui.menu} aria-haspopup="dialog" data-open-menu>
+          <Icon name="menu" size={22} weight="bold" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <dialog class="drawer" id="menu" aria-label={c.ui.menu}>
+    <div class="flex h-full flex-col p-5">
+      <div class="flex items-center justify-between">
+        <img src={asset("logo.png")} alt="" width="800" height="400" class="h-10 w-auto rounded-lg dark:bg-white/95 dark:px-1.5" />
+        <button type="button" class="grid size-11 place-items-center rounded-full bg-sunken" aria-label={c.ui.close} data-close-menu><Icon name="x" size={20} weight="bold" /></button>
+      </div>
+      <nav class="mt-8 flex flex-col gap-1" aria-label="Mobile">
+        {nav.map((k, i) => (
+          <a href={pageHref(lang, k)} aria-current={isOn(k) ? "page" : undefined} style={`--d:${i}`}
+            class:list={["anim-in flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold no-underline",
+              isOn(k) ? "bg-brand-soft text-brand" : "text-ink hover:bg-sunken"]}>
+            {c.ui.nav[k as keyof typeof c.ui.nav]}<Icon name="arrow" size={18} class="opacity-40" />
+          </a>
+        ))}
+      </nav>
+      <div class="mt-auto grid gap-3 pt-6">
+        <a href={tel} class="btn btn-alert w-full"><Icon name="phone" size={20} weight="fill" />{contact.hotline}</a>
+        <a href={pageHref(lang, "lienHe")} class="btn btn-primary w-full">{c.ui.headerCta}</a>
+      </div>
+    </div>
+  </dialog>
+
+  <main id="main"><slot /></main>
+
+  <div class="fab no-print fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 flex flex-col gap-3">
+    <a href={contact.zaloGroup} target="_blank" rel="noopener" aria-label={c.ui.zalo}
+      class="grid size-14 place-items-center rounded-full bg-zalo text-sm font-bold text-white no-underline shadow-lg shadow-black/20 transition hover:scale-105 active:scale-95">Zalo</a>
+    <a href={tel} aria-label={c.ui.call}
+      class="relative grid size-14 place-items-center rounded-full bg-rose-500 text-white no-underline shadow-lg shadow-black/20 transition hover:scale-105 active:scale-95">
+      <span class="absolute inset-0 animate-ping rounded-full bg-rose-500/40 motion-reduce:hidden" style="animation-duration:2.4s"></span>
+      <Icon name="phone" size={26} weight="fill" class="relative" />
+    </a>
+  </div>
+
+  <footer class="mt-0 bg-[#0f2427] text-teal-50/80">
+    <div class="ribbon"></div>
+    <div class="wrap grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <img src={asset("logo.png")} alt="Stroke360" width="800" height="400" class="mb-4 h-12 w-auto rounded-xl bg-white px-2 py-1" loading="lazy" />
+        <p class="max-w-sm text-lg font-medium text-white">{c.ui.footer.tagline}</p>
+      </div>
+      <div>
+        <h2 class="mb-3 text-sm font-bold uppercase tracking-wider text-teal-300">{c.ui.footer.explore}</h2>
+        <ul class="grid gap-2">
+          {Object.entries(c.ui.footer.links).map(([k, t]) => (
+            <li><a href={pageHref(lang, k as PageKey)} class="text-teal-50/85 no-underline hover:text-white hover:underline">{t}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2 class="mb-3 text-sm font-bold uppercase tracking-wider text-teal-300">{c.ui.footer.contact}</h2>
+        <ul class="grid gap-3">
+          <li class="flex items-center gap-2.5"><Icon name="phone" size={20} class="text-teal-300" /><a href={tel} class="text-teal-50/85 no-underline hover:text-white">{contact.hotline}</a></li>
+          <li class="flex items-center gap-2.5"><Icon name="mail" size={20} class="text-teal-300" /><a href={`mailto:${contact.email}`} class="text-teal-50/85 no-underline hover:text-white">{contact.email}</a></li>
+          <li class="flex items-center gap-2.5"><Icon name="pin" size={20} class="text-teal-300" />{c.ui.footer.city}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <p class="wrap py-6 text-[0.8rem] leading-relaxed text-teal-50/60">{c.ui.footer.demo} {c.lessonDisclaimer}</p>
+    </div>
+  </footer>
+
+  <script>
+    const menu = document.getElementById("menu") as HTMLDialogElement | null;
+    document.querySelector("[data-open-menu]")?.addEventListener("click", () => menu?.showModal());
+    document.querySelector("[data-close-menu]")?.addEventListener("click", () => menu?.close());
+    menu?.addEventListener("click", (e) => { if (e.target === menu) menu.close(); });
+  </script>
+</body>
+</html>

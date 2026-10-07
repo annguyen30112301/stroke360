@@ -1,0 +1,19 @@
+---
+interface Props { eyebrow?: string; title: string; lead?: string; split?: boolean }
+const { eyebrow, title, lead, split = Astro.slots.has("aside") } = Astro.props;
+---
+<section class="relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+    <div class="absolute -left-40 -top-40 size-[34rem] rounded-full bg-teal-300/20 blur-3xl dark:bg-teal-500/10"></div>
+    <div class="absolute -right-32 top-10 size-[26rem] rounded-full bg-rose-300/15 blur-3xl dark:bg-rose-500/10"></div>
+  </div>
+  <div class:list={["wrap pb-14 pt-12 sm:pb-20 sm:pt-20", split && "grid items-center gap-12 lg:grid-cols-[1.15fr_1fr]"]}>
+    <div class="max-w-3xl">
+      {eyebrow && <span class="eyebrow anim-in">{eyebrow}</span>}
+      <h1 class="h-display anim-in mt-5" style="--d:1" set:html={title} />
+      {lead && <p class="lead anim-in mt-6 max-w-2xl" style="--d:2" set:html={lead} />}
+      <div class="anim-in" style="--d:3"><slot /></div>
+    </div>
+    {split && <div class="anim-in" style="--d:3"><slot name="aside" /></div>}
+  </div>
+</section>

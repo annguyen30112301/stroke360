@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import ContactForm from "../islands/ContactForm.tsx";
+import { getContent, lessonHref } from "../lib/i18n";
+import { contact } from "../content/shared";
+import type { Lang } from "../content/types";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = getContent(lang);
+const t = c.lienHe;
+const options: [string, string][] = [
+  ...c.services.map((s): [string, string] => [s.code, `${s.code} · ${s.name}`]),
+  ...c.counseling.map((s): [string, string] => [s.id, `${t.form.counselingPrefix} · ${s.name}`]),
+  ...t.form.extraTopics
+];
+const valueIcons = ["shield", "eye", "handHeart", "scope"];
+const tel = "tel:" + contact.hotline.replace(/\s/g, "");
+---
+<Base lang={lang} page="lienHe" path="lien-he.html" title={c.meta.lienHe.title} description={c.meta.lienHe.description}>
+  <section class="relative overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute -left-40 -top-40 -z-10 size-[34rem] rounded-full bg-teal-300/20 blur-3xl dark:bg-teal-500/10"></div>
+    <div class="wrap grid gap-12 pb-24 pt-12 sm:pt-20 lg:grid-cols-[1fr_1.05fr]">
+      <div>
+        <span class="eyebrow anim-in"><Icon name="clock" size={18} />{t.eyebrow}</span>
+        <h1 class="h-display anim-in mt-5" style="--d:1">{t.title}</h1>
+        <p class="lead anim-in mt-6" style="--d:2" set:html={t.vision} />
+        <p class="anim-in mt-3 text-muted" style="--d:2" set:html={t.mission} />
+        <div class="anim-in mt-8 grid gap-3 sm:grid-cols-2" style="--d:3">
+          {t.values.map((v, i) => <div class="card-flat flex items-center gap-3 !p-4"><Icon name={valueIcons[i]} size={26} class="shrink-0 text-brand" /><b>{v}</b></div>)}
+        </div>
+        <div class="anim-in mt-8 flex flex-wrap gap-3" style="--d:4">
+          <a href={tel} class="btn btn-alert"><Icon name="phone" size={20} weight="fill" />{contact.hotline}</a>
+          <a href={contact.zaloGroup} target="_blank" rel="noopener" class="btn bg-zalo text-white hover:brightness-110"><Icon name="chats" size={20} />{c.ui.zalo}</a>
+          <a href={`mailto:${contact.email}`} class="btn btn-ghost"><Icon name="mail" size={20} />{contact.email}</a>
+        </div>
+      </div>
+      <div class="anim-in" style="--d:2">
+        <ContactForm client:load t={t.form} options={options} hotline={contact.hotline} lessonHref={lessonHref(lang, "A1")} />
+      </div>
+    </div>
+  </section>
+</Base>

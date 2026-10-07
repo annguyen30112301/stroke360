@@ -1,0 +1,54 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/PageHero.astro";
+import { getContent, pageHref } from "../lib/i18n";
+import type { Lang } from "../content/types";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = getContent(lang);
+const t = c.tuyenDung;
+const statIcons = ["trend", "clock", "shield", "medal"];
+const trainIcons = ["bed", "heart", "pulse", "siren", "notebook"];
+---
+<Base lang={lang} page="tuyenDung" path="tuyen-dung.html" title={c.meta.tuyenDung.title} description={c.meta.tuyenDung.description}>
+  <PageHero eyebrow={t.eyebrow} title={t.title} lead={t.lead}>
+    <a class="btn btn-primary mt-8" href={pageHref(lang, "lienHe", "?topic=tuyen-dung")}>{t.apply}<Icon name="arrow" size={18} weight="bold" /></a>
+  </PageHero>
+
+  <section class="pb-16">
+    <div class="wrap grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {t.stats.map(([v, l], i) => (
+        <div class="card" data-reveal>
+          <Icon name={statIcons[i]} size={30} class="text-brand" />
+          <div class="mt-3 text-4xl font-extrabold tracking-tight text-brand">{v}</div>
+          <p class="mt-1 text-muted">{l}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section bg-brand-soft/50">
+    <div class="wrap grid gap-8 lg:grid-cols-2">
+      <div data-reveal>
+        <h2 class="h-section">{t.getTitle}</h2>
+        <ul class="mt-6 grid gap-4">
+          {t.get.map((x) => <li class="flex gap-3 text-lg"><span class="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-brand text-on-brand"><Icon name="check" size={16} weight="bold" /></span>{x}</li>)}
+        </ul>
+      </div>
+      <div class="card" data-reveal>
+        <span class="icon-tile alert"><Icon name="medal" size={28} /></span>
+        <h3 class="mt-4 text-2xl">{t.trainingTitle}</h3>
+        <ol class="mt-4 grid gap-2">
+          {t.training.map((x, i) => (
+            <li class="flex items-center gap-3 rounded-xl bg-sunken px-4 py-3">
+              <span class="text-sm font-bold text-faint">0{i + 1}</span><Icon name={trainIcons[i]} size={22} class="text-brand" /><span>{x}</span>
+            </li>
+          ))}
+        </ol>
+        <a class="btn btn-primary mt-6" href={pageHref(lang, "lienHe", "?topic=tuyen-dung")}>{t.apply}</a>
+      </div>
+    </div>
+  </section>
+</Base>

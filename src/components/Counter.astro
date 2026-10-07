@@ -1,0 +1,22 @@
+---
+/* Number that counts up when scrolled into view. Final value is in the HTML, so it works without JS. */
+import type { Lang } from "../content/types";
+interface Props { value: number; lang: Lang; decimals?: number; prefix?: string; suffix?: string; class?: string }
+const { value, lang, decimals = 0, prefix = "", suffix = "", class: cls } = Astro.props;
+const locale = lang === "vi" ? "vi-VN" : "en-US";
+const text = prefix + value.toLocaleString(locale, { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+---
+<span class:list={["tabular-nums", cls]} data-count={value} data-dec={decimals} data-prefix={prefix} data-suffix={suffix} data-locale={locale}>{text}</span>
+
+<script>
+  import { animate, inView } from "motion";
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+      const end = Number(el.dataset.count), dec = Number(el.dataset.dec || 0);
+      const nf = new Intl.NumberFormat(el.dataset.locale, { minimumFractionDigits: dec, maximumFractionDigits: dec });
+      const paint = (n: number) => (el.textContent = (el.dataset.prefix || "") + nf.format(n) + (el.dataset.suffix || ""));
+      paint(0);
+      inView(el, () => { animate(0, end, { duration: 1.6, ease: [0.22, 1, 0.36, 1], onUpdate: paint }); }, { amount: 0.6 });
+    });
+  }
+</script>

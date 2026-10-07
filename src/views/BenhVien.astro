@@ -1,0 +1,53 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/PageHero.astro";
+import SectionHead from "../components/SectionHead.astro";
+import { getContent, pageHref } from "../lib/i18n";
+import type { Lang } from "../content/types";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = getContent(lang);
+const t = c.benhVien;
+const pilotIcons = ["search", "pulse", "target"];
+---
+<Base lang={lang} page="benhVien" path="benh-vien.html" title={c.meta.benhVien.title} description={c.meta.benhVien.description}>
+  <PageHero eyebrow={t.eyebrow} title={t.title} lead={t.lead}>
+    <a class="btn btn-primary mt-8" href={pageHref(lang, "lienHe", "?topic=benh-vien")}>{t.cta}<Icon name="arrow" size={18} weight="bold" /></a>
+  </PageHero>
+
+  <section class="section pt-0">
+    <div class="wrap grid gap-5 md:grid-cols-2">
+      {[[t.getTitle, t.get, "hospital", false], [t.promiseTitle, t.promise, "shield", true]].map(([title, items, icon, alt]) => (
+        <div class="card" data-reveal>
+          <span class:list={["icon-tile", alt && "alert"]}><Icon name={icon as string} size={28} /></span>
+          <h2 class="mt-4 text-2xl">{title}</h2>
+          <ul class="mt-4 grid gap-3">
+            {(items as string[]).map((x) => <li class="flex gap-3"><Icon name="check" size={22} weight="bold" class="mt-0.5 shrink-0 text-brand" /><span>{x}</span></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section bg-brand-soft/50">
+    <div class="wrap">
+      <SectionHead title={t.pilotTitle} />
+      <ol class="relative grid gap-5 md:grid-cols-3">
+        <span aria-hidden="true" data-reveal-bar class="absolute left-[16%] right-[16%] top-8 hidden h-0.5 bg-gradient-to-r from-teal-500 to-rose-500 md:block"></span>
+        {t.pilot.map(([m, title, text], i) => (
+          <li class="relative text-center" data-reveal>
+            <span class:list={["relative z-10 mx-auto grid size-16 place-items-center rounded-full border-4 border-bg text-white shadow-[var(--shadow-card)]", i === 2 ? "bg-rose-500" : "bg-teal-600"]}><Icon name={pilotIcons[i]} size={28} /></span>
+            <div class="card mt-4 text-left">
+              <span class:list={["tag", i === 2 && "tag-alert"]}>{m}</span>
+              <h3 class="mt-2 text-xl">{title}</h3>
+              <p class="mt-1 text-[0.92rem] text-muted">{text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <div class="mt-10 text-center"><a class="btn btn-primary" href={pageHref(lang, "lienHe", "?topic=benh-vien")}>{t.cta}</a></div>
+    </div>
+  </section>
+</Base>
