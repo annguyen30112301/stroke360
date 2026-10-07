@@ -2,12 +2,12 @@
 <html lang="vi"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Học cùng Stroke360 – Trường học cho người nhà</title>
-<meta name="description" content="Bài học 3–5 phút miễn phí cho người nhà người bệnh đột quỵ: cho ăn an toàn, xoay trở chống loét, nhận biết BE-FAST, chăm sóc tại nhà.">
+<meta name="description" content="Bài học 3–5 phút miễn phí cho người nhà người bệnh đột quỵ: hiểu về đột quỵ, cho ăn an toàn, xoay trở chống loét, BE-FAST, sức khỏe tinh thần và tư vấn tâm lý.">
 <meta name="theme-color" content="#0FA9A6">
 <link rel="icon" href="assets/favicon.ico" sizes="any"><link rel="icon" href="assets/favicon-512.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:type" content="website"><meta property="og:site_name" content="STROKE360">
-<meta property="og:title" content="Học cùng Stroke360 – Trường học cho người nhà"><meta property="og:description" content="Bài học 3–5 phút miễn phí cho người nhà người bệnh đột quỵ: cho ăn an toàn, xoay trở chống loét, nhận biết BE-FAST, chăm sóc tại nhà.">
+<meta property="og:title" content="Học cùng Stroke360 – Trường học cho người nhà"><meta property="og:description" content="Bài học 3–5 phút miễn phí cho người nhà người bệnh đột quỵ: hiểu về đột quỵ, cho ăn an toàn, xoay trở chống loét, BE-FAST, sức khỏe tinh thần và tư vấn tâm lý.">
 <meta property="og:url" content="https://annguyen30112301.github.io/stroke360/hoc.html"><meta property="og:image" content="https://annguyen30112301.github.io/stroke360/assets/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -24,9 +24,38 @@
     <div style="display:flex;justify-content:space-between;font-size:15px"><b id="ptext"></b><a href="#" id="reset" class="small">Làm lại</a></div>
     <div class="progress"><div id="pbar"></div></div>
   </div>
+  <nav class="chips" aria-label="Đi nhanh tới">
+    <a href="#stage-K">🧠 Hiểu về đột quỵ</a><a href="#stage-A">🏥 Lộ trình chăm sóc</a>
+    <a href="#stage-T">💛 Sức khỏe tinh thần</a><a href="#tam-ly">🗓 Tư vấn tâm lý</a>
+  </nav>
 </div></section>
 
 <section><div class="wrap" id="stages"></div></section>
+
+<section class="bg-n" id="tam-ly"><div class="wrap">
+  <span class="eyebrow">Sức khỏe tinh thần</span>
+  <h2>Tư vấn tâm lý cho người bệnh và người chăm sóc</h2>
+  <p class="muted" style="max-width:760px">Sau đột quỵ, cả người bệnh lẫn người nhà đều có thể buồn, lo, kiệt sức. Bạn không phải gánh một mình: STROKE360 kết nối chuyên viên tâm lý lâm sàng đối tác và tổ chức nhóm hỗ trợ miễn phí.</p>
+
+  <div class="grid g2" style="margin:24px 0 32px;align-items:start">
+    <div class="tool">
+      <h3>Hôm nay bạn thấy thế nào?</h3>
+      <p class="small muted">Kéo thanh để chấm mức căng thẳng của chính bạn (0 = thoải mái, 10 = quá sức). Chỉ lưu trên máy bạn, không gửi đi đâu.</p>
+      <input type="range" id="mood" min="0" max="10" value="5" aria-label="Mức căng thẳng" style="padding:0;border:0;min-height:36px;accent-color:var(--teal-500)">
+      <div style="display:flex;justify-content:space-between" class="small muted"><span>0</span><b id="moodv" style="font-size:22px;color:var(--teal-700)">5</b><span>10</span></div>
+      <div id="moodtip" class="result" style="margin-top:12px"></div>
+    </div>
+    <div class="banner-red">
+      <h3 style="color:var(--red-700)">Khi cần giúp ngay</h3>
+      <p id="crisis" style="margin-bottom:8px"></p>
+      <a class="btn btn-r" href="tel:115">☎ Gọi 115</a>
+      <p class="small muted" style="margin:14px 0 0" id="counnote"></p>
+    </div>
+  </div>
+
+  <h3>Các buổi tư vấn</h3>
+  <div class="grid g2" id="sessions"></div>
+</div></section>
 
 <section class="bg-teal"><div class="wrap">
   <div class="grid g2">
@@ -53,14 +82,15 @@ function render(filter) {
   document.getElementById("stages").innerHTML = Object.entries(S360.stages).map(([k, name]) => {
     const items = L.filter(l => l.stage === k && (!f || (l.title + " " + l.keywords).toLowerCase().includes(f)));
     if (!items.length) return "";
-    return `<h2>Giai đoạn ${k}. ${name}</h2><div class="grid g3" style="margin-bottom:36px">${items.map(l => {
+    const head = /^[ABC]$/.test(k) ? `Giai đoạn ${k}. ${name}` : name, note = S360.stageNotes[k];
+    return `<h2 id="stage-${k}" style="scroll-margin-top:80px">${head}</h2>${note ? `<p class="muted" style="max-width:760px">${note}</p>` : ""}<div class="grid g3" style="margin-bottom:36px">${items.map(l => {
       const d = done.includes(l.id);
       return l.ready
         ? `<a class="card lesson ${d ? "done" : ""}" href="bai-hoc.html?id=${l.id}"><div class="meta"><span class="tag">${l.id}</span><span class="small muted">${l.mins} phút</span>${d ? '<span class="tag">✓ Đã học</span>' : ""}</div><h3>${l.title}</h3><span class="small" style="color:var(--teal-700)">✔ Đã được bác sĩ cố vấn duyệt</span></a>`
         : `<div class="card lesson soon"><div class="meta"><span class="tag g">${l.id}</span><span class="tag g">Sắp ra mắt</span></div><h3>${l.title}</h3></div>`;
     }).join("")}</div>`;
   }).join("") || `<p>Chưa có bài phù hợp. Hãy hỏi điều dưỡng ở <a href="cong-dong.html#hoi">Cộng đồng</a>.</p>`;
-  const need = ready.filter(l => l.stage !== "C").map(l => l.id), ok = need.every(id => done.includes(id));
+  const need = ready.filter(l => l.stage === "A" || l.stage === "B").map(l => l.id), ok = need.every(id => done.includes(id));
   document.getElementById("certbox").innerHTML = ok
     ? `<label for="nm">Tên của bạn</label><input id="nm" placeholder="Nguyễn Thị Lan"><div class="cert" style="margin-top:16px"><div class="small muted">STROKE360 chứng nhận</div><div class="name" id="cn">Người nhà</div><b>Người nhà đã sẵn sàng</b><p class="small muted" style="margin-top:8px">Đã hoàn thành lộ trình Tuần đầu tại bệnh viện và Chuẩn bị xuất viện</p></div>`
     : `<p><b>Còn ${need.filter(id => !done.includes(id)).join(", ")}</b> là bạn nhận được chứng nhận.</p>`;
@@ -70,5 +100,27 @@ function render(filter) {
 document.getElementById("q").oninput = e => render(e.target.value);
 document.getElementById("reset").onclick = e => { e.preventDefault(); S360progress.reset(); render(); };
 render();
+
+/* Tư vấn tâm lý */
+document.getElementById("crisis").textContent = S360.crisisNote;
+document.getElementById("counnote").textContent = S360.counselingNote;
+document.getElementById("sessions").innerHTML = S360.counseling.map(c => `<div class="card lesson">
+  <div class="meta"><span class="tag ${c.for === "Người bệnh" ? "r" : ""}">${c.for}</span>${c.free ? '<span class="tag">Miễn phí</span>' : ""}</div>
+  <h3>${c.name}</h3><div class="small muted">🕒 ${c.format}</div>
+  <p class="small" style="margin:4px 0">${c.desc}</p>
+  <p class="note" style="margin:0 0 8px">${c.price}</p>
+  <a class="btn ${c.free ? "btn-p" : "btn-o"}" href="lien-he.html?topic=${c.id}" style="align-self:flex-start">${c.free ? "Đăng ký tham gia" : "Đặt lịch"}</a></div>`).join("");
+const MK = "s360_mood", mood = document.getElementById("mood");
+function moodTip(v) {
+  document.getElementById("moodv").textContent = v;
+  document.getElementById("moodtip").innerHTML = v <= 3
+    ? `<b>Bạn đang giữ sức tốt.</b><p class="small" style="margin:4px 0 0">Tiếp tục dành 15 phút mỗi ngày cho mình. Xem <a href="bai-hoc.html?id=C4">bài C4</a>.</p>`
+    : v <= 6
+    ? `<b>Hơi căng, nghỉ một chút nhé.</b><p class="small" style="margin:4px 0 0">Thử ngay <a href="bai-hoc.html?id=T3">bài T3 – 5 phút lấy lại bình tĩnh</a>, và tham gia nhóm hỗ trợ tối Chủ nhật.</p>`
+    : `<b>Bạn đang gánh quá nhiều.</b><p class="small" style="margin:4px 0 0">Nếu mức này kéo dài 3 ngày, hãy nhờ người thay ca và <a href="lien-he.html?topic=tl-nguoi-nha">đặt lịch tư vấn 1–1</a>. Xem <a href="bai-hoc.html?id=T2">bài T2</a>.</p>`;
+}
+try { const v = localStorage.getItem(MK); if (v !== null) mood.value = v; } catch (e) {}
+moodTip(+mood.value);
+mood.oninput = () => { moodTip(+mood.value); try { localStorage.setItem(MK, mood.value); } catch (e) {} };
 </script>
 </body></html>

@@ -17,6 +17,7 @@
 <main><section><div class="wrap" style="max-width:760px" id="lesson"></div></section></main>
 <script src="assets/content.js"></script><script src="assets/app.js"></script>
 <script>
+const shuffle = arr => { for (let i = arr.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [arr[i], arr[k]] = [arr[k], arr[i]]; } return arr; };
 const id = new URLSearchParams(location.search).get("id");
 const L = S360.lessons, l = L.find(x => x.id === id && x.ready);
 const box = document.getElementById("lesson");
@@ -27,7 +28,7 @@ if (!l) {
   const ready = L.filter(x => x.ready), next = ready[ready.indexOf(l) + 1];
   box.innerHTML = `
   <a href="hoc.html" class="small no-print">← Lộ trình học</a>
-  <div style="margin:16px 0" class="lesson"><div class="meta"><span class="tag">${l.id} · Giai đoạn ${l.stage}</span><span class="small muted">${l.mins} phút</span><span class="small" style="color:var(--teal-700)">✔ Đã được bác sĩ cố vấn duyệt</span></div></div>
+  <div style="margin:16px 0" class="lesson"><div class="meta"><span class="tag">${l.id} · ${/^[ABC]$/.test(l.stage) ? "Giai đoạn " + l.stage : S360.stages[l.stage]}</span><span class="small muted">${l.mins} phút</span><span class="small" style="color:var(--teal-700)">✔ Đã được bác sĩ cố vấn duyệt</span></div></div>
   <h1>${l.title}</h1>
   <h2 style="margin-top:28px">Ý chính</h2>
   <ul class="points">${l.points.map(p => `<li>${p}</li>`).join("")}</ul>
@@ -41,7 +42,7 @@ if (!l) {
 
   <div class="quiz no-print" style="margin-top:32px">
     <h2>Câu hỏi nhanh</h2>
-    ${l.quiz.map((q, i) => `<div class="q" data-i="${i}"><b>${i + 1}. ${q.q}</b>${q.a.map((a, j) => `<button class="opt" data-j="${j}">${a}</button>`).join("")}</div>`).join("")}
+    ${l.quiz.map((q, i) => `<div class="q" data-i="${i}"><b>${i + 1}. ${q.q}</b>${shuffle(q.a.map((a, j) => [a, j])).map(([a, j]) => `<button class="opt" data-j="${j}">${a}</button>`).join("")}</div>`).join("")}
     <div id="qres"></div>
   </div>
   <p class="note" style="margin-top:24px">${S360.lessonSources}</p>`;

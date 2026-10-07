@@ -42,6 +42,7 @@
 <script>
 const g = document.getElementById("g"), qs = new URLSearchParams(location.search);
 g.insertAdjacentHTML("beforeend", S360.services.map(s => `<option value="${s.code}">${s.code} · ${s.name}</option>`).join("") +
+  S360.counseling.map(c => `<option value="${c.id}">Tư vấn tâm lý · ${c.name}</option>`).join("") +
   '<option value="lop-hoc">Lớp hướng dẫn người nhà miễn phí</option><option value="dong-hanh">Đồng hành cùng Stroke360</option><option value="benh-vien">Hợp tác bệnh viện</option><option value="tuyen-dung">Ứng tuyển chăm sóc viên</option>');
 g.value = qs.get("goi") || qs.get("topic") || "";
 document.getElementById("f").onsubmit = e => { e.preventDefault(); e.target.innerHTML = `<h2>Cảm ơn bạn!</h2><p>Điều phối viên sẽ gọi lại trong 2 giờ để tư vấn. Gấp, hãy gọi <b>${S360.contact.hotline}</b>.</p><a class="btn btn-o" href="hoc.html">Trong lúc chờ: học bài A1</a>`; };

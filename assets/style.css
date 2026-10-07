@@ -152,5 +152,8 @@ details[open] summary{color:var(--teal-700);margin-bottom:8px}
 .banner-red{background:var(--red-50);border:2px solid var(--red-100);border-radius:var(--radius);padding:20px}
 .cert{border:6px double var(--teal-500);border-radius:12px;padding:32px;text-align:center;background:#fff}
 .cert .name{font-size:30px;font-weight:800;color:var(--red-500);margin:8px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chips a{text-decoration:none;font-size:15px;font-weight:600;padding:8px 14px;border-radius:999px;background:#fff;border:1px solid var(--n-300);color:var(--n-900)}
+.chips a:hover{border-color:var(--teal-500);color:var(--teal-700)}
 .hidden{display:none!important}
 @media print{.hdr,.ftr,.fab,.no-print{display:none!important}body{font-size:14px}}

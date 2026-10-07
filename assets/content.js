@@ -45,11 +45,80 @@ window.S360 = {
 
   /* Lộ trình học – mục 5.2. ready:true = bài hoàn chỉnh trong bản demo */
   stages: {
+    K: "Hiểu về đột quỵ",
     A: "Tuần đầu tại bệnh viện",
     B: "Chuẩn bị xuất viện",
-    C: "12 tuần tại nhà"
+    C: "12 tuần tại nhà",
+    T: "Sức khỏe tinh thần"
+  },
+  /* K và T là chủ đề, không phải giai đoạn – học lúc nào cũng được */
+  stageNotes: {
+    K: "Kiến thức nền: đột quỵ là gì, diễn biến ra sao, để lại gì và được điều trị thế nào. Nên đọc trước khi vào lộ trình chăm sóc.",
+    T: "Cho cả người bệnh và người chăm sóc. Cảm xúc sau đột quỵ là một phần của bệnh, cần được chăm sóc như cơ thể."
   },
   lessons: [
+    { id: "K1", stage: "K", ready: true, mins: 5, title: "Đột quỵ là gì? Hai loại chính và yếu tố nguy cơ",
+      keywords: "đột quỵ là gì tai biến mạch máu não nhồi máu xuất huyết thiếu máu thoáng qua TIA nguyên nhân huyết áp nguy cơ",
+      points: [
+        "Đột quỵ (tai biến mạch máu não) xảy ra khi dòng máu nuôi một vùng não bị gián đoạn. Tế bào não thiếu oxy và bắt đầu chết chỉ sau vài phút, vì vậy đột quỵ luôn là cấp cứu.",
+        "Nhồi máu não (thiếu máu não cục bộ): mạch máu não bị tắc, thường do cục máu đông. Đây là loại phổ biến nhất, khoảng 8 trong 10 ca.",
+        "Xuất huyết não: mạch máu trong não bị vỡ, máu tràn vào mô não. Ít gặp hơn nhưng thường nặng hơn.",
+        "Cơn thiếu máu não thoáng qua (TIA): triệu chứng giống đột quỵ rồi tự hết sau vài phút đến vài giờ. Đây là lời cảnh báo đột quỵ thật có thể xảy ra, vẫn phải đi cấp cứu ngay.",
+        "Yếu tố nguy cơ thay đổi được: tăng huyết áp (quan trọng nhất), đái tháo đường, mỡ máu cao, rung nhĩ, hút thuốc, rượu bia, ít vận động, thừa cân. Không thay đổi được: tuổi cao, tiền sử gia đình, đã từng đột quỵ."
+      ],
+      checklist: ["Người thân bị loại đột quỵ nào? (hỏi bác sĩ)", "Vùng não nào bị ảnh hưởng", "Các yếu tố nguy cơ người thân đang có", "Yếu tố nào gia đình có thể cùng thay đổi"],
+      quiz: [
+        { q: "Loại đột quỵ nào phổ biến nhất?", a: ["Xuất huyết não", "Nhồi máu não do mạch máu bị tắc", "Cả hai bằng nhau"], c: 1 },
+        { q: "Ông nói ngọng 10 phút rồi tự hết. Gia đình nên:", a: ["Yên tâm vì đã hết", "Đưa đi cấp cứu ngay vì đây có thể là cơn thiếu máu não thoáng qua", "Chờ sáng mai đi khám"], c: 1 },
+        { q: "Yếu tố nguy cơ quan trọng nhất có thể kiểm soát được là:", a: ["Tuổi tác", "Tăng huyết áp", "Giới tính"], c: 1 }
+      ] },
+    { id: "K2", stage: "K", ready: true, mins: 5, title: "Diễn biến: từ giờ đầu đến những tháng phục hồi",
+      keywords: "diễn biến giai đoạn cấp bán cấp mạn thời gian vàng phục hồi bao lâu tiên lượng",
+      points: [
+        "Vài giờ đầu (tối cấp): “thời gian là não”. Mỗi phút chậm trễ mất thêm hàng triệu tế bào não. Các phương pháp tái thông mạch chỉ làm được khi đến viện sớm.",
+        "1–2 tuần đầu (cấp): người bệnh được theo dõi sát tại khoa thần kinh hoặc đơn vị đột quỵ. Tình trạng có thể nặng lên trong những ngày đầu do phù não, chảy máu thêm, viêm phổi do sặc, huyết khối tĩnh mạch hay loét tì đè.",
+        "Vài tuần đến khoảng 3 tháng (bán cấp): não tự sắp xếp lại nhanh nhất. Đây là giai đoạn tập phục hồi chức năng mang lại hiệu quả lớn nhất.",
+        "Sau 6 tháng (mạn): phục hồi chậm lại nhưng vẫn tiếp tục nếu tập đều. Trọng tâm chuyển sang duy trì, phòng tái phát và thích nghi với cuộc sống mới.",
+        "Mỗi người phục hồi một khác, tùy vị trí và kích thước tổn thương, tuổi, bệnh nền và mức độ tập luyện. Hãy hỏi bác sĩ về tiên lượng riêng của người thân."
+      ],
+      checklist: ["Ngày giờ khởi phát", "Người thân đang ở giai đoạn nào", "Mục tiêu phục hồi tuần này", "Câu hỏi về tiên lượng cần hỏi bác sĩ"],
+      quiz: [
+        { q: "Vì sao phải đến viện thật sớm khi có dấu hiệu đột quỵ?", a: ["Để được nằm phòng tốt", "Vì điều trị tái thông mạch chỉ hiệu quả trong vài giờ đầu", "Vì bệnh viện đông vào buổi chiều"], c: 1 },
+        { q: "Giai đoạn tập phục hồi mang lại hiệu quả lớn nhất thường là:", a: ["Vài tuần đến khoảng 3 tháng đầu", "Sau 2 năm", "Chỉ ngày đầu tiên"], c: 0 },
+        { q: "Sau 6 tháng, người bệnh:", a: ["Không thể tiến bộ thêm", "Vẫn có thể tiến bộ chậm nếu tập đều", "Nên ngưng tập"], c: 1 }
+      ] },
+    { id: "K3", stage: "K", ready: true, mins: 5, title: "Hậu quả thường gặp sau đột quỵ",
+      keywords: "hậu quả di chứng liệt nửa người nói khó nuốt khó trí nhớ trầm cảm mệt mỏi tiểu không tự chủ",
+      points: [
+        "Vận động: yếu hoặc liệt nửa người (bên đối diện với bên não bị tổn thương), mất thăng bằng, co cứng cơ, đau vai bên yếu. Nguy cơ té ngã tăng cao.",
+        "Nuốt: khó nuốt làm thức ăn dễ đi lạc vào phổi, gây sặc, viêm phổi, sụt cân. Vì vậy luôn chờ đánh giá nuốt trước khi cho ăn.",
+        "Giao tiếp: nói khó, nói ngọng, hoặc nói được mà không hiểu lời người khác (thất ngôn). Người bệnh vẫn có cảm xúc và suy nghĩ như trước.",
+        "Nhận thức: giảm trí nhớ, khó tập trung, chậm xử lý; có người “bỏ quên” một bên cơ thể hoặc không gian (thường bên trái).",
+        "Cảm xúc: trầm cảm, lo âu, dễ khóc hoặc cười không kiểm soát, cáu gắt, mệt mỏi kéo dài. Đây là hậu quả của tổn thương não, không phải do người bệnh “khó tính”.",
+        "Khác: tiểu tiện không tự chủ, đau, rối loạn giấc ngủ; ít gặp hơn là co giật."
+      ],
+      checklist: ["Vận động: bên nào yếu?", "Nuốt: đã được đánh giá chưa?", "Giao tiếp: nói được / hiểu được?", "Trí nhớ, tập trung có thay đổi?", "Tâm trạng 2 tuần gần đây"],
+      quiz: [
+        { q: "Người bệnh tổn thương não bên trái thường yếu bên nào?", a: ["Bên trái", "Bên phải", "Cả hai bên"], c: 1 },
+        { q: "Mẹ hay khóc bất chợt sau đột quỵ. Điều này có thể là:", a: ["Mẹ cố tình làm nũng", "Hậu quả của tổn thương não, nên báo bác sĩ", "Do ăn uống thiếu chất"], c: 1 },
+        { q: "Người bệnh nói khó thì:", a: ["Không còn hiểu gì nữa", "Vẫn có suy nghĩ và cảm xúc, cần kiên nhẫn giao tiếp", "Nên nói thật to"], c: 1 }
+      ] },
+    { id: "K4", stage: "K", ready: true, mins: 5, title: "Hướng điều trị và phòng tái phát",
+      keywords: "điều trị tiêu sợi huyết lấy huyết khối can thiệp mạch phẫu thuật thuốc phòng tái phát phục hồi chức năng",
+      points: [
+        "Nhồi máu não: nếu đến viện trong “cửa sổ” vài giờ đầu, bác sĩ có thể dùng thuốc tiêu sợi huyết (làm tan cục máu đông) và/hoặc can thiệp lấy huyết khối qua đường mạch máu với tắc mạch lớn. Bác sĩ quyết định dựa trên thời gian khởi phát và kết quả chụp CT/MRI.",
+        "Xuất huyết não: kiểm soát huyết áp, điều chỉnh rối loạn đông máu, theo dõi sát; một số trường hợp cần phẫu thuật.",
+        "Chăm sóc nâng đỡ: theo dõi huyết áp, đường huyết, nhiệt độ; đánh giá nuốt; phòng viêm phổi, loét tì đè, huyết khối tĩnh mạch. Đây là phần gia đình và chăm sóc viên góp sức nhiều nhất.",
+        "Phòng tái phát lâu dài: dùng thuốc đều đặn theo đơn (thuốc chống kết tập tiểu cầu hoặc chống đông, hạ áp, hạ mỡ máu, đường huyết), không tự ngưng; bỏ thuốc lá, hạn chế rượu, ăn nhạt, vận động phù hợp.",
+        "Phục hồi chức năng bắt đầu sớm khi người bệnh ổn định và kéo dài nhiều tháng: vật lý trị liệu, hoạt động trị liệu, ngôn ngữ trị liệu và hỗ trợ tâm lý.",
+        "STROKE360 không tư vấn thuốc. Mọi câu hỏi về thuốc và phác đồ, gia đình hỏi bác sĩ điều trị."
+      ],
+      checklist: ["Phương pháp điều trị người thân đã nhận", "Danh sách thuốc phòng tái phát và giờ uống", "Lịch tái khám", "Mục tiêu huyết áp bác sĩ dặn", "Lịch tập phục hồi chức năng"],
+      quiz: [
+        { q: "Ai quyết định dùng thuốc tiêu sợi huyết hay lấy huyết khối?", a: ["Gia đình", "Bác sĩ, dựa trên thời gian khởi phát và kết quả chụp não", "Chăm sóc viên"], c: 1 },
+        { q: "Thấy huyết áp ổn, ba muốn ngưng thuốc. Bạn nên:", a: ["Đồng ý vì đã ổn", "Không tự ngưng, hỏi bác sĩ điều trị", "Giảm còn nửa liều"], c: 1 },
+        { q: "Phục hồi chức năng nên bắt đầu khi nào?", a: ["Sớm, ngay khi người bệnh ổn định theo chỉ định", "Sau 1 năm", "Chỉ khi đã về nhà"], c: 0 }
+      ] },
     { id: "A1", stage: "A", ready: true, mins: 4, title: "72 giờ đầu: gia đình cần làm gì",
       keywords: "mới đột quỵ cấp cứu bắt đầu ngày đầu",
       points: [
@@ -130,7 +199,6 @@ window.S360 = {
         { q: "Dấu hiệu nào cần dừng tập ngay?", a: ["Hơi mỏi cơ", "Đau ngực hoặc khó thở", "Đổ mồ hôi nhẹ"], c: 1 }
       ] },
     { id: "C2", stage: "C", ready: false, mins: 4, title: "Giao tiếp khi người bệnh nói khó", keywords: "nói khó giao tiếp" },
-    { id: "C3", stage: "C", ready: false, mins: 4, title: "Tâm lý người bệnh sau đột quỵ", keywords: "tâm lý buồn trầm cảm" },
     { id: "C4", stage: "C", ready: true, mins: 4, title: "Chăm sóc chính mình: người chăm sóc cũng cần nghỉ",
       keywords: "mệt mỏi kiệt sức nghỉ ngơi người chăm sóc stress",
       points: [
@@ -145,10 +213,88 @@ window.S360 = {
         { q: "Người chăm sóc nghỉ ngơi là:", a: ["Ích kỷ", "Cần thiết để chăm người thân lâu dài", "Chỉ khi người bệnh đã khỏi"], c: 1 },
         { q: "Một cách giảm tải hiệu quả là:", a: ["Một mình trực mọi ca", "Chia lịch trực và nhận giúp đỡ", "Bỏ ngủ để làm thêm"], c: 1 },
         { q: "Buồn kéo dài, mất ngủ nhiều tuần thì nên:", a: ["Cố chịu", "Chia sẻ với người thân hoặc tìm chuyên gia", "Uống thuốc ngủ tự mua"], c: 1 }
+      ] },
+    { id: "T1", stage: "T", ready: true, mins: 4, title: "Tâm lý người bệnh sau đột quỵ",
+      keywords: "tâm lý người bệnh buồn trầm cảm lo âu không muốn tập khóc gánh nặng chán nản",
+      points: [
+        "Buồn, lo, sợ tái phát, mất tự tin là phản ứng rất thường gặp. Khoảng 1 trong 3 người bệnh có trầm cảm sau đột quỵ, và đây là bệnh điều trị được.",
+        "Dấu hiệu cần để ý khi kéo dài hơn 2 tuần: buồn hoặc khóc nhiều, mất hứng thú, không muốn tập, ăn ngủ thay đổi, hay nói “mình là gánh nặng”.",
+        "Khóc hoặc cười bất chợt, không kiểm soát có thể do tổn thương não. Người bệnh không cố ý, đừng trách.",
+        "Gia đình giúp được nhiều: lắng nghe không phán xét; để người bệnh tự làm những việc nhỏ; đặt mục tiêu nhỏ và khen từng tiến bộ; giữ kết nối với bạn bè, hàng xóm.",
+        "Báo bác sĩ khi dấu hiệu kéo dài. Nếu người bệnh nói muốn chết hoặc có ý tự làm hại mình: không để một mình, gọi 115 hoặc đưa đến cơ sở y tế ngay."
+      ],
+      checklist: ["Tâm trạng người bệnh 2 tuần qua", "Còn hứng thú với điều gì?", "Ăn, ngủ có thay đổi?", "Một việc nhỏ người bệnh tự làm hôm nay", "Đã báo bác sĩ (nếu dấu hiệu kéo dài)"],
+      quiz: [
+        { q: "Trầm cảm sau đột quỵ:", a: ["Hiếm gặp, không cần quan tâm", "Khá thường gặp và điều trị được", "Tự hết, không cần báo bác sĩ"], c: 1 },
+        { q: "Ba không muốn tập, hay nói “ba là gánh nặng” đã 3 tuần. Bạn nên:", a: ["Động viên “cố lên” rồi thôi", "Lắng nghe và báo bác sĩ để được đánh giá", "Để ba tự vượt qua"], c: 1 },
+        { q: "Cách nào giúp người bệnh lấy lại tự tin?", a: ["Làm hết mọi việc thay người bệnh", "Để người bệnh tự làm việc nhỏ và khen tiến bộ", "Tránh nhắc tới việc tập luyện"], c: 1 }
+      ] },
+    { id: "T2", stage: "T", ready: true, mins: 4, title: "Người chăm sóc: nhận biết sớm kiệt sức",
+      keywords: "kiệt sức người chăm sóc stress căng thẳng mệt mỏi cáu gắt tội lỗi mất ngủ quá tải",
+      points: [
+        "Dấu hiệu kiệt sức: mệt dù đã ngủ, cáu gắt, mất kiên nhẫn, hay thấy tội lỗi, ngại gặp bạn bè, đau đầu, đau lưng, hay ốm vặt.",
+        "Thương, giận, buồn, tội lỗi có thể đến cùng lúc. Cảm xúc trái chiều như vậy là bình thường, không làm bạn trở thành người con tệ.",
+        "Mỗi tối tự chấm “nhiệt kế căng thẳng” từ 0 đến 10. Nếu 3 ngày liền từ 7 trở lên, đó là lúc cần thay đổi: nhờ người thay ca, nghỉ một buổi, hoặc nói chuyện với chuyên viên tâm lý.",
+        "Nhờ giúp cụ thể: thay vì “ai rảnh thì giúp”, hãy nhờ “chiều thứ Bảy trực giúp 4 tiếng”.",
+        "Tìm hỗ trợ chuyên môn khi: mất ngủ kéo dài, buồn chán nhiều tuần, phải dùng rượu hoặc thuốc ngủ để chịu đựng, hay có ý nghĩ làm hại mình."
+      ],
+      checklist: ["Nhiệt kế căng thẳng hôm nay (0–10)", "3 ngày gần nhất có ngày nào ≥ 7?", "Một việc cụ thể sẽ nhờ người khác", "Lần gần nhất được nghỉ trọn một buổi"],
+      quiz: [
+        { q: "Bạn vừa thương vừa giận người bệnh. Điều này:", a: ["Chứng tỏ bạn là người xấu", "Là cảm xúc bình thường của người chăm sóc", "Cần giấu đi"], c: 1 },
+        { q: "Nhiệt kế căng thẳng 3 ngày liền ở mức 8. Bạn nên:", a: ["Cố thêm vài tuần", "Nhờ người thay ca hoặc nói chuyện với chuyên viên tâm lý", "Uống cà phê nhiều hơn"], c: 1 },
+        { q: "Cách nhờ giúp hiệu quả hơn là:", a: ["“Ai rảnh thì giúp”", "“Chiều thứ Bảy trực giúp 4 tiếng”", "Không nhờ ai cả"], c: 1 }
+      ] },
+    { id: "T3", stage: "T", ready: true, mins: 3, title: "5 phút lấy lại bình tĩnh tại giường bệnh",
+      keywords: "thư giãn hít thở bình tĩnh lo âu hoảng sợ hồi hộp căng thẳng thở 5-4-3-2-1",
+      points: [
+        "Thở 4–6: hít vào bằng mũi đếm 4, thở ra chậm bằng miệng đếm 6. Lặp 5–10 lần. Thở ra dài hơn hít vào giúp cơ thể dịu lại.",
+        "Kỹ thuật 5-4-3-2-1: gọi tên 5 thứ bạn thấy, 4 thứ bạn chạm được, 3 âm thanh, 2 mùi, 1 vị. Cách này kéo tâm trí về hiện tại khi đang hoảng.",
+        "Thả lỏng cơ: gồng hai vai lên 5 giây rồi buông; làm tiếp với bàn tay, bắp chân.",
+        "Viết 3 dòng: điều mình lo nhất; phần nào mình kiểm soát được; một việc nhỏ làm ngay bây giờ.",
+        "Người bệnh tỉnh táo cũng có thể làm cùng bạn khi lo âu. Nếu hồi hộp kèm đau ngực, khó thở kéo dài, hãy báo nhân viên y tế."
+      ],
+      checklist: ["Thở 4–6 × 5 lần", "5-4-3-2-1", "Thả lỏng vai, tay, chân", "3 dòng: lo gì / kiểm soát được gì / làm gì ngay"],
+      quiz: [
+        { q: "Trong bài thở 4–6, phần nào dài hơn?", a: ["Hít vào", "Thở ra", "Nín thở"], c: 1 },
+        { q: "Kỹ thuật 5-4-3-2-1 giúp:", a: ["Đưa tâm trí về hiện tại khi đang hoảng", "Đếm số lần xoay trở", "Tính liều thuốc"], c: 0 },
+        { q: "Hồi hộp kèm đau ngực, khó thở kéo dài thì:", a: ["Tiếp tục tập thở", "Báo nhân viên y tế", "Đi ngủ"], c: 1 }
+      ] },
+    { id: "T4", stage: "T", ready: true, mins: 4, title: "Nói chuyện khi người thân buồn hoặc cáu",
+      keywords: "giao tiếp cảm xúc cáu gắt buồn nói chuyện an ủi tranh cãi động viên",
+      points: [
+        "Ngồi ngang tầm mắt, nói chậm, câu ngắn, mỗi lần một ý. Cho người bệnh thời gian trả lời.",
+        "Gọi tên cảm xúc thay họ: “Ba đang bực vì chưa tự cài nút áo được, phải không?” Được hiểu đúng giúp người bệnh dịu lại.",
+        "Tránh “có gì đâu mà buồn”, “cố lên đi”. Thay bằng “Con ở đây với ba”, “Hôm nay ba đã làm được…”.",
+        "Khi người bệnh cáu: không tranh cãi, tạm lùi ra vài phút, quay lại khi cả hai đã bình tĩnh.",
+        "Cho người bệnh được chọn (ăn cháo hay súp, tập trước hay tắm trước) để giữ cảm giác tự chủ."
+      ],
+      checklist: ["Một câu gọi tên cảm xúc đã dùng hôm nay", "Một lựa chọn đã để người bệnh tự quyết", "Một tiến bộ nhỏ đã khen", "Câu nên tránh: “có gì đâu mà buồn”"],
+      quiz: [
+        { q: "Câu nào giúp người bệnh thấy được thấu hiểu?", a: ["“Có gì đâu mà buồn”", "“Mẹ đang mệt vì tập lâu, phải không?”", "“Cố lên đi mẹ”"], c: 1 },
+        { q: "Ba đang cáu và nói nặng lời. Bạn nên:", a: ["Cãi lại cho rõ đúng sai", "Tạm lùi ra vài phút, quay lại khi cả hai bình tĩnh", "Bỏ đi cả ngày"], c: 1 },
+        { q: "Vì sao nên để người bệnh tự chọn việc nhỏ?", a: ["Để giữ cảm giác tự chủ", "Để gia đình đỡ việc", "Không có lý do"], c: 0 }
       ] }
   ],
   lessonDisclaimer: "Nội dung mang tính hướng dẫn chăm sóc, không thay thế chỉ định của bác sĩ.",
   lessonSources: "Tham khảo: tài liệu hướng dẫn chăm sóc người bệnh của Bộ Y tế; World Stroke Organization; American Stroke Association (BE-FAST). Bản demo – bác sĩ cố vấn sẽ duyệt trước khi phát hành.",
+
+  /* Tư vấn tâm lý – chuyên viên tâm lý lâm sàng đối tác. Không phát sinh doanh thu cho STROKE360 */
+  counseling: [
+    { id: "tl-nguoi-nha", for: "Người chăm sóc", name: "Tư vấn 1–1 cho người nhà", format: "Trực tuyến (video hoặc điện thoại) · 45 phút",
+      desc: "Nói ra điều khó nói với người trong nhà: mệt mỏi, tội lỗi, lo lắng về tiền bạc và công việc. Cùng chuyên viên tìm cách giữ sức lâu dài.",
+      price: "Theo giá niêm yết của chuyên viên đối tác, gia đình trả trực tiếp. STROKE360 không thu phí kết nối." },
+    { id: "tl-nguoi-benh", for: "Người bệnh", name: "Tư vấn 1–1 cho người bệnh", format: "Tại nhà hoặc trực tuyến · 45 phút",
+      desc: "Đánh giá tâm trạng, hỗ trợ khi buồn chán, lo âu, mất động lực tập. Chuyên viên phối hợp với kỹ thuật viên PHCN và giới thiệu bác sĩ khi cần.",
+      price: "Theo giá niêm yết của chuyên viên đối tác, gia đình trả trực tiếp. STROKE360 không thu phí kết nối." },
+    { id: "tl-gia-dinh", for: "Cả gia đình", name: "Buổi gia đình", format: "Trực tuyến hoặc tại nhà · 60 phút",
+      desc: "Cả nhà ngồi lại cùng chuyên viên: chia việc công bằng, nói về cảm xúc, thống nhất kế hoạch chăm sóc dài hạn.",
+      price: "Theo giá niêm yết của chuyên viên đối tác, gia đình trả trực tiếp. STROKE360 không thu phí kết nối." },
+    { id: "tl-nhom", for: "Người chăm sóc", name: "Nhóm hỗ trợ người nhà", format: "Tối Chủ nhật, 20:00–21:30 · Trực tuyến · 6–10 người",
+      desc: "Chuyên viên tâm lý điều phối, có “người đồng hành” là người nhà đi trước. Nghe và được nghe, không phán xét.",
+      price: "Miễn phí", free: true }
+  ],
+  counselingNote: "Chuyên viên tư vấn tâm lý không kê đơn thuốc. Khi cần, chuyên viên sẽ khuyên gặp bác sĩ chuyên khoa.",
+  crisisNote: "Nếu bạn hoặc người thân có ý nghĩ tự làm hại mình: không ở một mình, gọi 115 hoặc đến cơ sở y tế gần nhất ngay.",
 
   /* Cộng đồng – nhân vật minh họa */
   stories: [
@@ -181,12 +327,14 @@ window.S360 = {
     ["Có nên tự mua thuốc bổ não cho mẹ?", "STROKE360 không tư vấn thuốc. Mọi thuốc cần hỏi bác sĩ điều trị."],
     ["Tôi trực đêm nhiều ngày, rất mệt. Phải làm sao?", "Bạn cần được nghỉ. Chia lịch trực, cân nhắc ca hỗ trợ, và xem bài C4."],
     ["Nhà tôi chật, có tập phục hồi tại nhà được không?", "Được. Kỹ thuật viên sẽ đến đánh giá không gian và chọn bài tập phù hợp."],
+    ["Ba tôi buồn, không muốn tập sau khi về nhà. Có phải trầm cảm không?", "Buồn kéo dài trên 2 tuần, mất hứng thú, không muốn tập có thể là trầm cảm sau đột quỵ, một biến chứng điều trị được. Hãy báo bác sĩ điều trị; xem bài T1 và đặt lịch tư vấn tâm lý ở trang Học."],
     ["Ai trả lời các câu hỏi ở đây?", "Điều dưỡng giám sát của STROKE360, mỗi tối thứ Năm. Câu hỏi về chẩn đoán, thuốc sẽ được khuyên hỏi bác sĩ điều trị."]
   ],
   events: [
     { date: "29/10", title: "Ngày Đột quỵ Thế giới: “1 phút nhận biết đột quỵ (BE-FAST)”", where: "Trực tuyến + nhóm Zalo", hot: true },
     { date: "Thứ Ba hằng tuần", title: "Lớp hướng dẫn người nhà miễn phí", where: "Tại bệnh viện đối tác" },
     { date: "Tối thứ Năm", title: "Hỏi điều dưỡng", where: "Nhóm Zalo cộng đồng" },
+    { date: "Tối Chủ nhật", title: "Nhóm hỗ trợ người nhà cùng chuyên viên tâm lý", where: "Trực tuyến" },
     { date: "Tháng 12", title: "Ngày hội phục hồi: gặp gỡ các gia đình đi trước", where: "TP.HCM" }
   ],
 
