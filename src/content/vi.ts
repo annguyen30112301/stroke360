@@ -124,16 +124,21 @@ export const vi = {
     team: {
       title: "Những người đứng sau STROKE360",
       people: [
-        { initial: "Â", name: "Nguyễn Hoàng Ân", role: "Nhà sáng lập · Điều hành và tài chính" },
+        { initial: "", name: "Đang cập nhật", role: "Nhà sáng lập · Điều hành và tài chính" },
         { initial: "", name: "Đang cập nhật", role: "Nhà sáng lập · Vận hành và chất lượng" },
         { initial: "", name: "Đang cập nhật", role: "Nhà sáng lập · Kinh doanh và quan hệ bệnh viện" }
       ],
       advisor: { name: "Hội đồng cố vấn chuyên môn", role: "Bác sĩ phục hồi chức năng và bác sĩ thần kinh: duyệt chương trình đào tạo, bảng kiểm và bài học cho người nhà." },
+      noteTitle: "Những người ở bên giường bệnh mỗi ngày",
+      noteThanks: "Chúng tôi trân trọng họ. Họ là người trực tiếp chạm tay, trò chuyện và giữ an toàn cho người bệnh.",
       note: "Phía sau là đội điều phối nhận ca trong 6 giờ, điều dưỡng giám sát, và những chăm sóc viên mặc đồng phục teal ở bên giường bệnh mỗi ngày."
     },
     road: {
       title: "Chặng đường phía trước",
       sub: "Các mốc theo kế hoạch kinh doanh, chưa phải kết quả đã đạt.",
+      prev: "Mốc trước",
+      next: "Mốc tiếp theo",
+      goTo: "Tới mốc",
       items: [
         ["Năm 1", "Đứng vững", "2 bệnh viện đối tác, 260 gia đình, 28 chăm sóc viên chính thức. Báo cáo chất lượng đầu tiên."],
         ["Năm 2", "Được tin", "3 bệnh viện, gần 800 gia đình. Hồ sơ chăm sóc liên tục từ viện về nhà."],

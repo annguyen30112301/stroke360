@@ -123,16 +123,21 @@ export const en: Content = {
     team: {
       title: "The people behind STROKE360",
       people: [
-        { initial: "Â", name: "Nguyễn Hoàng Ân", role: "Co-founder · Operations and finance" },
+        { initial: "", name: "To be announced", role: "Co-founder · Management and finance" },
         { initial: "", name: "To be announced", role: "Co-founder · Operations and quality" },
         { initial: "", name: "To be announced", role: "Co-founder · Sales and hospital relations" }
       ],
       advisor: { name: "Medical advisory board", role: "Rehabilitation and neurology doctors who review our training programme, checklists and family lessons." },
+      noteTitle: "The people at the bedside every day",
+      noteThanks: "We value them deeply. They are the ones who touch, talk to and keep patients safe, every shift.",
       note: "Behind them is a coordination team that staffs a case within 6 hours, supervising nurses, and caregivers in teal uniforms at the bedside every day."
     },
     road: {
       title: "The road ahead",
       sub: "Milestones from our business plan, not results already achieved.",
+      prev: "Previous milestone",
+      next: "Next milestone",
+      goTo: "Go to milestone",
       items: [
         ["Year 1", "Stand firm", "2 partner hospitals, 260 families, 28 full-time caregivers. First quality report."],
         ["Year 2", "Earn trust", "3 hospitals, nearly 800 families. Continuous care records from hospital to home."],

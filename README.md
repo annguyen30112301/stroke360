@@ -43,8 +43,8 @@ Còn thiếu (TODO): số hotline thật và link nhóm Zalo thật trong `src/c
 | File | Dùng ở | Ảnh đã tạo sẵn trong Canva |
 |---|---|---|
 | `hero-care.jpg` (4:5) | Trang chủ, Bệnh viện | https://www.canva.com/M/MAHXT61UAJA |
-| `family-evening.jpg` (3:2) | Trang chủ, câu chuyện | https://www.canva.com/M/MAHXUC-9FO0 |
-| `bedside-learn.jpg` (1:1) | Trang chủ, Học | https://www.canva.com/M/MAHXUKnvq1k |
+| `family-evening.jpg` (16:9) | Trang chủ, câu chuyện | https://www.canva.com/M/MAHXUC-9FO0 |
+| `bedside-learn.jpg` (16:9) | Trang chủ, Học | https://www.canva.com/M/MAHXUKnvq1k |
 | `home-rehab.jpg` (4:3) | Dịch vụ | https://www.canva.com/M/MAHXUMrd4-8 |
 
 Ảnh do AI tạo, chỉ để minh họa cho bản demo. Thay bằng ảnh thật khi có.

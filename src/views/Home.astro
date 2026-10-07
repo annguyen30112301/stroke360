@@ -42,8 +42,8 @@ const stories = h.story.steps;
       <div class="lg:sticky lg:top-28 lg:self-start">
         <span class="chip">{h.story.eyebrow}</span>
         <h2 class="t-title mt-5">{h.story.title}</h2>
-        <Photo name="family-evening" alt={lang === "vi" ? "Con gái ngồi bên mẹ vào buổi tối" : "A daughter sitting with her mother in the evening"}
-          class="mt-8 hidden aspect-[3/2] w-full rounded-3xl lg:block" icon="family" />
+        <Photo name="family-evening" alt={lang === "vi" ? "Hai người con bên mẹ, dải lụa teal và đỏ của STROKE360 ôm lấy cả gia đình" : "Two adult children beside their mother, wrapped by the STROKE360 teal and red ribbon"}
+          class="mt-8 hidden aspect-[3/2] w-full rounded-3xl lg:block [&_img]:object-[70%_50%]" icon="family" />
         <p class="t-note mt-4">{h.story.note}</p>
       </div>
       <ol class="grid gap-5">
@@ -108,8 +108,8 @@ const stories = h.story.steps;
               i === 1 && "bg-raised p-8 shadow-[var(--shadow)]",
               i === 2 && "bg-tint p-8"]}>
             {i === 0 && (
-              <Photo name="bedside-learn" alt={lang === "vi" ? "Người nhà học bài trên điện thoại tại giường bệnh" : "A family member learning on her phone at the bedside"}
-                class="absolute inset-0 size-full opacity-60 transition-transform duration-700 group-hover:scale-105" icon="book" />
+              <Photo name="bedside-learn" alt={lang === "vi" ? "Dải lụa trái tim STROKE360 và hình ảnh não bộ: hiểu về đột quỵ" : "The STROKE360 heart ribbon and a brain illustration: understanding stroke"}
+                class="absolute inset-0 size-full opacity-70 [&_img]:object-[70%_50%] transition-transform duration-700 group-hover:scale-105" icon="book" />
             )}
             <div class:list={["relative mt-auto", i === 0 && "bg-gradient-to-t from-deep via-deep/80 to-transparent p-8 pt-24 sm:p-10 sm:pt-32"]}>
               <span class:list={["grid size-12 place-items-center rounded-full", i === 0 ? "bg-white/15 text-white" : "bg-tint text-accent-ink", i === 2 && "!bg-raised"]}><Icon name={p.icon} size={26} /></span>
@@ -139,21 +139,37 @@ const stories = h.story.steps;
     </div>
   </section>
 
-  <!-- Roadmap + team: horizontal scroll-snap track -->
+  <!-- Roadmap carousel (auto-advances every 5s, buttons, swipe, dots) + team -->
   <section class="overflow-hidden bg-raised py-24 sm:py-32">
-    <div class="shell">
-      <h2 class="t-title" data-reveal>{h.road.title}</h2>
-      <p class="t-sub mt-4" data-reveal>{h.road.sub}</p>
+    <div class="shell flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <h2 class="t-title" data-reveal>{h.road.title}</h2>
+        <p class="t-sub mt-4" data-reveal>{h.road.sub}</p>
+      </div>
+      <div class="flex gap-2">
+        <button type="button" data-road-prev aria-label={h.road.prev} class="grid size-12 place-items-center rounded-full bg-tint text-accent-ink transition hover:bg-teal-100 active:scale-95 disabled:opacity-40"><Icon name="arrow" size={20} weight="bold" class="rotate-180" /></button>
+        <button type="button" data-road-next aria-label={h.road.next} class="grid size-12 place-items-center rounded-full bg-accent text-on-accent transition active:scale-95 disabled:opacity-40"><Icon name="arrow" size={20} weight="bold" /></button>
+      </div>
     </div>
-    <ol class="gap-4 mt-12 flex snap-x snap-mandatory scroll-px-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] sm:scroll-px-6 sm:px-6 lg:scroll-px-8 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]">
-      {h.road.items.map(([y, t, d], i) => (
-        <li class:list={["w-[82%] shrink-0 snap-start rounded-3xl p-8 sm:w-[24rem]", i === 3 ? "bg-deep text-white" : "bg-canvas"]}>
-          <p class:list={["text-sm font-bold", i === 3 ? "text-teal-300" : "text-accent-ink"]}>{y}</p>
-          <h3 class:list={["mt-2 text-3xl", i === 3 && "!text-white"]}>{t}</h3>
-          <p class:list={["mt-4", i === 3 ? "text-teal-50/75" : "text-ink-2"]}>{d}</p>
-        </li>
-      ))}
-    </ol>
+    <div data-road class="mt-12" role="region" aria-roledescription="carousel" aria-label={h.road.title}>
+      <ol data-road-track class="relative flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-px-4 sm:scroll-px-6 sm:px-6 lg:scroll-px-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]">
+        {h.road.items.map(([y, t, d], i) => (
+          <li aria-roledescription="slide" aria-label={`${i + 1} / ${h.road.items.length}`}
+            class:list={["w-[85%] shrink-0 snap-start rounded-3xl p-8 sm:w-[24rem]", i === 3 ? "bg-deep text-white" : "bg-canvas"]}>
+            <p class:list={["text-sm font-bold", i === 3 ? "text-teal-300" : "text-accent-ink"]}>{y}</p>
+            <h3 class:list={["mt-2 text-3xl", i === 3 && "!text-white"]}>{t}</h3>
+            <p class:list={["mt-4", i === 3 ? "text-teal-50/75" : "text-ink-2"]}>{d}</p>
+          </li>
+        ))}
+        <li aria-hidden="true" class="w-px shrink-0"></li>
+      </ol>
+      <div class="shell mt-6 flex items-center gap-2">
+        {h.road.items.map((_, i) => (
+          <button type="button" data-road-dot={i} aria-label={`${h.road.goTo} ${i + 1}`}
+            class="h-2.5 w-2.5 rounded-full bg-hair transition-all duration-300 aria-[current=true]:w-8 aria-[current=true]:bg-accent"></button>
+        ))}
+      </div>
+    </div>
     <div class="shell mt-20">
       <h3 class="text-2xl" data-reveal>{h.team.title}</h3>
       <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -166,7 +182,16 @@ const stories = h.story.steps;
           </li>
         ))}
       </ul>
-      <p class="t-sub mt-10 !text-base">{h.team.note}</p>
+      <div class="glow mt-14 overflow-hidden rounded-3xl bg-deep p-8 text-white sm:p-12 lg:p-14" data-reveal>
+        <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-14">
+          <span class="grid size-20 shrink-0 place-items-center rounded-full bg-white/10 text-teal-300"><Icon name="handHeart" size={44} weight="fill" /></span>
+          <div>
+            <p class="text-sm font-bold uppercase tracking-wider text-teal-300">{h.team.noteTitle}</p>
+            <p class="mt-4 max-w-[34ch] text-[clamp(1.4rem,1.05rem+1.4vw,2.3rem)] font-bold leading-snug tracking-tight text-white text-balance">{h.team.note}</p>
+            <p class="mt-5 max-w-[60ch] text-lg text-teal-50/80">{h.team.noteThanks}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -203,4 +228,57 @@ const stories = h.story.steps;
       </a>
     </div>
   </section>
+<script>
+  // Roadmap carousel: native scroll-snap for swipe, buttons + dots, auto-advance every 5s.
+  document.addEventListener("astro:page-load", () => {
+    const root = document.querySelector<HTMLElement>("[data-road]");
+    const track = root?.querySelector<HTMLElement>("[data-road-track]");
+    if (!root || !track || root.dataset.ready) return;
+    root.dataset.ready = "1";
+    const slides = [...track.querySelectorAll<HTMLElement>("li[aria-roledescription=slide]")];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>("[data-road-dot]")];
+    const prev = document.querySelector<HTMLButtonElement>("[data-road-prev]");
+    const next = document.querySelector<HTMLButtonElement>("[data-road-next]");
+    const pad = () => parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
+    const atEnd = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    const current = () => {
+      if (atEnd()) return slides.length - 1;
+      const x = track.scrollLeft + pad();
+      let best = 0;
+      slides.forEach((s, i) => { if (Math.abs(s.offsetLeft - x) < Math.abs(slides[best].offsetLeft - x)) best = i; });
+      return best;
+    };
+    // idx is the source of truth; near the end several cards fit, so the scroll clamps but idx still steps 1 by 1
+    let idx = 0, auto = false;
+    const paint = () => dots.forEach((d, i) => d.setAttribute("aria-current", String(i === idx)));
+    const go = (i: number) => {
+      idx = (i + slides.length) % slides.length;
+      auto = true;
+      track.scrollTo({ left: Math.min(slides[idx].offsetLeft - pad(), track.scrollWidth - track.clientWidth) });
+      paint();
+    };
+    const settle = () => { if (!auto) { idx = current(); paint(); } auto = false; };
+    if ("onscrollend" in window) track.addEventListener("scrollend", settle);
+    else { let t = 0; track.addEventListener("scroll", () => { clearTimeout(t); t = window.setTimeout(settle, 120); }, { passive: true }); }
+    paint();
+
+    let timer = 0;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const stop = () => clearInterval(timer);
+    const start = () => { stop(); if (!reduce) timer = window.setInterval(() => go(idx + 1), 5000); };
+    const user = (fn: () => void) => () => { fn(); start(); };
+    prev?.addEventListener("click", user(() => go(idx - 1)));
+    next?.addEventListener("click", user(() => go(idx + 1)));
+    dots.forEach((d, i) => d.addEventListener("click", user(() => go(i))));
+    root.addEventListener("pointerenter", stop);
+    root.addEventListener("pointerleave", start);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", start);
+    track.addEventListener("touchstart", stop, { passive: true });
+    track.addEventListener("touchend", start, { passive: true });
+    // only run while visible
+    new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop()), { threshold: 0.3 }).observe(root);
+    document.addEventListener("astro:before-swap", stop, { once: true });
+  });
+</script>
 </Base>
