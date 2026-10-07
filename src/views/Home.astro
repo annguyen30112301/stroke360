@@ -3,8 +3,9 @@ import Base from "../layouts/Base.astro";
 import Icon from "../components/Icon.astro";
 import Photo from "../components/Photo.astro";
 import Counter from "../components/Counter.astro";
-import Words from "../components/Words.astro";
 import ComparePanel from "../islands/ComparePanel.tsx";
+import HeroDay from "../islands/HeroDay.tsx";
+import ScrollWords from "../islands/ScrollWords.tsx";
 import { getContent, pageHref, lessonHref, type PageKey } from "../lib/i18n";
 import type { Lang } from "../content/types";
 
@@ -19,40 +20,13 @@ const stories = h.story.steps;
 ---
 <Base lang={lang} route="home" title={c.meta.home.title} description={c.meta.home.description}>
 
-  <!-- Hero: split, photo with the evening diary card -->
-  <section class="relative overflow-hidden pt-28 lg:pt-32">
-    <div aria-hidden="true" class="pointer-events-none absolute -right-40 -top-40 -z-10 size-[44rem] rounded-full bg-teal-300/20 blur-3xl dark:bg-teal-500/10"></div>
-    <div class="shell grid items-center gap-12 pb-16 lg:min-h-[calc(100dvh-8rem)] lg:grid-cols-[1.3fr_1fr] lg:gap-14">
-      <div>
-        <h1 class="t-display !text-[clamp(2.3rem,1.2rem+3.4vw,4rem)]"><Words text={headline} /></h1>
-        <p class="enter mt-6 text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-semibold leading-snug text-accent-ink" style="--d:3">{h.h1[3]}</p>
-        <p class="t-sub enter mt-4" style="--d:4">{lead}</p>
-        <div class="enter mt-9 flex flex-wrap gap-3" style="--d:5">
-          <a class="btn btn-accent" href={pageHref(lang, "dichVu", "#chon-goi")}>{h.cta2}<Icon name="arrow" size={18} weight="bold" /></a>
-          <a class="btn btn-quiet" href="#vi-sao">{h.cta1}</a>
-        </div>
-      </div>
-      <div class="enter relative" style="--d:2">
-        <Photo name="hero-care" eager alt={lang === "vi" ? "Chăm sóc viên STROKE360 giúp người bệnh ngồi dậy tại giường" : "A STROKE360 caregiver helping a patient sit up in bed"}
-          class="aspect-[4/5] w-full rounded-3xl lg:max-h-[78dvh]" icon="care" />
-        <figure class="panel absolute -bottom-8 left-4 right-4 p-5 sm:right-auto sm:left-[-2rem] sm:w-80">
-          <figcaption class="flex items-center justify-between text-sm font-semibold">
-            <span class="flex items-center gap-2 text-accent-ink"><Icon name="notebook" size={20} />{h.diary.head}</span>
-            <span class="tabular-nums text-ink-3">{h.diary.time}</span>
-          </figcaption>
-          <ul class="mt-3 grid gap-2 text-[0.92rem]">
-            {h.diary.lines.map((l, i) => (
-              <li class="enter flex gap-2.5" style={`--d:${6 + i * 2}`}><Icon name="check" size={18} weight="bold" class="mt-0.5 shrink-0 text-accent" /><span set:html={l} /></li>
-            ))}
-          </ul>
-          <a href={pageHref(lang, "nhatKy")} class="mt-3 inline-flex items-center gap-1 text-sm font-semibold no-underline">{h.diary.more}<Icon name="arrow" size={16} weight="bold" /></a>
-        </figure>
-      </div>
-    </div>
-  </section>
+  <!-- Hero: one scroll = one day shift -->
+  <HeroDay client:load day={headline} brand={h.h1[1]} night={h.h1[3]} lead={lead}
+    cta={{ label: h.cta2, href: pageHref(lang, "dichVu", "#chon-goi") }} cta2={{ label: h.cta1, href: "#vi-sao" }}
+    diary={c.diary} phone={{ top: c.nhatKy.phoneTop, patient: c.nhatKy.patient, carer: c.nhatKy.carer }} notify={h.diary.head} />
 
   <!-- Promise marquee (the one marquee on this page) -->
-  <section aria-label={c.dichVu.promisesTitle} class="marquee mt-10 overflow-hidden border-y border-hair bg-raised py-5">
+  <section aria-label={c.dichVu.promisesTitle} class="marquee overflow-hidden border-y border-hair bg-raised py-5">
     <div class="marquee-track flex w-max gap-12 pr-12">
       {[...marquee, ...marquee].map((t, i) => (
         <span class="flex items-center gap-3 whitespace-nowrap text-lg font-semibold text-ink-2" aria-hidden={i >= marquee.length ? "true" : undefined}>
@@ -87,7 +61,7 @@ const stories = h.story.steps;
   <section class="bg-deep py-24 text-center text-white sm:py-36">
     <div class="shell max-w-5xl">
       <Icon name="quote" size={48} weight="fill" class="mx-auto text-teal-300" />
-      <p class="mt-6 text-[clamp(1.7rem,1.1rem+2.6vw,3.4rem)] font-bold leading-[1.15] tracking-tight" data-reveal>{h.story.quote}</p>
+      <ScrollWords client:visible text={h.story.quote} className="mt-6 text-[clamp(1.8rem,1.1rem+2.8vw,3.8rem)] font-bold leading-[1.15] tracking-tight" />
       <p class="mx-auto mt-8 max-w-2xl text-lg text-teal-50/75" data-reveal>{h.story.after}</p>
     </div>
   </section>

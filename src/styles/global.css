@@ -215,3 +215,12 @@ dialog.sheet[open]::backdrop { background: rgb(3 20 21 / 0.5); backdrop-filter: 
 }
 @media (min-width: 1024px) { .stack-card { top: var(--top); } }
 @media (max-width: 1023px) { .stack-card { animation: none !important; } }
+.text-gradient-day { background: linear-gradient(100deg, var(--color-teal-600), var(--color-teal-400)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* photos settle in as they enter (slow zoom-out) */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .zoom-in-view { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% cover 60%; }
+    @keyframes settle { from { scale: 1.18; } }
+  }
+}
