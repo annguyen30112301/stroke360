@@ -17,7 +17,7 @@ const prev = ready[idx - 1], next = ready[idx + 1];
 const letter = (p: string) => p.match(/^([A-Z]) - (.*)$/);
 const toc = [["y-chinh", t.keyPoints, "bolt"], ["bang-kiem", t.checklist, "notebook"], ["cau-hoi", t.quiz, "target"]];
 ---
-<Base lang={lang} route="lesson" lessonId={id} title={`${l.title} - Stroke360`} description={l.points?.[0]?.slice(0, 155) ?? c.meta.lesson.description}>
+<Base lang={lang} route="lesson" lessonId={id} title={`${l.title} – Stroke360`} description={l.points?.[0]?.slice(0, 155) ?? c.meta.lesson.description}>
   <article class="shell grid gap-12 pb-24 pt-28 sm:pt-36 lg:grid-cols-[17rem_1fr] lg:gap-16">
     <aside class="no-print lg:sticky lg:top-28 lg:self-start">
       <a href={pageHref(lang, "hoc")} class="inline-flex items-center gap-2 text-sm font-semibold no-underline"><Icon name="back" size={18} weight="bold" />{t.backToPath}</a>
@@ -41,7 +41,7 @@ const toc = [["y-chinh", t.keyPoints, "bolt"], ["bang-kiem", t.checklist, "noteb
           <span class="inline-flex items-center gap-1 text-ink-3"><Icon name="clock" size={16} />{c.ui.minutes.replace("{n}", String(l.mins))}</span>
           <span class="inline-flex items-center gap-1 text-accent-ink"><Icon name="seal" size={18} />{c.ui.approved}</span>
         </div>
-        <h1 class="mt-5 text-[clamp(2rem,1.3rem+2.6vw,3.4rem)] font-extrabold leading-[1.08] tracking-tight" style={`view-transition-name: lesson-${l.id}`}>{l.title}</h1>
+        <h1 class="mt-5 text-[clamp(1.7rem,1.1rem+2.21vw,2.89rem)] font-extrabold leading-[1.08] tracking-tight" style={`view-transition-name: lesson-${l.id}`}>{l.title}</h1>
       </header>
 
       <section id="y-chinh" class="mt-14 scroll-mt-28">

@@ -40,17 +40,17 @@ export const en: Content = {
   },
 
   meta: {
-    home: { title: "STROKE360 - Supporting families of stroke patients", description: "You go to work by day, STROKE360 takes care. In the evening, you're with your parents. Shift-based stroke care from hospital to home, transparent pricing, a diary every evening." },
-    hoc: { title: "Learn with Stroke360 - A school for families", description: "Free 3-5 minute lessons for families of stroke patients: understanding stroke, safe feeding, repositioning, BE-FAST, mental health and counseling." },
-    lesson: { title: "Lesson - Learn with Stroke360", description: "Short lessons for families of stroke patients, with a checklist and a quick quiz." },
-    congDong: { title: "Family community - Stroke360", description: "Meet families who have been there, ask a nurse every Thursday evening, join caregiver support groups and community events." },
-    dichVu: { title: "Services and pricing - Stroke360", description: "Shift-based stroke care in hospital and at home. Public pricing; find the right package in 4 questions." },
-    tacDong: { title: "Values and impact - Stroke360", description: "Impact indicators, who benefits, and a sample quarterly quality report from STROKE360." },
-    benhVien: { title: "For hospitals - Stroke360", description: "A care partner with records, supervision and reporting. A 3-month pilot for neurology departments." },
-    lienHe: { title: "Contact - Stroke360", description: "Get free advice. A coordinator calls you back within 2 hours." },
-    nhatKy: { title: "Care diary - Stroke360", description: "A simulation of the per-shift care diary families receive on their phone." },
-    tuyenDung: { title: "Caregiver jobs - Stroke360", description: "Stable income, legal shift lengths, training and a clear career path." },
-    redirect: { title: "Opening lesson - Stroke360", description: "Opening the lesson." }
+    home: { title: "STROKE360 – Supporting families of stroke patients", description: "You go to work by day, STROKE360 takes care. In the evening, you're with your parents. Shift-based stroke care from hospital to home, transparent pricing, a diary every evening." },
+    hoc: { title: "Learn with Stroke360 – A school for families", description: "Free 3-5 minute lessons for families of stroke patients: understanding stroke, safe feeding, repositioning, BE-FAST, mental health and counseling." },
+    lesson: { title: "Lesson – Learn with Stroke360", description: "Short lessons for families of stroke patients, with a checklist and a quick quiz." },
+    congDong: { title: "Family community – Stroke360", description: "Meet families who have been there, ask a nurse every Thursday evening, join caregiver support groups and community events." },
+    dichVu: { title: "Services and pricing – Stroke360", description: "Shift-based stroke care in hospital and at home. Public pricing; find the right package in 4 questions." },
+    tacDong: { title: "Values and impact – Stroke360", description: "Impact indicators, who benefits, and a sample quarterly quality report from STROKE360." },
+    benhVien: { title: "For hospitals – Stroke360", description: "A care partner with records, supervision and reporting. A 3-month pilot for neurology departments." },
+    lienHe: { title: "Contact – Stroke360", description: "Get free advice. A coordinator calls you back within 2 hours." },
+    nhatKy: { title: "Care diary – Stroke360", description: "A simulation of the per-shift care diary families receive on their phone." },
+    tuyenDung: { title: "Caregiver jobs – Stroke360", description: "Stable income, legal shift lengths, training and a clear career path." },
+    redirect: { title: "Opening lesson – Stroke360", description: "Opening the lesson." }
   },
 
   home: {

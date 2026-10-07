@@ -16,7 +16,7 @@ const t = c.tacDong;
   <section class="bg-deep pb-24 pt-36 text-white sm:pb-32 sm:pt-44">
     <div class="shell">
       <span class="enter rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-teal-100">{t.eyebrow}</span>
-      <h1 class="mt-8 max-w-[22ch] text-[clamp(2.1rem,1.2rem+3.4vw,4.4rem)] font-extrabold leading-[1.06] tracking-tight !text-white"><Words text={t.title} /></h1>
+      <h1 class="mt-8 max-w-[22ch] text-[clamp(1.78rem,1.02rem+2.89vw,3.74rem)] font-extrabold leading-[1.06] tracking-tight !text-white"><Words text={t.title} /></h1>
     </div>
   </section>
 
@@ -28,7 +28,7 @@ const t = c.tacDong;
       <dl class="mt-14 grid gap-px overflow-hidden rounded-3xl bg-hair sm:grid-cols-2 lg:grid-cols-3">
         {c.impact.map((m, i) => (
           <div class:list={["p-8 sm:p-10", i === 0 ? "bg-accent text-on-accent" : "bg-raised"]} data-reveal>
-            <dt class="text-[clamp(2.6rem,2rem+2vw,3.8rem)] font-extrabold leading-none tracking-tight"><Counter value={m.value} lang={lang} decimals={m.decimals} prefix={m.prefix} suffix={m.suffix} /></dt>
+            <dt class="text-[clamp(2.21rem,1.7rem+1.7vw,3.23rem)] font-extrabold leading-none tracking-tight"><Counter value={m.value} lang={lang} decimals={m.decimals} prefix={m.prefix} suffix={m.suffix} /></dt>
             <dd class:list={["mt-4 max-w-[26ch]", i === 0 ? "opacity-85" : "text-ink-2"]}>{m.label}</dd>
           </div>
         ))}

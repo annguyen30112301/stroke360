@@ -61,7 +61,7 @@ const stories = h.story.steps;
   <section class="bg-deep py-24 text-center text-white sm:py-36">
     <div class="shell max-w-5xl">
       <Icon name="quote" size={48} weight="fill" class="mx-auto text-teal-300" />
-      <ScrollWords client:visible text={h.story.quote} className="mt-6 text-[clamp(1.8rem,1.1rem+2.8vw,3.8rem)] font-bold leading-[1.15] tracking-tight" />
+      <ScrollWords client:visible text={h.story.quote} className="mt-6 text-[clamp(1.53rem,0.94rem+2.38vw,3.23rem)] font-bold leading-[1.15] tracking-tight" />
       <p class="mx-auto mt-8 max-w-2xl text-lg text-teal-50/75" data-reveal>{h.story.after}</p>
     </div>
   </section>
@@ -73,7 +73,7 @@ const stories = h.story.steps;
       <dl class="mt-14 grid gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-hair">
         {h.facts.items.map((f) => (
           <div class="lg:px-8 lg:first:pl-0" data-reveal>
-            <dt class:list={["font-extrabold tracking-tight", f.word ? "text-[clamp(2.2rem,1.6rem+2vw,3.2rem)] text-accent-ink" : "whitespace-nowrap text-[clamp(2.4rem,1.6rem+2.2vw,3.5rem)] text-ink"]}>
+            <dt class:list={["font-extrabold tracking-tight", f.word ? "text-[clamp(1.87rem,1.36rem+1.7vw,2.72rem)] text-accent-ink" : "whitespace-nowrap text-[clamp(2.04rem,1.36rem+1.87vw,2.98rem)] text-ink"]}>
               {f.word ?? <Counter value={f.v!} lang={lang} prefix={f.p} suffix={f.s} />}
             </dt>
             <dd class="mt-3 max-w-[28ch] text-ink-2">{f.text}</dd>
@@ -113,7 +113,7 @@ const stories = h.story.steps;
             )}
             <div class:list={["relative mt-auto", i === 0 && "bg-gradient-to-t from-deep via-deep/80 to-transparent p-8 pt-24 sm:p-10 sm:pt-32"]}>
               <span class:list={["grid size-12 place-items-center rounded-full", i === 0 ? "bg-white/15 text-white" : "bg-tint text-accent-ink", i === 2 && "!bg-raised"]}><Icon name={p.icon} size={26} /></span>
-              <h3 class:list={["mt-5", i === 0 ? "text-[clamp(1.6rem,1.2rem+1.4vw,2.4rem)] !text-white" : "text-2xl"]}>{p.title}</h3>
+              <h3 class:list={["mt-5", i === 0 ? "text-[clamp(1.36rem,1.02rem+1.19vw,2.04rem)] !text-white" : "text-2xl"]}>{p.title}</h3>
               <p class:list={["mt-2 max-w-[48ch]", i === 0 ? "text-teal-50/80 text-lg" : "text-ink-2"]}>{p.text}</p>
               <span class:list={["mt-6 inline-flex items-center gap-2 font-semibold", i === 0 ? "text-teal-200" : "text-accent-ink"]}>{p.cta}<Icon name="arrow" size={18} weight="bold" class="transition-transform group-hover:translate-x-1" /></span>
             </div>
@@ -180,7 +180,7 @@ const stories = h.story.steps;
             <a href={pageHref(lang, p.page as PageKey, p.hash)} class="group grid grid-cols-[auto_1fr_auto] items-center gap-5 py-7 no-underline sm:gap-8">
               <span class="grid size-12 place-items-center rounded-full bg-tint text-accent-ink transition-colors group-hover:bg-accent group-hover:text-on-accent"><Icon name={p.icon} size={24} /></span>
               <span>
-                <span class="block text-[clamp(1.3rem,1rem+1.2vw,2.1rem)] font-bold tracking-tight text-ink transition-transform duration-500 ease-[var(--ease-spring)] group-hover:translate-x-2">{p.title}</span>
+                <span class="block text-[clamp(1.1rem,0.85rem+1.02vw,1.78rem)] font-bold tracking-tight text-ink transition-transform duration-500 ease-[var(--ease-spring)] group-hover:translate-x-2">{p.title}</span>
                 <span class="mt-1 block text-ink-3">{p.text}</span>
               </span>
               <Icon name="external" size={28} class="text-ink-3 transition-all duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent" />
@@ -192,7 +192,7 @@ const stories = h.story.steps;
       <a href={lessonHref(lang, "B3")} class="glow group relative mt-16 grid items-center gap-8 overflow-hidden rounded-3xl bg-rose-600 p-8 text-white no-underline sm:p-12 lg:grid-cols-[1.3fr_1fr]" data-reveal>
         <div>
           <p class="flex items-center gap-2 text-sm font-semibold text-rose-100"><Icon name="siren" size={20} />{h.befast.tag}</p>
-          <p class="mt-3 text-[clamp(1.7rem,1.2rem+1.8vw,2.8rem)] font-extrabold leading-tight tracking-tight">{h.befast.title}</p>
+          <p class="mt-3 text-[clamp(1.44rem,1.02rem+1.53vw,2.38rem)] font-extrabold leading-tight tracking-tight">{h.befast.title}</p>
           <span class="btn btn-light mt-7 !text-rose-700">{h.befast.cta}<Icon name="arrow" size={18} weight="bold" /></span>
         </div>
         <div class="grid grid-cols-6 gap-2" aria-hidden="true">

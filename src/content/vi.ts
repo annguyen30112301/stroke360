@@ -41,17 +41,17 @@ export const vi = {
   },
 
   meta: {
-    home: { title: "STROKE360 - Đồng hành cùng gia đình người bệnh đột quỵ", description: "Ban ngày con đi làm, STROKE360 lo. Tối con vào với ba mẹ. Chăm sóc người bệnh đột quỵ theo ca từ bệnh viện về tới nhà, giá công khai, nhật ký mỗi tối." },
-    hoc: { title: "Học cùng Stroke360 - Trường học cho người nhà", description: "Bài học 3-5 phút miễn phí cho người nhà người bệnh đột quỵ: hiểu về đột quỵ, cho ăn an toàn, xoay trở chống loét, BE-FAST, sức khỏe tinh thần và tư vấn tâm lý." },
-    lesson: { title: "Bài học - Học cùng Stroke360", description: "Bài học ngắn cho người nhà người bệnh đột quỵ, có bảng kiểm và câu hỏi nhanh." },
-    congDong: { title: "Cộng đồng người nhà - Stroke360", description: "Gặp những gia đình đi trước, hỏi điều dưỡng mỗi tối thứ Năm, nhóm hỗ trợ người chăm sóc và sự kiện cộng đồng." },
-    dichVu: { title: "Dịch vụ và bảng giá - Stroke360", description: "Chăm sóc người bệnh đột quỵ theo ca tại viện và tại nhà. Giá công khai, chọn gói phù hợp trong 4 câu hỏi." },
-    tacDong: { title: "Giá trị và tác động - Stroke360", description: "Chỉ số tác động, ai nhận được gì, và mẫu báo cáo chất lượng quý của STROKE360." },
-    benhVien: { title: "Dành cho bệnh viện - Stroke360", description: "Đối tác chăm sóc có hồ sơ, có giám sát, có báo cáo. Lộ trình thí điểm 3 tháng cho khoa Thần kinh." },
-    lienHe: { title: "Liên hệ - Stroke360", description: "Nhận tư vấn miễn phí. Điều phối viên gọi lại trong 2 giờ." },
-    nhatKy: { title: "Nhật ký chăm sóc - Stroke360", description: "Mô phỏng nhật ký chăm sóc mỗi ca mà gia đình nhận được trên điện thoại." },
-    tuyenDung: { title: "Tuyển dụng chăm sóc viên - Stroke360", description: "Thu nhập ổn định, ca đúng luật, được đào tạo và có lộ trình thăng tiến." },
-    redirect: { title: "Đang chuyển tới bài học - Stroke360", description: "Đang chuyển tới bài học." }
+    home: { title: "STROKE360 – Đồng hành cùng gia đình người bệnh đột quỵ", description: "Ban ngày con đi làm, STROKE360 lo. Tối con vào với ba mẹ. Chăm sóc người bệnh đột quỵ theo ca từ bệnh viện về tới nhà, giá công khai, nhật ký mỗi tối." },
+    hoc: { title: "Học cùng Stroke360 – Trường học cho người nhà", description: "Bài học 3–5 phút miễn phí cho người nhà người bệnh đột quỵ: hiểu về đột quỵ, cho ăn an toàn, xoay trở chống loét, BE-FAST, sức khỏe tinh thần và tư vấn tâm lý." },
+    lesson: { title: "Bài học – Học cùng Stroke360", description: "Bài học ngắn cho người nhà người bệnh đột quỵ, có bảng kiểm và câu hỏi nhanh." },
+    congDong: { title: "Cộng đồng người nhà – Stroke360", description: "Gặp những gia đình đi trước, hỏi điều dưỡng mỗi tối thứ Năm, tham gia nhóm Zalo người nhà người bệnh đột quỵ." },
+    dichVu: { title: "Dịch vụ và bảng giá – Stroke360", description: "Ca ngày 1.100.000 đ, Trọn ngày 1.600.000 đ tại viện; gói phục hồi tại nhà 8 tuần. Chọn gói phù hợp trong 4 câu hỏi." },
+    tacDong: { title: "Giá trị và tác động – Stroke360", description: "Để không gia đình nào phải chọn giữa giữ công việc và chăm cha mẹ bị đột quỵ. Chỉ tiêu tác động năm 3." },
+    benhVien: { title: "Dành cho bệnh viện – Stroke360", description: "Đối tác chăm sóc có hồ sơ, giám sát và báo cáo chất lượng hằng quý. Lộ trình thí điểm 3 tháng." },
+    lienHe: { title: "Liên hệ – Stroke360", description: "Nhận tư vấn miễn phí, điều phối viên gọi lại trong 2 giờ." },
+    nhatKy: { title: "Nhật ký chăm sóc – Stroke360", description: "Mỗi tối 18:30 gia đình nhận tóm tắt: ăn uống, xoay trở, dặn dò của bác sĩ. Xem mô phỏng một ca ngày." },
+    tuyenDung: { title: "Tuyển dụng chăm sóc viên – Stroke360", description: "Thu nhập khoảng 11 triệu đồng/tháng, đủ bảo hiểm, ca 12 giờ đúng luật, đào tạo 5 ngày." },
+    redirect: { title: "Đang chuyển tới bài học – Stroke360", description: "Đang chuyển tới bài học." }
   },
 
   home: {

@@ -74,7 +74,7 @@ export default function LessonBrowser({ lessons, stages, stageNotes, t, ui, link
               <div className="mb-6 flex items-start gap-4">
                 <span className={`icon-tile shrink-0 ${k === "T" ? "alert" : ""}`}><Icon size={28} weight="duotone" /></span>
                 <div>
-                  <h2 className="t-title !text-[clamp(1.5rem,1.1rem+1.3vw,2.2rem)]">{/^[ABC]$/.test(k) ? `${ui.stagePrefix} ${k}. ${stages[k]}` : stages[k]}</h2>
+                  <h2 className="t-title !text-[clamp(1.27rem,0.94rem+1.1vw,1.87rem)]">{/^[ABC]$/.test(k) ? `${ui.stagePrefix} ${k}. ${stages[k]}` : stages[k]}</h2>
                   {stageNotes[k] && <p className="mt-1 max-w-3xl text-ink-2">{stageNotes[k]}</p>}
                 </div>
               </div>
@@ -92,7 +92,7 @@ export default function LessonBrowser({ lessons, stages, stageNotes, t, ui, link
       <section className="mt-20 grid gap-8 rounded-3xl bg-tint p-6 sm:p-12 lg:grid-cols-2">
         <div>
           <span className="icon-tile"><SealCheckIcon size={30} weight="duotone" /></span>
-          <h2 className="t-title mt-4 !text-[clamp(1.5rem,1.1rem+1.3vw,2.2rem)]">{t.cert.title}</h2>
+          <h2 className="t-title mt-4 !text-[clamp(1.27rem,0.94rem+1.1vw,1.87rem)]">{t.cert.title}</h2>
           <p className="mt-3 text-ink-2">{t.cert.lead}</p>
           {missing.length > 0 && (
             <div className="mt-5 flex flex-wrap items-center gap-2">

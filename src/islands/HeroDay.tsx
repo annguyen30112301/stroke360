@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, MotionConfig, useMotionValueEvent, useReducedMotion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { ArrowRightIcon, CheckIcon, PaperPlaneTiltIcon, WarningIcon, BellRingingIcon } from "@phosphor-icons/react";
 import type { DiaryEntry } from "../content/types";
+import BrandWord from "./BrandWord";
+import PhoneFrame, { DiaryCard } from "./PhoneFrame";
 
 interface Props {
   day: string;      // "Ban ngày con đi làm, STROKE360 lo."
@@ -80,14 +82,14 @@ export default function HeroDay({ day, brand, night, lead, cta, cta2, diary, pho
           <div className="shell relative flex h-full flex-col gap-5 pb-28 pt-24 lg:grid lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12 lg:pb-0 lg:pt-20">
             {/* copy */}
             <div className="flex flex-col lg:justify-center">
-              <motion.p className="font-extrabold leading-none tracking-[-0.05em] tabular-nums text-[clamp(3.5rem,2rem+7vw,8.5rem)]" style={{ color: reduce ? "#f2fbfa" : ink }} aria-hidden>
+              <motion.p className="font-extrabold leading-none tracking-[-0.05em] tabular-nums text-[clamp(2.98rem,1.7rem+5.95vw,7.22rem)]" style={{ color: reduce ? "#f2fbfa" : ink }} aria-hidden>
                 {reduce ? hhmm(END) : <motion.span>{clock}</motion.span>}
               </motion.p>
               <div className="relative mt-3 min-h-[5.5rem] sm:min-h-[8rem]">
-                <motion.h1 className="t-display absolute inset-x-0 top-0 !text-[clamp(1.9rem,1.1rem+2.8vw,3.6rem)]" style={{ color: reduce ? "#f2fbfa" : ink, opacity: reduce ? 0 : dayOpacity, y: dayY }}>
-                  {d1}<span className="text-gradient-day">{brand}</span>{d2}
+                <motion.h1 className="t-display absolute inset-x-0 top-0 !text-[clamp(1.61rem,0.94rem+2.38vw,3.06rem)]" style={{ color: reduce ? "#f2fbfa" : ink, opacity: reduce ? 0 : dayOpacity, y: dayY }}>
+                  {d1}<BrandWord text={brand} />{d2}
                 </motion.h1>
-                <motion.p aria-hidden={!isNight} className="t-display absolute inset-x-0 top-0 !text-[clamp(1.9rem,1.1rem+2.8vw,3.6rem)] text-white" style={{ opacity: reduce ? 1 : nightOp, y: reduce ? 0 : nightY }}>
+                <motion.p aria-hidden={!isNight} className="t-display absolute inset-x-0 top-0 !text-[clamp(1.61rem,0.94rem+2.38vw,3.06rem)] text-white" style={{ opacity: reduce ? 1 : nightOp, y: reduce ? 0 : nightY }}>
                   {night}
                 </motion.p>
               </div>
@@ -99,45 +101,36 @@ export default function HeroDay({ day, brand, night, lead, cta, cta2, diary, pho
             </div>
 
             {/* phone */}
-            <div className="relative mx-auto min-h-0 w-full max-w-[20rem] flex-1 lg:max-w-[22rem] lg:flex-none">
-              <div className="h-full rounded-[2.6rem] bg-[#0b2324] p-2.5 lg:h-auto shadow-[0_50px_100px_-30px_rgba(3,28,29,0.6)] ring-1 ring-black/10">
-                <div className="relative flex h-full flex-col overflow-hidden rounded-[2.1rem] bg-[#f1f7f7] lg:h-[min(70dvh,36rem)]">
-                  <div className="absolute left-1/2 top-2 z-10 h-5 w-20 -translate-x-1/2 rounded-full bg-[#0b2324]" aria-hidden />
-                  <div className="bg-gradient-to-br from-teal-700 to-teal-500 px-5 pb-3.5 pt-8 text-white">
-                    <p className="text-[0.7rem] opacity-80">{phone.top}</p>
-                    <p className="text-sm font-bold">{phone.patient}</p>
-                    <p className="text-[0.7rem] opacity-80">{phone.carer}</p>
-                  </div>
-                  <div className="flex flex-1 flex-col justify-end gap-2 overflow-hidden px-3 py-3" aria-live="polite">
-                    <AnimatePresence initial={false} mode="popLayout">
-                      {visible.map((e) => (
-                        <motion.div key={e.t} layout initial={{ opacity: 0, y: 30, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -20, scale: 0.96 }}
-                          transition={{ type: "spring", stiffness: 320, damping: 28 }}
-                          className={`rounded-2xl p-3 text-[0.78rem] leading-snug shadow-sm ${e.summary ? "bg-teal-800 text-white" : "border-l-4 bg-white text-[#0e2a2d] " + (e.hl ? "border-rose-500" : "border-teal-300")}`}>
-                          <div className={`flex items-center gap-1.5 text-[0.7rem] font-bold ${e.summary ? "text-teal-100" : "text-teal-700"}`}>
-                            {e.hl && <WarningIcon size={13} weight="fill" className="text-rose-500" />}
-                            {e.summary ? <PaperPlaneTiltIcon size={13} weight="fill" /> : !e.hl && <CheckIcon size={13} weight="bold" />}
-                            {e.t} · {e.tag}
-                          </div>
-                          <b className={`mt-0.5 block ${e.summary ? "!text-white" : "!text-[#0e2a2d]"}`}>{e.title}</b>
-                          <p className={e.summary ? "text-teal-50/90" : "text-[#3f585b]"}>{e.note}</p>
-                        </motion.div>
-                      ))}
-                    </AnimatePresence>
-                  </div>
+            <div className="relative mx-auto min-h-0 w-full max-w-[19rem] flex-1 lg:max-w-[21.5rem] lg:flex-none">
+              <PhoneFrame className="h-full lg:h-[min(72dvh,38rem)]" status={reduce ? "18:30" : <motion.span>{clock}</motion.span>}
+                title={phone.top} patient={phone.patient} carer={phone.carer}
+                overlay={<>
+                {/* iOS-style banner at 18:30 */}
+                <AnimatePresence>
+                  {isNight && (
+                    <motion.div initial={{ opacity: 0, y: -40, scale: 0.92 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -30 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                      className="flex items-center gap-3 rounded-[1.3rem] bg-white/85 p-3 shadow-[0_10px_30px_-10px_rgba(3,28,29,0.45)] ring-1 ring-black/5 backdrop-blur-xl">
+                      <span className="grid size-9 shrink-0 place-items-center rounded-[0.6rem] bg-gradient-to-br from-teal-500 to-teal-700 text-white"><BellRingingIcon size={18} weight="fill" /></span>
+                      <span className="min-w-0 flex-1 leading-tight">
+                        <span className="flex items-center justify-between text-[0.72rem]"><b className="!text-[#0e2a2d]">STROKE360</b><span className="text-[#647a7d]">18:30</span></span>
+                        <span className="block truncate text-[0.74rem] text-[#3f585b]">{notify}</span>
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                </>}>
+                <div className="flex min-h-0 flex-1 flex-col justify-end gap-2 overflow-hidden px-3 pb-1 pt-3" aria-live="polite">
+                  <AnimatePresence initial={false} mode="popLayout">
+                    {visible.map((e) => (
+                      <motion.div key={e.t} layout initial={{ opacity: 0, y: 30, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -20, scale: 0.96 }}
+                        transition={{ type: "spring", stiffness: 320, damping: 28 }}>
+                        <DiaryCard {...e} icon={e.summary ? <PaperPlaneTiltIcon size={13} weight="fill" /> : e.hl ? <WarningIcon size={14} weight="fill" /> : <CheckIcon size={14} weight="bold" />} />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
                 </div>
-              </div>
-              {/* 18:30 notification */}
-              <AnimatePresence>
-                {isNight && (
-                  <motion.div initial={{ opacity: 0, y: -16, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -16 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    className="absolute -top-3 left-1/2 z-20 flex w-[104%] -translate-x-1/2 items-center gap-3 rounded-2xl bg-white/95 p-3 text-[#0e2a2d] shadow-xl lg:-left-24 lg:-top-12 lg:w-auto lg:translate-x-0">
-                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-teal-600 text-white"><BellRingingIcon size={18} weight="fill" /></span>
-                    <span className="text-sm"><b className="!text-[#0e2a2d]">STROKE360</b> · {notify} 18:30</span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              </PhoneFrame>
             </div>
           </div>
 
