@@ -67,12 +67,12 @@ const moreActive = morePages.includes(active);
     <div class="shell">
       <div class="pointer-events-auto flex h-16 items-center justify-between gap-3 rounded-full border border-hair/70 bg-raised/95 pl-4 pr-2 shadow-[var(--shadow)]">
         <a href={pageHref(lang, "home")} class="flex shrink-0 items-center rounded-full" aria-label="STROKE360">
-          <img src={asset("logo.png")} alt="Stroke360" width="800" height="400" class="h-9 w-auto dark:rounded-lg dark:bg-white dark:px-1.5" />
+          <img src={asset("logo-tight.png")} alt="Stroke360" width="782" height="239" class="h-11 w-auto sm:h-12 dark:rounded-xl dark:bg-white dark:px-2 dark:py-1" />
         </a>
         <nav class="hidden items-center lg:flex" aria-label="Main">
           {desktopNav.map((k) => (
             <a href={pageHref(lang, k)} aria-current={k === active ? "page" : undefined}
-              class:list={["relative rounded-full px-4 py-2 text-[0.92rem] font-medium no-underline transition-colors", k === active ? "text-accent-ink" : "text-ink-2 hover:text-ink"]}>
+              class:list={["relative whitespace-nowrap rounded-full px-2.5 py-2 text-[0.92rem] font-medium no-underline transition-colors xl:px-4", k === active ? "text-accent-ink" : "text-ink-2 hover:text-ink"]}>
               {k === active && <span class="absolute inset-0 -z-10 rounded-full bg-tint" style="view-transition-name: nav-pill"></span>}
               {label(k)}
             </a>
@@ -83,7 +83,7 @@ const moreActive = morePages.includes(active);
             class="inline-flex h-11 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold text-ink-2 no-underline hover:bg-tint hover:text-accent-ink">
             <Icon name="lang" size={18} />{other.toUpperCase()}
           </a>
-          <a href={pageHref(lang, "lienHe")} class="btn btn-accent hidden !min-h-11 sm:inline-flex">{c.ui.headerCta}</a>
+          <a href={pageHref(lang, "lienHe")} class="btn btn-accent hidden !min-h-11 sm:inline-flex lg:hidden xl:inline-flex">{c.ui.headerCta}</a>
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@ const moreActive = morePages.includes(active);
           <li><a href={`mailto:${contact.email}`} class="text-teal-50/85 no-underline hover:text-white">{contact.email}</a></li>
           <li>{c.ui.footer.city}</li>
         </ul>
-        <img src={asset("logo.png")} alt="Stroke360" width="800" height="400" loading="lazy" class="mt-10 h-12 w-auto rounded-2xl bg-white px-3 py-1.5" />
+        <img src={asset("logo-tight.png")} alt="Stroke360" width="782" height="239" loading="lazy" class="mt-10 h-24 w-auto rounded-3xl bg-white px-5 py-3 sm:h-28" />
       </div>
     </div>
     <p class="shell border-t border-white/10 pb-28 pt-6 text-[0.8rem] leading-relaxed text-teal-50/55 lg:pb-8">{c.ui.footer.demo} {c.lessonDisclaimer}</p>
