@@ -233,12 +233,9 @@ dialog.sheet[open]::backdrop { background: rgb(3 20 21 / 0.5); backdrop-filter: 
   }
 }
 
-/* Brand word: ribbon draws in, heart beats like a pulse */
-.brand-ribbon path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+/* Brand word: the real logo settles in, then breathes like a slow pulse */
 @media (prefers-reduced-motion: no-preference) {
-  .brand-ribbon path { stroke-dashoffset: 1; animation: ribbon-draw 1.4s var(--ease-spring) 0.9s forwards; }
-  .brand-heart { animation: heart-in 0.7s var(--ease-spring) 0.5s both, heartbeat 4.2s ease-in-out 2s infinite; transform-origin: 50% 60%; }
+  .brand-logo { animation: logo-in 0.9s var(--ease-spring) 0.5s both, heartbeat 4.2s ease-in-out 2.4s infinite; transform-origin: 46% 50%; }
 }
-@keyframes ribbon-draw { to { stroke-dashoffset: 0; } }
-@keyframes heart-in { from { scale: 0; rotate: -25deg; } }
-@keyframes heartbeat { 0%, 30%, 100% { scale: 1; } 8% { scale: 1.16; } 16% { scale: 0.96; } 22% { scale: 1.1; } }
+@keyframes logo-in { from { opacity: 0; scale: 0.82; filter: blur(6px); } }
+@keyframes heartbeat { 0%, 30%, 100% { scale: 1; } 8% { scale: 1.04; } 16% { scale: 0.99; } 22% { scale: 1.025; } }
