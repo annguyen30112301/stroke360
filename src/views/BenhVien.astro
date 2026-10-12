@@ -13,7 +13,7 @@ const pilotIcons = ["search", "pulse", "target"];
 ---
 <Base lang={lang} route="benhVien" title={c.meta.benhVien.title} description={c.meta.benhVien.description}>
   <PageIntro chip={t.eyebrow} title={t.title} lead={t.lead}
-    photo={{ name: "hero-care", alt: lang === "vi" ? "Chăm sóc viên STROKE360 tại khoa" : "A STROKE360 caregiver on the ward", icon: "hospital" }}>
+    photo={{ name: "benh-vien-banner", aspect: "aspect-[16/9]", alt: lang === "vi" ? "Nhân viên y tế dìu người bệnh lớn tuổi đi dạo trước bệnh viện" : "A clinician walking an older patient outside the hospital", icon: "hospital" }}>
     <a class="btn btn-accent mt-8" href={pageHref(lang, "lienHe", "?topic=benh-vien")}>{t.cta}<Icon name="arrow" size={18} weight="bold" /></a>
   </PageIntro>
 
