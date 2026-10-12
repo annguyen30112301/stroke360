@@ -546,9 +546,54 @@ export const en: Content = {
         { q: "The patient coughs and sounds “gurgly” while eating. You:", a: ["Give water to wash it down", "Stop feeding and tell the nurse", "Pat their back and continue"], c: 1 },
         { q: "After eating, you should:", a: ["Lay them down to sleep straight away", "Keep them sitting for about 30 minutes", "Turn them onto their side"], c: 1 }
       ] },
-    { id: "A4", stage: "A", ready: false, mins: 4, title: "Working with doctors and nurses: what to ask on rounds", keywords: "ward rounds doctor questions" },
-    { id: "B1", stage: "B", ready: false, mins: 5, title: "Preparing the home: bed, bathroom, fall prevention", keywords: "home falls bed" },
-    { id: "B2", stage: "B", ready: false, mins: 4, title: "Medication and follow-up visits", keywords: "medication follow up" },
+    { id: "A4", stage: "A", ready: true, mins: 4, title: "Working with doctors and nurses: what to ask on rounds",
+      keywords: "ward rounds doctor questions nurse what to ask diagnosis treatment plan discharge",
+      points: [
+        "Ward rounds usually happen in the morning and move quickly. Ask the ward nurse when rounds are so you can be there.",
+        "Write your questions down the evening before. Focus on the 2–3 most important ones and keep them short and clear.",
+        "Good things to ask: how the patient is today, what the next steps in treatment are, which signs need reporting straight away, and when rehabilitation can start.",
+        "Briefly share what you've noticed since yesterday: eating, sleep, toileting, coughing or choking, changes in speech or movement.",
+        "Have one family member be the main contact with the doctor, then update everyone else so information doesn't get mixed up.",
+        "If you don't understand, ask again. Ask for a plain explanation and write it down; don't guess or change treatment based on what you read online."
+      ],
+      checklist: ["The ward's rounds time", "2–3 questions written down", "Changes since yesterday (eating, sleep, toileting, choking)", "Next steps in treatment and exercise", "Signs to report straight away", "Family member acting as main contact"],
+      quiz: [
+        { q: "The best way to prepare for ward rounds is:", a: ["Wait for the doctor to tell you everything", "Write down your 2–3 most important questions", "Ask about everything at once"], c: 1 },
+        { q: "Why should one family member be the main contact with the doctor?", a: ["So information stays clear and consistent", "Because hospitals only allow one visitor", "So others don't need to worry"], c: 0 },
+        { q: "The doctor uses a medical term you don't understand. You should:", a: ["Nod and move on", "Ask for a plain explanation and write it down", "Look it up later and adjust treatment yourself"], c: 1 }
+      ] },
+    { id: "B1", stage: "B", ready: true, mins: 5, title: "Preparing the home: bed, bathroom, fall prevention",
+      keywords: "home falls bed bathroom grab rails slippery going home discharge night light",
+      points: [
+        "Prepare before discharge day. Ask the rehabilitation therapist how well the patient can move so you can set things up to match.",
+        "Bed: high enough that, sitting on the edge, the feet rest flat on the floor with knees at a right angle. Place it so the patient gets out on their strong side.",
+        "Walkways: remove small rugs, cables and clutter from the floor; leave enough room for a walking frame or wheelchair if one is used.",
+        "Bathroom: fit grab rails by the toilet and shower, use a non-slip mat and a shower chair; a raised toilet seat helps if sitting down is hard.",
+        "Lighting: a night light along the way from bed to bathroom; a switch within reach from the bed.",
+        "Keep everyday items (water, phone, a call bell) within reach on the strong side. Wear non-slip shoes or slippers that hold the heel."
+      ],
+      checklist: ["Bed at the right height, exit on the strong side", "Clear walkways: no small rugs or cables", "Grab rails by the toilet and shower", "Non-slip mat, shower chair", "Night light on the way to the bathroom", "Call bell and phone within reach", "Non-slip footwear that holds the heel"],
+      quiz: [
+        { q: "The patient should get out of bed on which side?", a: ["The weak side", "The strong side", "Either side"], c: 1 },
+        { q: "What should be removed from walkways?", a: ["Small rugs and cables on the floor", "Night lights", "Grab rails"], c: 0 },
+        { q: "Which part of the home most needs grab rails and non-slip mats?", a: ["The living room", "The toilet and shower", "The balcony"], c: 1 }
+      ] },
+    { id: "B2", stage: "B", ready: true, mins: 4, title: "Medication and follow-up visits",
+      keywords: "medication follow up pills forgot dose pill organiser prescription blood pressure appointment",
+      points: [
+        "Give medicines exactly as the doctor prescribed: the right medicine, the right dose, at the right time. Never stop, reduce or switch a medicine on your own, even if the patient feels well.",
+        "Keep a medicine chart with each name, dose and time, somewhere easy to see. A daily pill organiser helps avoid missed or double doses.",
+        "If a dose is missed, ask the doctor or pharmacist what to do. Never give a double dose to catch up.",
+        "Don't buy extra medicines, supplements or herbal remedies without asking the doctor first; they can interfere with current treatment.",
+        "Contact medical staff about anything unusual, such as unexpected bleeding, heavy bruising, black stools, dizziness or a rash. Any BE-FAST sign means call 115 straight away.",
+        "Put follow-up dates in a calendar with phone reminders. Bring the prescription, the medical record book, home blood pressure readings and your list of questions."
+      ],
+      checklist: ["Medicine chart: name, dose, time", "Daily pill organiser", "Morning / noon / evening doses taken", "Follow-up date with phone reminder", "Record book, prescription, blood pressure readings to bring", "Questions for the follow-up visit"],
+      quiz: [
+        { q: "The patient feels better. Should they stop their medicine?", a: ["Yes, they're well now", "No, only change it when the doctor says so", "Halve the dose to be safe"], c: 1 },
+        { q: "A dose was missed. You should:", a: ["Give a double dose next time", "Ask the doctor or pharmacist what to do", "Skip the whole day"], c: 1 },
+        { q: "What should you bring to a follow-up visit?", a: ["Just the patient", "Prescription, record book, blood pressure readings and questions", "Every medicine in the house"], c: 1 }
+      ] },
     { id: "B3", stage: "B", ready: true, mins: 3, title: "Recognising a repeat stroke (BE-FAST) and when to call 115",
       keywords: "be fast befast recurrence signs 115 drooping face arm weakness",
       points: [
@@ -580,7 +625,22 @@ export const en: Content = {
         { q: "When the patient practises walking, the helper stands on:", a: ["The weak side", "The strong side", "In front, at a distance"], c: 0 },
         { q: "Which sign means stop immediately?", a: ["Slightly tired muscles", "Chest pain or breathlessness", "Light sweating"], c: 1 }
       ] },
-    { id: "C2", stage: "C", ready: false, mins: 4, title: "Communicating when the patient has trouble speaking", keywords: "speech difficulty communication" },
+    { id: "C2", stage: "C", ready: true, mins: 4, title: "Communicating when the patient has trouble speaking",
+      keywords: "speech difficulty communication aphasia slurred speech cannot talk understanding picture board gestures",
+      points: [
+        "After a stroke, a person may find it hard to speak, slur words, struggle to find words, or have trouble understanding others. Their intelligence is usually intact, so talk to them as an adult.",
+        "Choose a quiet spot and turn off the TV. Make eye contact, speak slowly, use short sentences, one idea at a time.",
+        "Use yes/no questions, along with gestures, pointing, pictures, or a simple alphabet or picture board.",
+        "Give them plenty of time to answer. Don't speak for them, don't finish their sentences, and don't pretend to understand.",
+        "Praise successful communication. If either of you gets frustrated, take a short break and try again.",
+        "Practise speech as taught by a speech and language therapist (if available). Ask medical staff about having speech assessed and treated."
+      ],
+      checklist: ["Quiet place, TV turned off", "Short sentences, one idea at a time", "Yes/no questions", "Picture or alphabet board within reach", "Plenty of time to respond", "Speech exercises assigned (if any)"],
+      quiz: [
+        { q: "The easiest kind of question for someone with speech difficulty is:", a: ["A long question with several parts", "A yes/no question", "Several questions at once"], c: 1 },
+        { q: "The patient is struggling to find a word. You should:", a: ["Say it for them to save time", "Wait patiently, perhaps prompting with a picture or gesture", "Change the subject"], c: 1 },
+        { q: "Trouble speaking means the patient:", a: ["No longer understands anything", "Usually still thinks clearly and should be spoken to respectfully as an adult", "Doesn't need to be talked to any more"], c: 1 }
+      ] },
     { id: "C4", stage: "C", ready: true, mins: 4, title: "Caring for yourself: caregivers need rest too",
       keywords: "tired burnout rest caregiver stress",
       points: [
