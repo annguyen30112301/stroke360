@@ -65,7 +65,9 @@ const moreActive = morePages.includes(active);
   <!-- Top bar: floating capsule on desktop, slim bar on phones -->
   <header class="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 lg:pt-4" style="view-transition-name: site-nav">
     <div class="shell">
-      <div class="pointer-events-auto flex h-16 items-center justify-between gap-3 rounded-full border border-hair/70 bg-raised/95 pl-4 pr-2 shadow-[var(--shadow)]">
+      <div class="pointer-events-auto relative isolate flex h-16 items-center justify-between gap-3 rounded-full pl-4 pr-2">
+        <!-- background is its own transition layer so the sliding pill sits between it and the labels -->
+        <div aria-hidden="true" class="absolute inset-0 -z-10 rounded-full border border-hair/70 bg-raised/95 shadow-[var(--shadow)]" style="view-transition-name: site-nav-bg"></div>
         <a href={pageHref(lang, "home")} class="flex shrink-0 items-center rounded-full" aria-label="STROKE360">
           <img src={asset("logo-tight.png")} alt="Stroke360" width="782" height="239" class="h-11 w-auto sm:h-12 dark:rounded-xl dark:bg-white dark:px-2 dark:py-1" />
         </a>
@@ -129,8 +131,9 @@ const moreActive = morePages.includes(active);
   </div>
 
   <!-- Phone tab bar -->
-  <nav class="no-print fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-50 lg:hidden" aria-label="Tabs" style="view-transition-name: tabbar">
-    <ul class="grid grid-cols-5 rounded-[1.75rem] border border-hair/70 bg-raised/95 p-1.5 shadow-[var(--shadow)]">
+  <nav class="no-print isolate fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-50 lg:hidden" aria-label="Tabs" style="view-transition-name: tabbar">
+    <div aria-hidden="true" class="absolute inset-0 -z-10 rounded-[1.75rem] border border-hair/70 bg-raised/95 shadow-[var(--shadow)]" style="view-transition-name: tabbar-bg"></div>
+    <ul class="grid grid-cols-5 p-1.5">
       {tabs.map(({ k, icon }) => (
         <li>
           <a href={pageHref(lang, k)} aria-current={k === active ? "page" : undefined}
