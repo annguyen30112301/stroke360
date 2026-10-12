@@ -768,20 +768,127 @@ export const vi = {
     {
       id: "A4",
       stage: "A",
-      ready: false,
+      ready: true,
       mins: 4,
       title: "Làm việc với bác sĩ, điều dưỡng: hỏi gì khi khám buồng",
-      keywords: "khám buồng bác sĩ hỏi"
+      keywords: "khám buồng bác sĩ hỏi điều dưỡng giao ban hỏi gì chẩn đoán kế hoạch điều trị xuất viện",
+      points: [
+        "Khám buồng thường diễn ra buổi sáng và khá nhanh. Hỏi điều dưỡng khoa giờ khám buồng để có mặt đúng lúc.",
+        "Ghi sẵn câu hỏi ra giấy từ tối hôm trước. Ưu tiên 2–3 câu quan trọng nhất, hỏi ngắn và rõ.",
+        "Những điều nên hỏi: tình trạng hôm nay ra sao, kế hoạch điều trị tiếp theo, dấu hiệu nào cần báo ngay, khi nào bắt đầu tập phục hồi chức năng.",
+        "Kể lại ngắn gọn những gì bạn thấy từ hôm qua: ăn uống, ngủ, đi tiêu tiểu, ho sặc, thay đổi về nói hay cử động.",
+        "Chỉ một người nhà làm đầu mối trao đổi với bác sĩ, rồi báo lại cho cả nhà để thông tin không bị rối.",
+        "Không hiểu thì hỏi lại. Nhờ nhắc lại bằng lời dễ hiểu và ghi chép lại, không tự đoán hay tra mạng để thay đổi điều trị."
+      ],
+      checklist: [
+        "Giờ khám buồng của khoa",
+        "2–3 câu hỏi đã ghi sẵn",
+        "Những thay đổi từ hôm qua (ăn, ngủ, tiêu tiểu, ho sặc)",
+        "Kế hoạch điều trị và tập luyện tiếp theo",
+        "Dấu hiệu cần báo ngay",
+        "Người nhà làm đầu mối liên lạc"
+      ],
+      quiz: [
+        {
+          q: "Cách chuẩn bị tốt nhất trước buổi khám buồng là:",
+          a: ["Đợi bác sĩ tự nói hết", "Ghi sẵn 2–3 câu hỏi quan trọng nhất ra giấy", "Hỏi tất cả mọi điều cùng lúc"],
+          c: 1
+        },
+        {
+          q: "Vì sao nên có một người nhà làm đầu mối trao đổi với bác sĩ?",
+          a: ["Để thông tin rõ ràng, không bị rối", "Vì bệnh viện chỉ cho một người vào", "Để người khác khỏi phải lo"],
+          c: 0
+        },
+        {
+          q: "Bác sĩ dùng từ chuyên môn bạn không hiểu. Bạn nên:",
+          a: ["Gật đầu cho qua", "Nhờ giải thích lại bằng lời dễ hiểu và ghi chép", "Về tra mạng rồi tự điều chỉnh"],
+          c: 1
+        }
+      ]
     },
     {
       id: "B1",
       stage: "B",
-      ready: false,
+      ready: true,
       mins: 5,
       title: "Chuẩn bị nhà cửa: giường, nhà vệ sinh, chống té ngã",
-      keywords: "nhà cửa té ngã giường"
+      keywords: "nhà cửa té ngã giường nhà vệ sinh tay vịn trơn trượt về nhà xuất viện đèn ngủ",
+      points: [
+        "Chuẩn bị trước ngày xuất viện. Hỏi kỹ thuật viên phục hồi chức năng người bệnh đi lại được đến đâu để sắp xếp cho phù hợp.",
+        "Giường: cao vừa để khi ngồi mép giường, bàn chân chạm đất và đầu gối vuông góc. Đặt giường để người bệnh xuống giường từ phía bên khỏe.",
+        "Lối đi: dọn thảm nhỏ, dây điện, đồ vật trên sàn; lối đi đủ rộng nếu dùng khung tập đi hoặc xe lăn.",
+        "Nhà vệ sinh: lắp tay vịn cạnh bồn cầu và chỗ tắm, dùng thảm chống trơn, có ghế tắm; có thể nâng bồn cầu nếu ngồi xuống khó.",
+        "Đèn: có đèn ngủ trên lối từ giường đến nhà vệ sinh; công tắc trong tầm với khi nằm.",
+        "Để vật dụng hay dùng (nước, điện thoại, chuông gọi) trong tầm tay ở phía bên khỏe. Mang dép có đế chống trơn, ôm gót."
+      ],
+      checklist: [
+        "Chiều cao giường phù hợp, xuống từ phía bên khỏe",
+        "Lối đi gọn: không thảm nhỏ, không dây điện",
+        "Tay vịn ở nhà vệ sinh và chỗ tắm",
+        "Thảm chống trơn, ghế tắm",
+        "Đèn ngủ trên lối đi ban đêm",
+        "Chuông gọi, điện thoại trong tầm tay",
+        "Dép chống trơn, ôm gót"
+      ],
+      quiz: [
+        {
+          q: "Nên sắp xếp để người bệnh xuống giường từ phía nào?",
+          a: ["Phía bên yếu", "Phía bên khỏe", "Phía nào cũng được"],
+          c: 1
+        },
+        {
+          q: "Thứ nào nên dọn khỏi lối đi?",
+          a: ["Thảm nhỏ và dây điện trên sàn", "Đèn ngủ", "Tay vịn"],
+          c: 0
+        },
+        {
+          q: "Chỗ nào trong nhà dễ té ngã nhất, cần ưu tiên tay vịn và thảm chống trơn?",
+          a: ["Phòng khách", "Nhà vệ sinh và chỗ tắm", "Ban công"],
+          c: 1
+        }
+      ]
     },
-    { id: "B2", stage: "B", ready: false, mins: 4, title: "Thuốc và lịch tái khám", keywords: "thuốc tái khám" },
+    {
+      id: "B2",
+      stage: "B",
+      ready: true,
+      mins: 4,
+      title: "Thuốc và lịch tái khám",
+      keywords: "thuốc tái khám uống thuốc quên thuốc hộp chia thuốc đơn thuốc huyết áp lịch hẹn",
+      points: [
+        "Dùng thuốc đúng theo đơn của bác sĩ: đúng thuốc, đúng liều, đúng giờ. Không tự ý ngừng, giảm liều hay đổi thuốc, kể cả khi thấy đã khỏe.",
+        "Giữ một bảng thuốc ghi tên thuốc, liều, giờ uống và để nơi dễ thấy. Hộp chia thuốc theo ngày giúp tránh quên hoặc uống trùng.",
+        "Quên một liều thì hỏi lại bác sĩ hoặc dược sĩ cách xử lý. Không tự uống gấp đôi liều.",
+        "Không tự mua thêm thuốc, thực phẩm chức năng hay thuốc nam khi chưa hỏi bác sĩ, vì có thể ảnh hưởng đến thuốc đang dùng.",
+        "Thấy bất thường như chảy máu bất thường, bầm tím nhiều, phân đen, chóng mặt, phát ban thì liên hệ nhân viên y tế. Có dấu hiệu BE-FAST thì gọi 115 ngay.",
+        "Ghi lịch tái khám lên lịch, đặt nhắc trên điện thoại. Mang theo đơn thuốc, sổ khám, kết quả đo huyết áp ở nhà và danh sách câu hỏi."
+      ],
+      checklist: [
+        "Bảng thuốc: tên, liều, giờ uống",
+        "Hộp chia thuốc theo ngày",
+        "Đã uống thuốc sáng / trưa / tối",
+        "Ngày tái khám và nhắc trên điện thoại",
+        "Sổ khám, đơn thuốc, kết quả đo huyết áp mang theo",
+        "Câu hỏi cho lần tái khám"
+      ],
+      quiz: [
+        {
+          q: "Người bệnh thấy khỏe hơn. Có nên tự ngừng thuốc?",
+          a: ["Có, vì đã khỏe", "Không, chỉ thay đổi khi bác sĩ chỉ định", "Giảm còn một nửa cho an toàn"],
+          c: 1
+        },
+        {
+          q: "Quên một liều thuốc, bạn nên:",
+          a: ["Uống gấp đôi ở lần sau", "Hỏi bác sĩ hoặc dược sĩ cách xử lý", "Bỏ luôn cả ngày hôm đó"],
+          c: 1
+        },
+        {
+          q: "Khi đi tái khám nên mang theo:",
+          a: ["Chỉ cần người bệnh", "Đơn thuốc, sổ khám, kết quả đo huyết áp và câu hỏi", "Tất cả thuốc trong nhà"],
+          c: 1
+        }
+      ]
+    },
     {
       id: "B3",
       stage: "B",
@@ -863,10 +970,43 @@ export const vi = {
     {
       id: "C2",
       stage: "C",
-      ready: false,
+      ready: true,
       mins: 4,
-      title: "Giao tiếp khi người bệnh nói khó",
-      keywords: "nói khó giao tiếp"
+      title: "Giao tiếp khi người bệnh khó nói",
+      keywords: "khó nói nói ngọng không nói được giao tiếp thất ngôn hiểu lời bảng hình ra hiệu",
+      points: [
+        "Sau đột quỵ, người bệnh có thể khó nói, nói ngọng, khó tìm từ, hoặc khó hiểu lời người khác. Trí tuệ thường vẫn còn, hãy nói chuyện như với người lớn.",
+        "Chọn chỗ yên tĩnh, tắt tivi. Nhìn vào mắt, nói chậm, câu ngắn, mỗi lần một ý.",
+        "Dùng câu hỏi có/không, kèm cử chỉ, chỉ tay, hình ảnh hoặc bảng chữ, bảng hình đơn giản.",
+        "Cho người bệnh đủ thời gian trả lời. Không nói thay, không nói hộ hết câu, không giả vờ đã hiểu.",
+        "Khen khi giao tiếp được. Nếu cả hai bắt đầu bực bội, nghỉ một lát rồi thử lại.",
+        "Tập nói theo hướng dẫn của chuyên viên âm ngữ trị liệu (nếu có). Hỏi nhân viên y tế về việc đánh giá và tập luyện lời nói."
+      ],
+      checklist: [
+        "Chỗ nói chuyện yên tĩnh, đã tắt tivi",
+        "Câu ngắn, mỗi lần một ý",
+        "Câu hỏi có/không",
+        "Bảng hình hoặc bảng chữ trong tầm tay",
+        "Đủ thời gian để người bệnh trả lời",
+        "Bài tập nói được giao (nếu có)"
+      ],
+      quiz: [
+        {
+          q: "Cách hỏi dễ trả lời nhất cho người bệnh khó nói là:",
+          a: ["Câu hỏi dài, nhiều ý", "Câu hỏi có/không", "Hỏi nhiều câu cùng lúc"],
+          c: 1
+        },
+        {
+          q: "Người bệnh đang cố tìm từ. Bạn nên:",
+          a: ["Nói hộ luôn cho nhanh", "Kiên nhẫn chờ, có thể gợi ý bằng hình hoặc cử chỉ", "Chuyển sang chuyện khác"],
+          c: 1
+        },
+        {
+          q: "Người bệnh khó nói nghĩa là:",
+          a: ["Họ không còn hiểu gì", "Trí tuệ thường vẫn còn, cần nói chuyện tôn trọng như người lớn", "Không cần nói chuyện với họ nữa"],
+          c: 1
+        }
+      ]
     },
     {
       id: "C4",
