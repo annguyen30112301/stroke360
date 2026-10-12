@@ -59,19 +59,19 @@ const groups = ["S1", "S2", "S3"].map((g) => c.services.filter((s) => s.code.sta
     </div>
   </section>
 
-  <section class="bg-deep py-24 text-white sm:py-32">
+  <section class="bg-gradient-to-br from-teal-700 to-teal-800 py-24 text-white sm:py-32">
     <div class="shell">
       <h2 class="t-title !text-white" data-reveal>{t.promisesTitle}</h2>
       <div class="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
         {c.promises.map(([a, b], i) => (
           <div data-reveal>
-            <Icon name={promiseIcons[i]} size={40} class="text-teal-300" />
+            <Icon name={promiseIcons[i]} size={40} class="text-teal-100" />
             <h3 class="mt-5 text-xl !text-white">{a}</h3>
-            <p class="mt-2 text-teal-50/70">{b}</p>
+            <p class="mt-2 text-white/85">{b}</p>
           </div>
         ))}
       </div>
-      <p class="mt-16 max-w-4xl border-l-2 border-teal-300 pl-6 text-teal-50/80 [&_b]:!text-white" data-reveal set:html={t.scope} />
+      <p class="mt-16 max-w-4xl border-l-2 border-teal-100 pl-6 text-white/90 [&_b]:!text-white" data-reveal set:html={t.scope} />
     </div>
   </section>
 </Base>
