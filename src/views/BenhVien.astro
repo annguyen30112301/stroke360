@@ -18,7 +18,8 @@ const pilotIcons = ["search", "pulse", "target"];
   </PageIntro>
 
   <section class="py-24 sm:py-32">
-    <div class="shell grid gap-px overflow-hidden rounded-3xl bg-hair md:grid-cols-2">
+    <div class="shell">
+    <div class="grid gap-px overflow-hidden rounded-3xl bg-hair md:grid-cols-2">
       {[[t.getTitle, t.get, "hospital"], [t.promiseTitle, t.promise, "shield"]].map(([title, items, icon], i) => (
         <div class:list={["p-8 sm:p-12", i ? "bg-raised" : "bg-tint"]} data-reveal>
           <Icon name={icon as string} size={40} class="text-accent" />
@@ -28,6 +29,7 @@ const pilotIcons = ["search", "pulse", "target"];
           </ul>
         </div>
       ))}
+    </div>
     </div>
   </section>
 
