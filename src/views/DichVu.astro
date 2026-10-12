@@ -16,7 +16,7 @@ const groups = ["S1", "S2", "S3"].map((g) => c.services.filter((s) => s.code.sta
 ---
 <Base lang={lang} route="dichVu" title={c.meta.dichVu.title} description={c.meta.dichVu.description}>
   <PageIntro chip={t.eyebrow} title={t.title} lead={t.lead}
-    photo={{ name: "home-rehab", alt: lang === "vi" ? "Kỹ thuật viên giúp người bệnh tập đi tại nhà" : "A therapist helping a patient walk at home", icon: "care" }}>
+    photo={{ name: "dich-vu-banner", aspect: "aspect-[16/9]", alt: lang === "vi" ? "Nhân viên y tế tư vấn cho người bệnh lớn tuổi bằng máy tính bảng" : "A clinician talking an older patient through their care plan on a tablet", icon: "care" }}>
     <a href="#chon-goi" class="btn btn-accent mt-8">{t.pickerTitle}<Icon name="down" size={18} weight="bold" /></a>
   </PageIntro>
 

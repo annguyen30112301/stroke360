@@ -6,7 +6,7 @@ interface Props {
   title: string;
   lead?: string;
   chip?: string;
-  photo?: { name: string; alt: string; icon?: string };
+  photo?: { name: string; alt: string; icon?: string; aspect?: string };
 }
 const { title, lead, chip, photo } = Astro.props;
 ---
@@ -21,7 +21,7 @@ const { title, lead, chip, photo } = Astro.props;
     </div>
     {photo && (
       <div class="enter" style="--d:2">
-        <Photo name={photo.name} alt={photo.alt} icon={photo.icon} eager class="aspect-[4/3] w-full rounded-3xl" />
+        <Photo name={photo.name} alt={photo.alt} icon={photo.icon} eager class:list={[photo.aspect ?? "aspect-[4/3]", "w-full rounded-3xl"]} />
       </div>
     )}
   </div>
