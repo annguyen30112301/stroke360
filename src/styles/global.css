@@ -181,9 +181,16 @@
 /* page transitions (ClientRouter uses the View Transitions API) */
 ::view-transition-old(root) { animation: page-out 0.22s ease-in both; }
 ::view-transition-new(root) { animation: page-in 0.5s var(--ease-spring) both; }
-::view-transition-group(nav-pill) { animation-duration: 0.5s; animation-timing-function: var(--ease-spring); }
-::view-transition-group(site-nav), ::view-transition-group(tabbar) { animation: none; }
-::view-transition-old(site-nav), ::view-transition-new(site-nav), ::view-transition-old(tabbar), ::view-transition-new(tabbar) { animation: none; }
+/* Nav bars: background → sliding pill → labels. The pill lives inside the bar, so without
+   this ordering its snapshot is drawn over the labels and hides them mid-slide. */
+::view-transition-group(site-nav-bg), ::view-transition-group(tabbar-bg) { z-index: 1; animation: none; }
+::view-transition-group(nav-pill) { z-index: 2; animation-duration: 0.5s; animation-timing-function: var(--ease-spring); }
+::view-transition-group(site-nav), ::view-transition-group(tabbar) { z-index: 3; animation: none; }
+/* bars don't move: show only the new background (two stacked translucent copies blend too bright) */
+::view-transition-old(site-nav-bg), ::view-transition-old(tabbar-bg) { display: none; }
+::view-transition-new(site-nav-bg), ::view-transition-new(tabbar-bg) { animation: none; }
+/* labels cross-fade quickly so the active colour follows the pill */
+::view-transition-old(site-nav), ::view-transition-new(site-nav), ::view-transition-old(tabbar), ::view-transition-new(tabbar) { animation-duration: 0.3s; }
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
