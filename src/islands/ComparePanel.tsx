@@ -6,7 +6,7 @@ interface Props { left: string; right: string; rows: [string, string][] }
 
 /** Segmented switch: flip between "typical sitter" and STROKE360, rows morph in place. */
 export default function ComparePanel({ left, right, rows }: Props) {
-  const [side, setSide] = useState<0 | 1>(1);
+  const [side, setSide] = useState<0 | 1>(0);
   return (
     <MotionConfig reducedMotion="user" transition={{ type: "spring", stiffness: 260, damping: 28 }}>
       <div role="tablist" aria-label={`${left} / ${right}`} className="relative mx-auto grid w-full max-w-md grid-cols-2 rounded-full bg-tint p-1.5">
